@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using ECommerce.DAL.Models.IdentityModels;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce
@@ -9,5 +10,7 @@ namespace ECommerce
         {
             
         }
+        public DbSet<ApplicationUser> Users { get; set; }
+
     }
 }
