@@ -21,12 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Domain\" />
     <Folder Include="Manager\" />
     <Folder Include="Domain\" />
     <Folder Include="Manager\" />
-    <Folder Include="Models\" />
     <Folder Include="Reposatory\" />
     <Folder Include="Reposatory\" />
   </ItemGroup>
