@@ -26,6 +26,9 @@
     <Folder Include="Manager\" />
     <Folder Include="Domain\" />
     <Folder Include="Manager\" />
+    <Folder Include="Reposatory\" />
+
+
   </ItemGroup>
 
 </Project>
