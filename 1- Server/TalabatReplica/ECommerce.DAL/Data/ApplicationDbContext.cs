@@ -1,3 +1,4 @@
+﻿using ECommerce.DAL.Models.IdentityModels;
 ﻿using ECommerce.DAL.Configurations;
 using ECommerce.DAL.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -11,11 +12,13 @@ namespace ECommerce
         {
             
         }
+       
         protected override void OnModelCreating(ModelBuilder model)
         {
             base.OnModelCreating(model);
             model.ApplyConfigurationsFromAssembly(typeof(ResturentEntityTypeCofiguration).Assembly);
         }
+        public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Resturant> Resturants { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<MenuItem> MenuItems { get; set; }
