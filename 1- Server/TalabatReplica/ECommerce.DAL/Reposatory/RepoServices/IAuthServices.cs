@@ -123,6 +123,54 @@ namespace ECommerce.DAL.Reposatory.RepoServices
             return jwtSecurityToken;
         }
 
+        // get token to check about user to Login 
+        public async Task<AuthModel> GetTokenAsync(TokenRequestModel model)
+        {
+            var authModel = new AuthModel();
+
+            var user = await UserManager.FindByEmailAsync(model.Email); //check emai; exist or not
+
+
+            //if email not exist or password is wrong return message
+            if (user is null || !await UserManager.CheckPasswordAsync(user, model.Password))
+            {
+                authModel.Message = "Email or Password is incorrect!";
+                return authModel;
+            }
+
+            var jwtSecurityToken = await CreateJwtToken(user);
+
+            var rolesList = await UserManager.GetRolesAsync(user); // get all roles of this user
+
+            authModel.IsAuthenticated = true;
+            authModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
+            authModel.Email = user.Email;
+            authModel.Username = user.UserName;
+            authModel.ExpiresOn = jwtSecurityToken.ValidTo;
+            authModel.Roles = rolesList.ToList();
+
+            return authModel;
+        }
+
+        //assine specific role to specific user 
+        public async Task<string> AddRoleAsync(AddRoleModel model)
+        {
+            var user = await UserManager.FindByIdAsync(model.UserId);
+
+            // check user and role existance
+            if (user is null || !await _roleManager.RoleExistsAsync(model.Role))
+                return "Invalid user ID or Role";
+
+            // check the role if already exist with this user or not bfor assign it to user
+            if (await UserManager.IsInRoleAsync(user, model.Role))
+                return "User already assigned to this role";
+
+            // assigne role which recieved from controler to user hav an id which recieved
+            var result = await UserManager.AddToRoleAsync(user, model.Role);
+
+            return result.Succeeded ? string.Empty : "Something went wrong";
+        }
+
     }
 }
 
