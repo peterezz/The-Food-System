@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECommerce.DAL.Models.IdentityModels
 {
-    internal class TokenRequestModel
+    public class TokenRequestModel
     {
         [Required]
         public string Email { get; set; }

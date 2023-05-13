@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace ECommerce.DAL.Models.IdentityModels
 {
     // using to assigne role to user
-    internal class AddRoleModel
+    public class AddRoleModel
     {
         [Required]
         public string UserId { get; set; }

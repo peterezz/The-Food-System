@@ -15,7 +15,7 @@ namespace ECommerce.API.Controllers
                 _authService = aouthRepo;
             }
 
-            [HttpPost("register")]
+            [HttpPost("Register")]
         
             public async Task<IActionResult> RegisterAsync([FromBody] RegisterModel model)
             {
@@ -27,8 +27,47 @@ namespace ECommerce.API.Controllers
                 if (!result.IsAuthenticated)
                     return BadRequest(result.Message);
 
-                return Ok(result);
-            }
+                //return Ok(result);
+
+            // using anonymus obj to return specific data from result
+
+            return Ok(new { Authenticated = result.IsAuthenticated, Username = result.Username, Email = result.Email, Token = result.Token, Roles=result.Roles  , ExpiresOn = result.ExpiresOn });
+        }
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _authService.GetTokenAsync(model);
+
+            if (!result.IsAuthenticated)
+                return BadRequest(result.Message);
+
+            //return Ok(result);
+
+            // if need to return specific data from result ==> using anonymus obj
+
+            return Ok(new { Auth = result.IsAuthenticated, us = result.Username, token = result.Token, Roles = result.Roles, exp = result.ExpiresOn, email = result.Email });
+        }
+
+
+        [HttpPost("AssignRole")]
+        public async Task<IActionResult> AssignRoleAsync([FromBody] AddRoleModel model)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await _authService.AddRoleAsync(model);
+
+            if (!string.IsNullOrEmpty(result))
+                return BadRequest(result);
+
+            return Ok(model);
+
+
+        }
 
     }
 }
