@@ -21,14 +21,14 @@
     </PackageReference>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Domain\" />
-    <Folder Include="Manager\" />
-    <Folder Include="Domain\" />
-    <Folder Include="Manager\" />
-    <Folder Include="Reposatory\" />
+	<ItemGroup>
+		<Folder Include="Domain\" />
+		<Folder Include="Manager\" />
+		<Folder Include="Domain\" />
+		<Folder Include="Manager\" />
+		<Folder Include="Reposatory\" />
 
 
-  </ItemGroup>
+	</ItemGroup>
 
 </Project>

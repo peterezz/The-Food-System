@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ECommerce.DAL.Configurations
 {
-    public class ResturentEntityTypeCofiguration : IEntityTypeConfiguration<Resturant>
+    public class RestaurantEntityTypeConfiguration : IEntityTypeConfiguration<Resturant>
     {
-        public void Configure(EntityTypeBuilder<Resturant> builder)
+        public void Configure( EntityTypeBuilder<Resturant> builder )
         {
-            builder.HasKey(key => key.ResturantID);
-            builder.Property(prop => prop.Name).HasMaxLength(50);
-            
+            builder.HasKey( key => key.RestaurantID );
+            builder.Property( prop => prop.Name ).HasMaxLength( 50 );
+
 
         }
     }
