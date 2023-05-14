@@ -1,3 +1,4 @@
+using ECommerce.BAL.Services;
 using ECommerce.DAL.Services;
 using ECommerce.Helpers;
 using Microsoft.AspNetCore.Identity;
@@ -27,7 +28,11 @@ namespace ECommerce
             builder.Services.AddIdentity<IdentityUser , IdentityRole>( )
                 .AddEntityFrameworkStores<ApplicationDbContext>( );
 
-            await builder.Services.RegisterIdentityService( );
+            await builder.Services.AddIdentityService( );
+
+            builder.Services.AddBaseRepo( );
+            builder.Services.AddAutoMapper( );
+            builder.Services.AddManagersServices( );
 
             builder.Services.AddControllers( );
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

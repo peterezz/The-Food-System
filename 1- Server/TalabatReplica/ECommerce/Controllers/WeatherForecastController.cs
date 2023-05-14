@@ -1,33 +1,32 @@
+using ECommerce.BAL.DTOs;
+using ECommerce.BAL.Managers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route( "[controller]" )]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
+        private static readonly string[ ] Summaries = new[ ]
         {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly TestManager _manager;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController( ILogger<WeatherForecastController> logger , TestManager manager )
         {
             _logger = logger;
+            this._manager = manager;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+
+        [HttpGet( Name = "Test" )]
+        public async Task<IEnumerable<TestDto>> Test( )
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return await _manager.GetAllTests( );
         }
     }
 }

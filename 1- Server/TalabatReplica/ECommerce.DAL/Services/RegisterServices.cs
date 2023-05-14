@@ -6,23 +6,31 @@ namespace ECommerce.DAL.Services
 {
     public static class RegisterServices
     {
-        public static async Task<IServiceCollection> RegisterIdentityService( this IServiceCollection service )
+        public static async Task<IServiceCollection> AddIdentityService( this IServiceCollection service )
         {
-            #region Dfault Roles
+            #region Build service provider
             var _serviceProvider = service.BuildServiceProvider( );
             var scope = _serviceProvider.CreateScope( );
             var services = scope.ServiceProvider;
             // created logger service
             var loggerFactory = services.GetRequiredService<ILoggerFactory>( );
             var _logger = loggerFactory.CreateLogger( "app" );
+            #endregion
+
+            #region Dfault Roles
             // created role manager service
             var _roleManager = services.GetRequiredService<RoleManager<IdentityRole>>( );
             await Seed.DefaultRole.SeedRoles( _roleManager );
             _logger.Log( LogLevel.Information , "registered default roles" );
+            #endregion
+
+            #region Default User
+            var _userManager = services.GetRequiredService<UserManager<IdentityUser>>( );
+
+            #endregion
             return service;
 
 
-            #endregion
         }
     }
 }
