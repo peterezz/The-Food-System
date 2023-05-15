@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -73,7 +74,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
             return new AuthModel
             {
                 Email = user.Email,
-                ExpiresOn = jwtSecurityToken.ValidTo,
+                //ExpiresOn = jwtSecurityToken.ValidTo,
                 IsAuthenticated = true,
                 Roles = new List<string> { "Customer" },
                 Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken),
@@ -82,7 +83,6 @@ namespace ECommerce.DAL.Reposatory.RepoServices
 
         }
     
-
 
         //function to add claims and  create token for user
         private async Task<JwtSecurityToken> CreateJwtToken(ApplicationUser user)
@@ -146,9 +146,35 @@ namespace ECommerce.DAL.Reposatory.RepoServices
             authModel.Token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
             authModel.Email = user.Email;
             authModel.Username = user.UserName;
-            authModel.ExpiresOn = jwtSecurityToken.ValidTo;
+            //authModel.ExpiresOn = jwtSecurityToken.ValidTo;
             authModel.Roles = rolesList.ToList();
 
+            //check activation of refresh token 
+            //if refresh token not expired then select it and return expire date of this ==token ExpireOn property
+          if(user.RefreshTokens.Any(r => r.IsActive))
+            {
+                    //in case token still active select thes , and set expire date ==> token ExpireOn property
+
+                    var ActiveRefreshToken = user.RefreshTokens.FirstOrDefault(t => t.IsActive); //Select token
+                  
+                    authModel.RefreshToken = ActiveRefreshToken.Token;
+                    
+                    authModel.RefreshTokenExpiration = ActiveRefreshToken.ExpiresOn;
+            }
+          else
+            {
+                //otherwise ==> generate new refresh token to this user
+
+                var NewRefreshToken = GenerateRefreshToken();
+            
+                authModel.RefreshToken = NewRefreshToken.Token;
+
+                authModel.RefreshTokenExpiration = NewRefreshToken.ExpiresOn;
+              
+                user.RefreshTokens.Add(NewRefreshToken);
+                
+                await UserManager.UpdateAsync(user); // to update user token in db
+            }
             return authModel;
         }
 
@@ -170,6 +196,27 @@ namespace ECommerce.DAL.Reposatory.RepoServices
 
             return result.Succeeded ? string.Empty : "Something went wrong";
         }
+
+        //method to generate refresh token in case token is expired
+        private RefreshToken GenerateRefreshToken()
+        {
+            var randomnumber = new byte[32];
+
+            using var generator = new RNGCryptoServiceProvider(); //using to generate number randomly
+
+            generator.GetBytes(randomnumber); // add random number to byte array
+
+            return new RefreshToken
+            {
+                Token = Convert.ToBase64String(randomnumber),
+               
+                ExpiresOn = DateTime.UtcNow.AddDays(10),
+                
+                CreatedOn = DateTime.UtcNow
+            };
+
+
+        } 
 
     }
 }
