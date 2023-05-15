@@ -1,5 +1,5 @@
 ﻿using ECommerce.BAL.Repository;
-using ECommerce.DAL.Interfaces;
+using ECommerce.DAL.Reposatory.Repo;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ECommerce.BAL.Services
