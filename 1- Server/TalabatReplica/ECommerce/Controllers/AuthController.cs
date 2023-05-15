@@ -31,7 +31,7 @@ namespace ECommerce.API.Controllers
 
             // using anonymus obj to return specific data from result
 
-            return Ok(new { Authenticated = result.IsAuthenticated, Username = result.Username, Email = result.Email, Token = result.Token, Roles=result.Roles  , ExpiresOn = result.ExpiresOn });
+            return Ok(new { Authenticated = result.IsAuthenticated, Username = result.Username, Email = result.Email, Token = result.Token, Roles=result.Roles  , RefreshTokenExpiration = result.RefreshTokenExpiration });
         }
 
         [HttpPost("Login")]
@@ -45,11 +45,15 @@ namespace ECommerce.API.Controllers
             if (!result.IsAuthenticated)
                 return BadRequest(result.Message);
 
+            // in case token not null , empty add this on cookie
+            if (!string.IsNullOrEmpty(result.RefreshToken))
+                SetRefreshTokenInCookie(result.RefreshToken, result.RefreshTokenExpiration);
+
             //return Ok(result);
 
             // if need to return specific data from result ==> using anonymus obj
 
-            return Ok(new { Auth = result.IsAuthenticated, us = result.Username, token = result.Token, Roles = result.Roles, exp = result.ExpiresOn, email = result.Email });
+            return Ok(new { Auth = result.IsAuthenticated, us = result.Username, token = result.Token, Roles = result.Roles, RefreshTokenExpiration=result.RefreshTokenExpiration , email = result.Email });
         }
 
 
@@ -66,7 +70,18 @@ namespace ECommerce.API.Controllers
 
             return Ok(model);
 
+        }
 
+        //add token on cookie 
+        private void SetRefreshTokenInCookie(string refreshToken, DateTime expires)
+        {
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = expires.ToLocalTime() 
+            };
+
+            Response.Cookies.Append("refreshToken", refreshToken, cookieOptions); 
         }
 
     }
