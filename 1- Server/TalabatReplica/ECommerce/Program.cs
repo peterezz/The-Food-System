@@ -27,7 +27,7 @@ namespace ECommerce
             var connectionString = builder.Configuration.GetConnectionString( "MyConn" );
 
             builder.Services.AddDbContext<ApplicationDbContext>( options =>
-                options.UseSqlServer( connectionString ) );
+                options.UseSqlServer(connectionString));
 
             //Define Identity Services
             builder.Services.AddIdentity<ApplicationUser , IdentityRole>( )
@@ -72,7 +72,7 @@ namespace ECommerce
                     };
                 } );
 
-            await builder.Services.AddIdentityService( );
+            //await builder.Services.AddIdentityService( );
 
             builder.Services.AddBaseRepo( );
             builder.Services.AddAutoMapper( );

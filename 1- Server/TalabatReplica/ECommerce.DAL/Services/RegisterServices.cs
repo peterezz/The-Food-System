@@ -29,6 +29,7 @@ namespace ECommerce.DAL.Services
             var _userManager = services.GetRequiredService<UserManager<ApplicationUser>>( );
 
             #endregion
+            
             return service;
 
 
