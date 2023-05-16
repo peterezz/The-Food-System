@@ -9,7 +9,7 @@ namespace ECommerce.API.Controllers
     public class Secured : ControllerBase
     {
         [HttpGet]
-        //[Authorize]
+        [Authorize(Roles = "Customer")]
         public IActionResult Get()
         {
             return Ok("Welcome in refresh token tester");
