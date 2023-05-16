@@ -209,10 +209,10 @@ namespace ECommerce.DAL.Reposatory.RepoServices
             return new RefreshToken
             {
                 Token = Convert.ToBase64String(randomnumber),
-               
-                ExpiresOn = DateTime.UtcNow.AddDays(10),
-                
-                CreatedOn = DateTime.UtcNow
+
+                ExpiresOn = DateTime.Now.AddMinutes(1),
+
+                CreatedOn = DateTime.Now
             };
 
 
