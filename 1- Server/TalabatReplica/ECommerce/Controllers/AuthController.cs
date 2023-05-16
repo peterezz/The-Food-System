@@ -1,88 +1,92 @@
-﻿using ECommerce.DAL.Models.IdentityModels;
+﻿using ECommerce.BAL.Managers;
+using ECommerce.DAL.Models.IdentityModels;
 using ECommerce.DAL.Reposatory.Repo;
 using Microsoft.AspNetCore.Mvc;
-using System.Web.WebPages.Html;
 
 namespace ECommerce.API.Controllers
 {
     public class AuthController : ControllerBase
     {
-          public IAouthRepo _authService { get; }
+        private readonly TestManager manager;
+
+        public IAouthRepo _authService { get; }
 
 
-            public AuthController(IAouthRepo aouthRepo)
-            {
-                _authService = aouthRepo;
-            }
+        public AuthController( IAouthRepo aouthRepo , TestManager manager )
+        {
+            _authService = aouthRepo;
+            this.manager = manager;
+        }
 
-            [HttpPost("Register")]
-        
-            public async Task<IActionResult> RegisterAsync([FromBody] RegisterModel model)
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest(ModelState);
+        [HttpPost( "Register" )]
 
-                var result = await _authService.RegisterAsync(model);
+        public async Task<IActionResult> RegisterAsync( [FromBody] RegisterModel model )
+        {
+            if ( !ModelState.IsValid )
+                return BadRequest( ModelState );
 
-                if (!result.IsAuthenticated)
-                    return BadRequest(result.Message);
+            var result = await _authService.RegisterAsync( model );
 
-                //return Ok(result);
+            if ( !result.IsAuthenticated )
+                return BadRequest( result.Message );
+
+            //return Ok(result);
 
             // using anonymus obj to return specific data from result
 
-            return Ok(new { Authenticated = result.IsAuthenticated, Username = result.Username, Email = result.Email, Token = result.Token, Roles=result.Roles  , RefreshTokenExpiration = result.RefreshTokenExpiration });
+            return Ok( new { Authenticated = result.IsAuthenticated , Username = result.Username , Email = result.Email , Token = result.Token , Roles = result.Roles , RefreshTokenExpiration = result.RefreshTokenExpiration } );
         }
 
-        [HttpPost("Login")]
-        public async Task<IActionResult> GetTokenAsync([FromBody] TokenRequestModel model)
+        [HttpPost( "Login" )]
+        public async Task<IActionResult> GetTokenAsync( [FromBody] TokenRequestModel model )
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if ( !ModelState.IsValid )
+                return BadRequest( ModelState );
 
-            var result = await _authService.GetTokenAsync(model);
+            var result = await _authService.GetTokenAsync( model );
 
-            if (!result.IsAuthenticated)
-                return BadRequest(result.Message);
+            if ( !result.IsAuthenticated )
+                return BadRequest( result.Message );
 
             // in case token not null , empty add this on cookie
-            if (!string.IsNullOrEmpty(result.RefreshToken))
-                SetRefreshTokenInCookie(result.RefreshToken, result.RefreshTokenExpiration);
+            if ( !string.IsNullOrEmpty( result.RefreshToken ) )
+                SetRefreshTokenInCookie( result.RefreshToken , result.RefreshTokenExpiration );
 
             //return Ok(result);
 
             // if need to return specific data from result ==> using anonymus obj
 
-            return Ok(new { Auth = result.IsAuthenticated, us = result.Username, token = result.Token, Roles = result.Roles, RefreshTokenExpiration=result.RefreshTokenExpiration , email = result.Email });
+            return Ok( new { Auth = result.IsAuthenticated , us = result.Username , token = result.Token , Roles = result.Roles , RefreshTokenExpiration = result.RefreshTokenExpiration , email = result.Email } );
         }
 
 
-        [HttpPost("AssignRole")]
-        public async Task<IActionResult> AssignRoleAsync([FromBody] AddRoleModel model)
+        [HttpPost( "AssignRole" )]
+        public async Task<IActionResult> AssignRoleAsync( [FromBody] AddRoleModel model )
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            if ( !ModelState.IsValid )
+                return BadRequest( ModelState );
 
-            var result = await _authService.AddRoleAsync(model);
+            var result = await _authService.AddRoleAsync( model );
 
-            if (!string.IsNullOrEmpty(result))
-                return BadRequest(result);
+            if ( !string.IsNullOrEmpty( result ) )
+                return BadRequest( result );
 
-            return Ok(model);
+            return Ok( model );
 
         }
 
         //add token on cookie 
-        private void SetRefreshTokenInCookie(string refreshToken, DateTime expires)
+        private void SetRefreshTokenInCookie( string refreshToken , DateTime expires )
         {
             var cookieOptions = new CookieOptions
             {
-                HttpOnly = true,
-                Expires = expires.ToLocalTime() 
+                HttpOnly = true ,
+                Expires = expires.ToLocalTime( )
             };
 
-            Response.Cookies.Append("refreshToken", refreshToken, cookieOptions); 
+            Response.Cookies.Append( "refreshToken" , refreshToken , cookieOptions );
         }
+
 
     }
 }
