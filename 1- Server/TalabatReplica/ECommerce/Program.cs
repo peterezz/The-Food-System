@@ -34,7 +34,7 @@ namespace ECommerce
                 .AddEntityFrameworkStores<ApplicationDbContext>( );
 
             //add my own components
-            builder.Services.AddScoped<IAouthRepo , IAuthServices>( );
+            builder.Services.AddScoped<IAouthRepo , AuthServices>( );
 
 
             //add JWT Configuration
@@ -72,7 +72,12 @@ namespace ECommerce
                     };
                 } );
 
+<<<<<<< HEAD
+            await builder.Services.AddIdentityService();
+
+=======
             await builder.Services.AddIdentityService( );
+>>>>>>> 5b26daa8a97841ccb4e2a9655819ce9f41f9e91d
             builder.Services.AddBaseRepo( );
             builder.Services.AddAutoMapper( );
             builder.Services.AddManagersServices( );

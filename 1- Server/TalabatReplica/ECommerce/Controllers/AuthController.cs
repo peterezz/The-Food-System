@@ -25,11 +25,19 @@ namespace ECommerce.API.Controllers
             if ( !ModelState.IsValid )
                 return BadRequest( ModelState );
 
+<<<<<<< HEAD
+                if (!result.IsAuthenticated)
+                    return BadRequest(result.Message);
+                
+                SetRefreshTokenInCookie(result.RefreshToken, result.RefreshTokenExpiration);
+
+=======
             var result = await _authService.RegisterAsync( model );
 
             if ( !result.IsAuthenticated )
                 return BadRequest( result.Message );
 
+>>>>>>> 5b26daa8a97841ccb4e2a9655819ce9f41f9e91d
             //return Ok(result);
 
             // using anonymus obj to return specific data from result
@@ -87,6 +95,43 @@ namespace ECommerce.API.Controllers
             Response.Cookies.Append( "refreshToken" , refreshToken , cookieOptions );
         }
 
+<<<<<<< HEAD
+        // get refresh token 
+        [HttpGet("RefreshToken")]
+        public async Task<IActionResult> GetRefreshToken()
+        {
+            var refreshToken = Request.Cookies["refreshToken"];
+
+            var result = await _authService.RefreshTokenASync(refreshToken);
+
+            if (!result.IsAuthenticated)
+                return BadRequest(result);
+
+            SetRefreshTokenInCookie(result.RefreshToken, result.RefreshTokenExpiration);
+
+            return Ok(result);
+        }
+
+        [HttpPost ("RevokeToken")] // create DTO to store refresh token which recieved from request 
+        public async Task<IActionResult> RevokeToken([FromBody] RevokeModel revoke )
+        {
+            // in case token == null i.e user not send it then get it from cookies
+            var token = revoke.Token ?? Request.Cookies["refreshToken"];
+
+            if (string.IsNullOrEmpty(token))
+                return BadRequest("Token Is Required");
+
+            //in case the user already send token or his token exist in cookies then revoke his token from authmodel
+            var result =await _authService.RevokeTokenAsync(token);
+
+            if(!result)
+                return BadRequest("token is Invalid");
+
+            return Ok();
+
+        }
+=======
+>>>>>>> 5b26daa8a97841ccb4e2a9655819ce9f41f9e91d
 
     }
 }
