@@ -2,26 +2,22 @@
 using ECommerce.DAL.Reposatory.Repo;
 using ECommerce.Helpers;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECommerce.DAL.Reposatory.RepoServices
 {
-    public class IAuthServices : IAouthRepo
+    public class AuthServices : IAouthRepo
     {
-     
+
         public UserManager<ApplicationUser> UserManager { get; } // use this to check about register data recieved from user
         public RoleManager<IdentityRole> _roleManager { get; }
 
         private readonly JWTData _jwt;
-        public IAuthServices(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> role, IOptions<JWTData> jwt)
+        public AuthServices(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> role, IOptions<JWTData> jwt)
         {
             UserManager = userManager;
             _roleManager = role;
@@ -50,7 +46,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
 
             };
 
-            var result = await UserManager.CreateAsync(user ,register.Password); // create user in db
+            var result = await UserManager.CreateAsync(user, register.Password); // create user in db
 
             if (!result.Succeeded)
             {
@@ -82,7 +78,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
             };
 
         }
-    
+
 
         //function to add claims and  create token for user
         private async Task<JwtSecurityToken> CreateJwtToken(ApplicationUser user)
@@ -151,28 +147,28 @@ namespace ECommerce.DAL.Reposatory.RepoServices
 
             //check activation of refresh token 
             //if refresh token not expired then select it and return expire date of this ==token ExpireOn property
-          if(user.RefreshTokens.Any(r => r.IsActive))
+            if (user.RefreshTokens.Any(r => r.IsActive))
             {
-                    //in case token still active select thes , and set expire date ==> token ExpireOn property
+                //in case token still active select thes , and set expire date ==> token ExpireOn property
 
-                    var ActiveRefreshToken = user.RefreshTokens.FirstOrDefault(t => t.IsActive); //Select token
-                  
-                    authModel.RefreshToken = ActiveRefreshToken.Token;
-                    
-                    authModel.RefreshTokenExpiration = ActiveRefreshToken.ExpiresOn;
+                var ActiveRefreshToken = user.RefreshTokens.FirstOrDefault(t => t.IsActive); //Select token
+
+                authModel.RefreshToken = ActiveRefreshToken.Token;
+
+                authModel.RefreshTokenExpiration = ActiveRefreshToken.ExpiresOn;
             }
-          else
+            else
             {
                 //otherwise ==> generate new refresh token to this user
 
                 var NewRefreshToken = GenerateRefreshToken();
-            
+
                 authModel.RefreshToken = NewRefreshToken.Token;
 
                 authModel.RefreshTokenExpiration = NewRefreshToken.ExpiresOn;
-              
+
                 user.RefreshTokens.Add(NewRefreshToken);
-                
+
                 await UserManager.UpdateAsync(user); // to update user token in db
             }
             return authModel;
@@ -197,6 +193,80 @@ namespace ECommerce.DAL.Reposatory.RepoServices
             return result.Succeeded ? string.Empty : "Something went wrong";
         }
 
+        //to generate new refresh token and JWT TOKEN  after using it only once  
+        public async Task<AuthModel> RefreshTokenASync(string refreshtoken)
+        {
+            var authmodel = new AuthModel();
+
+            //cheack if recieve token is owned by user or not
+            var user = await UserManager.Users.SingleOrDefaultAsync(u => u.RefreshTokens.Any(t => t.Token == refreshtoken));
+
+            if (user == null)
+            {
+                authmodel.IsAuthenticated = false;
+                authmodel.Message = "Invalid Token";
+                return authmodel;
+            }
+            // in case finde user then check token still valid or expore
+            var userRefreshTokn = user.RefreshTokens.Single(t => t.Token == refreshtoken);
+
+            if (!userRefreshTokn.IsActive)
+            {
+                authmodel.IsAuthenticated = false;
+                authmodel.Message = "InActive Token";
+                return authmodel;
+            }
+
+            //since the token must be used one time then is revoked so
+            userRefreshTokn.RevokedOn = DateTime.Now;
+
+            //after revok then create the new
+            var newRefreshToken = GenerateRefreshToken();
+
+            user.RefreshTokens.Add(newRefreshToken);
+
+            await UserManager.UpdateAsync(user);
+
+            // then create new jwt token
+            var JwtToken = await CreateJwtToken(user);
+            authmodel.IsAuthenticated = true;
+            authmodel.Token = new JwtSecurityTokenHandler().WriteToken(JwtToken);
+            authmodel.Email = user.Email;
+            authmodel.Username = user.UserName;
+
+            var roles = await UserManager.GetRolesAsync(user);
+
+            authmodel.Roles = roles.ToList();
+            authmodel.RefreshToken = newRefreshToken.Token;
+            authmodel.RefreshTokenExpiration = newRefreshToken.ExpiresOn;
+
+            return authmodel;
+        }
+
+      public async  Task<bool> RevokeTokenAsync(string refreshtoken)
+        {
+
+            //cheack if recieve token is owned by user or not
+            var user = await UserManager.Users.SingleOrDefaultAsync(u => u.RefreshTokens.Any(t => t.Token == refreshtoken));
+
+            if (user == null)
+                return false;
+
+            // in case finde user then check token still valid or expore
+            var userRefreshTokn = user.RefreshTokens.Single(t => t.Token == refreshtoken);
+
+            if (!userRefreshTokn.IsActive)
+                return false;
+
+            //since the token must be used one time then it must be revoked so
+            userRefreshTokn.RevokedOn = DateTime.Now;
+
+            await UserManager.UpdateAsync(user);
+
+            return true;
+
+        }
+
         //method to generate refresh token in case token is expired
         private RefreshToken GenerateRefreshToken()
         {
@@ -210,13 +280,14 @@ namespace ECommerce.DAL.Reposatory.RepoServices
             {
                 Token = Convert.ToBase64String(randomnumber),
 
-                ExpiresOn = DateTime.Now.AddMinutes(1),
+                ExpiresOn = DateTime.Now.AddDays(1),
 
                 CreatedOn = DateTime.Now
             };
 
+        }
 
-        } 
+
 
     }
 }

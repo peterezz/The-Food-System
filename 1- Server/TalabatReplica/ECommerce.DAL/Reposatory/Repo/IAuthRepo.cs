@@ -16,5 +16,8 @@ namespace ECommerce.DAL.Reposatory.Repo
 
         Task<string> AddRoleAsync(AddRoleModel model);
 
+        Task<AuthModel> RefreshTokenASync(string refreshtoken);
+    
+        Task<bool>RevokeTokenAsync(string refreshtoken);
     }
 }
