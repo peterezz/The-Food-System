@@ -17,9 +17,11 @@ namespace ECommerce.DAL.Models.IdentityModels
         public List<string> Roles { get; set; } // Roles assigned to this user
         public string Token { get; set; } // combine secure key , hash key , ....
                                           //public DateTime ExpiresOn { get; set; } // Token expire date
+        public DateTime? ExpiresOn { get; set; }
 
         [JsonIgnore] // to ignor this propert from return in the result
         public string? RefreshToken { get; set; }
+
 
         public DateTime RefreshTokenExpiration { get; set; } // return this instead toke expire date
     }
