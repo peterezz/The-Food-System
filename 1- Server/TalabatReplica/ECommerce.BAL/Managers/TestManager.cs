@@ -7,16 +7,18 @@ namespace ECommerce.BAL.Managers
 {
     public class TestManager : BaseRepo<Test>
     {
-        private readonly IMapper _mapper;
+        private readonly IMapper mapper;
 
         public TestManager( ApplicationDbContext context , IMapper mapper ) : base( context )
         {
-            _mapper = mapper;
+            this.mapper = mapper;
         }
-        public async Task<List<TestDto>> GetAllTests( )
+
+        public async Task<List<TestDto>> GetAllTestsAsync( )
         {
-            var data = await GetAll( );
-            return _mapper.Map<List<TestDto>>( data );
+            var data = await GetAllAsync( );
+            return mapper.Map<List<TestDto>>( data );
+
         }
     }
 }

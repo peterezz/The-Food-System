@@ -27,7 +27,7 @@ namespace ECommerce
             var connectionString = builder.Configuration.GetConnectionString( "MyConn" );
 
             builder.Services.AddDbContext<ApplicationDbContext>( options =>
-                options.UseSqlServer(connectionString));
+                options.UseSqlServer( connectionString ) );
 
             //Define Identity Services
             builder.Services.AddIdentity<ApplicationUser , IdentityRole>( )
@@ -57,23 +57,27 @@ namespace ECommerce
                     {
 
                         //define which datawill be validate
-                        ValidateIssuerSigningKey = true,
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true ,
+                        ValidateIssuer = true ,
+                        ValidateAudience = true ,
+                        ValidateLifetime = true ,
 
                         //define data to compare with it
-                        ValidIssuer = builder.Configuration["JWT:Issuer"],
-                        ValidAudience = builder.Configuration["JWT:Audience"],
+                        ValidIssuer = builder.Configuration[ "JWT:Issuer" ] ,
+                        ValidAudience = builder.Configuration[ "JWT:Audience" ] ,
                         IssuerSigningKey = new SymmetricSecurityKey
-                                               (Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
+                                               ( Encoding.UTF8.GetBytes( builder.Configuration[ "JWT:Key" ] ) ) ,
                         ClockSkew = TimeSpan.Zero // to expire token after determined time not set delay time after expiration                
 
                     };
                 } );
 
+<<<<<<< HEAD
             await builder.Services.AddIdentityService();
 
+=======
+            await builder.Services.AddIdentityService( );
+>>>>>>> 5b26daa8a97841ccb4e2a9655819ce9f41f9e91d
             builder.Services.AddBaseRepo( );
             builder.Services.AddAutoMapper( );
             builder.Services.AddManagersServices( );
