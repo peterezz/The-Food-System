@@ -22,22 +22,19 @@ namespace ECommerce.API.Controllers
 
         public async Task<IActionResult> RegisterAsync( [FromBody] RegisterModel model )
         {
+            var result = await _authService.RegisterAsync( model );
             if ( !ModelState.IsValid )
                 return BadRequest( ModelState );
 
-<<<<<<< HEAD
                 if (!result.IsAuthenticated)
                     return BadRequest(result.Message);
-                
-                SetRefreshTokenInCookie(result.RefreshToken, result.RefreshTokenExpiration);
 
-=======
-            var result = await _authService.RegisterAsync( model );
+            //SetRefreshTokenInCookie(result.Token, result.RefreshTokenExpiration);
+
 
             if ( !result.IsAuthenticated )
                 return BadRequest( result.Message );
 
->>>>>>> 5b26daa8a97841ccb4e2a9655819ce9f41f9e91d
             //return Ok(result);
 
             // using anonymus obj to return specific data from result
@@ -58,7 +55,8 @@ namespace ECommerce.API.Controllers
 
             // in case token not null , empty add this on cookie
             if ( !string.IsNullOrEmpty( result.RefreshToken ) )
-                SetRefreshTokenInCookie( result.RefreshToken , result.RefreshTokenExpiration );
+              
+            SetRefreshTokenInCookie( result.RefreshToken , result.RefreshTokenExpiration );
 
             //return Ok(result);
 
@@ -95,7 +93,6 @@ namespace ECommerce.API.Controllers
             Response.Cookies.Append( "refreshToken" , refreshToken , cookieOptions );
         }
 
-<<<<<<< HEAD
         // get refresh token 
         [HttpGet("RefreshToken")]
         public async Task<IActionResult> GetRefreshToken()
@@ -130,8 +127,6 @@ namespace ECommerce.API.Controllers
             return Ok();
 
         }
-=======
->>>>>>> 5b26daa8a97841ccb4e2a9655819ce9f41f9e91d
 
     }
 }
