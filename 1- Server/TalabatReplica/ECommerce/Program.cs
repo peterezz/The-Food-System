@@ -1,3 +1,4 @@
+using ECommerce.API.Cofigurations.Filters;
 using ECommerce.BAL.Services;
 using ECommerce.DAL.Models.IdentityModels;
 using ECommerce.DAL.Reposatory.Repo;
@@ -76,7 +77,10 @@ namespace ECommerce
             builder.Services.AddBaseRepo( );
             builder.Services.AddAutoMapper( );
             builder.Services.AddManagersServices( );
-            builder.Services.AddControllers( );
+            builder.Services.AddControllers( options =>
+            {
+                options.Filters.Add( new ExceptionFilter( builder.Environment ) );
+            } );
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer( );
