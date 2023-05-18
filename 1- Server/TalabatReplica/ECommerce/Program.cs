@@ -7,6 +7,7 @@ using ECommerce.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -14,20 +15,23 @@ namespace ECommerce
 {
     public class Program
     {
-        public static async Task Main( string[ ] args )
+        public static async Task Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder( args );
+            var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
 
             //mapping values of JWT section in json file to properties in JWT class
 
-            builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
+            builder.Configuration.GetSection("JWT").Get<JWTData>();
 
-            var connectionString = builder.Configuration.GetConnectionString( "MyConn" );
+            var connectionString = builder.Configuration.GetConnectionString("MyConn");
 
-            builder.Services.AddDbContext<ApplicationDbContext>( options =>
-                options.UseSqlServer( connectionString ) );
+            builder.Services.AddDbContext<ApplicationDbContext>(options => { 
+                options.UseSqlServer(connectionString);
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+        }) ;
+            
 
             //Define Identity Services
             builder.Services.AddIdentity<ApplicationUser , IdentityRole>( )
@@ -77,7 +81,9 @@ namespace ECommerce
             builder.Services.AddBaseRepo( );
             builder.Services.AddAutoMapper( );
             builder.Services.AddManagersServices( );
-            builder.Services.AddControllers( );
+            //builder.Services.AddControllers( );
+            builder.Services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling =
+Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer( );

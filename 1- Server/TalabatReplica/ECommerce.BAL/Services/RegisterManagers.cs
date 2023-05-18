@@ -8,6 +8,7 @@ namespace ECommerce.BAL.Services
         public static IServiceCollection AddManagersServices( this IServiceCollection services )
         {
             services.AddScoped<TestManager>( );
+            services.AddScoped<CategoryManager>( );
 
             return services;
         }

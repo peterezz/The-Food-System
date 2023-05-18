@@ -9,6 +9,7 @@ namespace ECommerce.BAL.Mapper
         public DomainProfile( )
         {
             CreateMap<Test , TestDto>( ).ReverseMap( );
+            CreateMap<Category , CategoryDto>( ).ReverseMap( );
         }
     }
 }
