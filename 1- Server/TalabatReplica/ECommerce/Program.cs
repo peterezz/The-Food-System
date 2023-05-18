@@ -26,20 +26,24 @@ namespace ECommerce
 
             var connectionString = builder.Configuration.GetConnectionString( "MyConn" );
 
-            builder.Services.AddDbContext<ApplicationDbContext>( options =>
-                options.UseSqlServer( connectionString ) );
+            builder.Services.AddDbContext<ApplicationDbContext>(options => {
+                options.UseSqlServer(connectionString);
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            });
+
+
 
             //Define Identity Services
             builder.Services.AddIdentity<ApplicationUser , IdentityRole>( )
                 .AddEntityFrameworkStores<ApplicationDbContext>( );
 
             //add my own components
-            builder.Services.AddScoped<IAouthRepo , IAuthServices>( );
+           builder.Services.AddScoped<IAouthRepo , IAuthServices>( );
 
 
             //add JWT Configuration
 
-            builder.Services.AddAuthentication( option =>
+           builder.Services.AddAuthentication( option =>
             {
                 //Define JWT Default schema instead write it with each [Authorize] data annotation
 
@@ -72,12 +76,14 @@ namespace ECommerce
                     };
                 } );
 
-            await builder.Services.AddIdentityService( );
+           // await builder.Services.AddIdentityService( );
 
             builder.Services.AddBaseRepo( );
             builder.Services.AddAutoMapper( );
             builder.Services.AddManagersServices( );
-            builder.Services.AddControllers( );
+            //builder.Services.AddControllers( );
+            builder.Services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling =
+Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer( );
