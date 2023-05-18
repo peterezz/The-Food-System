@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RestaurantComponent } from './Components/restaurant/restaurant.component';
 import { LoginComponent } from './Components/login/login.component';
 import { ErrorComponent } from './Components/error/error.component';
+import { CheckOutComponent } from './Components/check-out/check-out.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ErrorComponent } from './Components/error/error.component';
     RestaurantComponent,
     LoginComponent,
     ErrorComponent,
+    CheckOutComponent,
 
   ],
   imports: [
