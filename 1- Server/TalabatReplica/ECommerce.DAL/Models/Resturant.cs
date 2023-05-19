@@ -1,4 +1,6 @@
-﻿namespace ECommerce.DAL.Models
+﻿using ECommerce.DAL.Models.IdentityModels;
+
+namespace ECommerce.DAL.Models
 {
     public class Resturant
     {
@@ -8,7 +10,7 @@
         public string Location { get; set; } = string.Empty;
 
         public string Name { get; set; } = string.Empty;
-        public string? Photo { get; set; }
+        public byte[ ] Poster { get; set; }
 
         public string Description { get; set; } = string.Empty;
 
@@ -17,5 +19,7 @@
         public string phoneNum { get; set; } = string.Empty;
 
         public virtual List<MenuItem> MenuItems { get; set; } = new List<MenuItem>( );
+        public string ResAdminID { get; set; } = string.Empty;
+        public ApplicationUser ApplicationResAdmin { get; set; }
     }
 }
