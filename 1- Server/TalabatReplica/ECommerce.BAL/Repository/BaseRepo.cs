@@ -32,12 +32,12 @@ namespace ECommerce.BAL.Repository
         }
         public async Task<IEnumerable<T>> GetAllAsync( ) => await context.Set<T>( ).ToListAsync( );
         public async Task<T> GetByIdAsync( int id ) => await context.Set<T>( ).FindAsync( id );
-        public async Task<IEnumerable<T>> GetWhereAsync( Expression<Func<T , bool>> predicate , params Expression<Func<T , object>>[ ] includeProperties )
+        public async Task<IEnumerable<T>> GetWhereAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
         {
-            var query = predicate == null? context.Set<T>(): context.Set<T>().Where(predicate);
-            var entities = includeProperties.Aggregate( query , ( current , includeProperty ) =>
-                current.Include( includeProperty ) );
-            return await entities.ToListAsync( );
+            var query = predicate == null ? context.Set<T>() : context.Set<T>().Where(predicate);
+            var entities = includeProperties.Aggregate(query, (current, includeProperty) =>
+                current.Include(includeProperty));
+            return await entities.ToListAsync();
         }
         public async Task RemoveAsync( T entity )
         {
