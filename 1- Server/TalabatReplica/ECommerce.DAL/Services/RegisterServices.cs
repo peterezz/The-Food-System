@@ -25,10 +25,16 @@ namespace ECommerce.DAL.Services
             _logger.Log( LogLevel.Information , "registered default roles" );
             #endregion
 
-            #region Default User
+            #region Default Users
             var _userManager = services.GetRequiredService<UserManager<ApplicationUser>>( );
+            await Seed.DefaultUser.SeedAppOwner( _userManager );
+            _logger.Log( LogLevel.Information , "Seeded App Owner" );
+            await Seed.DefaultUser.SeedResAdmin( _userManager );
+            _logger.Log( LogLevel.Information , "Seeded Restaurant admin" );
+
 
             #endregion
+
             return service;
 
 

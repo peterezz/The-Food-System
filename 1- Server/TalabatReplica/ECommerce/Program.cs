@@ -1,3 +1,4 @@
+using ECommerce.API.Cofigurations.Filters;
 using ECommerce.BAL.Services;
 using ECommerce.DAL.Models.IdentityModels;
 using ECommerce.DAL.Reposatory.Repo;
@@ -7,6 +8,7 @@ using ECommerce.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -14,31 +16,28 @@ namespace ECommerce
 {
     public class Program
     {
-        public static async Task Main( string[ ] args )
+        public static async Task Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder( args );
+            var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
 
             //mapping values of JWT section in json file to properties in JWT class
 
-            builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
+            builder.Configuration.GetSection("JWT").Get<JWTData>();
 
-            var connectionString = builder.Configuration.GetConnectionString( "MyConn" );
-
-            builder.Services.AddDbContext<ApplicationDbContext>(options => {
+            var connectionString = builder.Configuration.GetConnectionString("MyConn");
+            builder.Services.AddDbContext<ApplicationDbContext>(options => { 
                 options.UseSqlServer(connectionString);
-                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-            });
-
-
-
-            //Define Identity Services
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+        }) ;
+            
             builder.Services.AddIdentity<ApplicationUser , IdentityRole>( )
                 .AddEntityFrameworkStores<ApplicationDbContext>( );
 
             //add my own components
            builder.Services.AddScoped<IAouthRepo , IAuthServices>( );
+
 
 
             //add JWT Configuration
@@ -61,31 +60,34 @@ namespace ECommerce
                     {
 
                         //define which datawill be validate
-                        ValidateIssuerSigningKey = true,
-                        ValidateIssuer = true,
-                        ValidateAudience = true,
-                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true ,
+                        ValidateIssuer = true ,
+                        ValidateAudience = true ,
+                        ValidateLifetime = true ,
 
                         //define data to compare with it
-                        ValidIssuer = builder.Configuration["JWT:Issuer"],
-                        ValidAudience = builder.Configuration["JWT:Audience"],
+                        ValidIssuer = builder.Configuration[ "JWT:Issuer" ] ,
+                        ValidAudience = builder.Configuration[ "JWT:Audience" ] ,
                         IssuerSigningKey = new SymmetricSecurityKey
-                                               (Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
+                                               ( Encoding.UTF8.GetBytes( builder.Configuration[ "JWT:Key" ] ) ) ,
                         ClockSkew = TimeSpan.Zero // to expire token after determined time not set delay time after expiration                
 
                     };
                 } );
 
-           // await builder.Services.AddIdentityService( );
 
+            await builder.Services.AddIdentityService();
+            await builder.Services.AddIdentityService( );
             builder.Services.AddBaseRepo( );
             builder.Services.AddAutoMapper( );
             builder.Services.AddManagersServices( );
-            //builder.Services.AddControllers( );
-            builder.Services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling =
-Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            builder.Services.AddControllers( options =>
+            {
+                options.Filters.Add( new ExceptionFilter( builder.Environment ) );
+            } ).AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling =
+Newtonsoft.Json.ReferenceLoopHandling.Ignore);;
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+          // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer( );
 
             builder.Services.AddSwaggerGen( );

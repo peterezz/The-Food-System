@@ -22,10 +22,15 @@ namespace ECommerce.API.Controllers
 
         public async Task<IActionResult> RegisterAsync( [FromBody] RegisterModel model )
         {
+            var result = await _authService.RegisterAsync( model );
             if ( !ModelState.IsValid )
                 return BadRequest( ModelState );
 
-            var result = await _authService.RegisterAsync( model );
+                if (!result.IsAuthenticated)
+                    return BadRequest(result.Message);
+
+            //SetRefreshTokenInCookie(result.Token, result.RefreshTokenExpiration);
+
 
             if ( !result.IsAuthenticated )
                 return BadRequest( result.Message );
@@ -50,7 +55,8 @@ namespace ECommerce.API.Controllers
 
             // in case token not null , empty add this on cookie
             if ( !string.IsNullOrEmpty( result.RefreshToken ) )
-                SetRefreshTokenInCookie( result.RefreshToken , result.RefreshTokenExpiration );
+              
+            SetRefreshTokenInCookie( result.RefreshToken , result.RefreshTokenExpiration );
 
             //return Ok(result);
 
@@ -87,6 +93,40 @@ namespace ECommerce.API.Controllers
             Response.Cookies.Append( "refreshToken" , refreshToken , cookieOptions );
         }
 
+        // get refresh token 
+        [HttpGet("RefreshToken")]
+        public async Task<IActionResult> GetRefreshToken()
+        {
+            var refreshToken = Request.Cookies["refreshToken"];
+
+            var result = await _authService.RefreshTokenASync(refreshToken);
+
+            if (!result.IsAuthenticated)
+                return BadRequest(result);
+
+            SetRefreshTokenInCookie(result.RefreshToken, result.RefreshTokenExpiration);
+
+            return Ok(result);
+        }
+
+        [HttpPost ("RevokeToken")] // create DTO to store refresh token which recieved from request 
+        public async Task<IActionResult> RevokeToken([FromBody] RevokeModel revoke )
+        {
+            // in case token == null i.e user not send it then get it from cookies
+            var token = revoke.Token ?? Request.Cookies["refreshToken"];
+
+            if (string.IsNullOrEmpty(token))
+                return BadRequest("Token Is Required");
+
+            //in case the user already send token or his token exist in cookies then revoke his token from authmodel
+            var result =await _authService.RevokeTokenAsync(token);
+
+            if(!result)
+                return BadRequest("token is Invalid");
+
+            return Ok();
+
+        }
 
     }
 }
