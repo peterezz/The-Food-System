@@ -16,8 +16,7 @@ namespace ECommerce.BAL.Managers
 
         public async Task<List<TestDto>> GetAllTestsAsync( )
         {
-            var data = await GetAllAsync( );
-            return mapper.Map<List<TestDto>>( data );
+            throw new NotImplementedException( );
 
         }
     }

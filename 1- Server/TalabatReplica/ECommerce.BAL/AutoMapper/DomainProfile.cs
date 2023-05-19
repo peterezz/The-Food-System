@@ -10,6 +10,7 @@ namespace ECommerce.BAL.Mapper
         {
             CreateMap<Test , TestDto>( ).ReverseMap( );
             CreateMap<Category , CategoryDto>( ).ReverseMap( );
+            CreateMap<Resturant , RestaurantDto>( ).ReverseMap( );
         }
     }
 }

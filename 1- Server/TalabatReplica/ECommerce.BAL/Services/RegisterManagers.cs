@@ -1,4 +1,5 @@
 ﻿using ECommerce.BAL.Managers;
+using ECommerce.BAL.Repository.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ECommerce.BAL.Services
@@ -9,6 +10,7 @@ namespace ECommerce.BAL.Services
         {
             services.AddScoped<TestManager>( );
             services.AddScoped<CategoryManager>( );
+            services.AddScoped<IRestaurantRepo , RestaurantManager>( );
 
             return services;
         }

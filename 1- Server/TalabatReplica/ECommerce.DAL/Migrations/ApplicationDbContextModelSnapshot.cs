@@ -53,7 +53,7 @@ namespace ECommerce.Migrations
 
                     b.HasIndex("usersId");
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.Category", b =>
@@ -71,7 +71,7 @@ namespace ECommerce.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.MenuItem", b =>
@@ -113,7 +113,7 @@ namespace ECommerce.Migrations
 
                     b.HasIndex("ResturantID");
 
-                    b.ToTable("MenuItems", (string)null);
+                    b.ToTable("MenuItems");
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.Order", b =>
@@ -143,7 +143,7 @@ namespace ECommerce.Migrations
 
                     b.HasIndex("usersId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.Resturant", b =>
@@ -170,8 +170,14 @@ namespace ECommerce.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("Poster")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ResAdminID")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("phoneNum")
                         .IsRequired()
@@ -179,7 +185,10 @@ namespace ECommerce.Migrations
 
                     b.HasKey("RestaurantID");
 
-                    b.ToTable("Restaurants", (string)null);
+                    b.HasIndex("ResAdminID")
+                        .IsUnique();
+
+                    b.ToTable("Restaurants");
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.Test", b =>
@@ -196,7 +205,7 @@ namespace ECommerce.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Tests", (string)null);
+                    b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -473,6 +482,17 @@ namespace ECommerce.Migrations
                     b.Navigation("users");
                 });
 
+            modelBuilder.Entity("ECommerce.DAL.Models.Resturant", b =>
+                {
+                    b.HasOne("ECommerce.DAL.Models.IdentityModels.ApplicationUser", "ApplicationResAdmin")
+                        .WithOne("Restaurant")
+                        .HasForeignKey("ECommerce.DAL.Models.Resturant", "ResAdminID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationResAdmin");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -526,7 +546,7 @@ namespace ECommerce.Migrations
 
             modelBuilder.Entity("ECommerce.DAL.Models.IdentityModels.ApplicationUser", b =>
                 {
-                    b.OwnsMany("ECommerce.DAL.Models.IdentityModels.ApplicationUser.RefreshTokens#ECommerce.DAL.Models.IdentityModels.RefreshToken", "RefreshTokens", b1 =>
+                    b.OwnsMany("ECommerce.DAL.Models.IdentityModels.RefreshToken", "RefreshTokens", b1 =>
                         {
                             b1.Property<string>("ApplicationUserId")
                                 .HasColumnType("nvarchar(450)");
@@ -552,7 +572,7 @@ namespace ECommerce.Migrations
 
                             b1.HasKey("ApplicationUserId", "Id");
 
-                            b1.ToTable("RefreshToken", (string)null);
+                            b1.ToTable("RefreshToken");
 
                             b1.WithOwner()
                                 .HasForeignKey("ApplicationUserId");
@@ -576,6 +596,11 @@ namespace ECommerce.Migrations
             modelBuilder.Entity("ECommerce.DAL.Models.Resturant", b =>
                 {
                     b.Navigation("MenuItems");
+                });
+
+            modelBuilder.Entity("ECommerce.DAL.Models.IdentityModels.ApplicationUser", b =>
+                {
+                    b.Navigation("Restaurant");
                 });
 #pragma warning restore 612, 618
         }
