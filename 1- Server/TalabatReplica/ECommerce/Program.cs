@@ -1,5 +1,6 @@
 using ECommerce.API.Cofigurations.Filters;
 using ECommerce.BAL.Services;
+using ECommerce.DAL.Models.Client;
 using ECommerce.DAL.Models.IdentityModels;
 using ECommerce.DAL.Reposatory.Repo;
 using ECommerce.DAL.Reposatory.RepoServices;
@@ -21,35 +22,31 @@ namespace ECommerce
 
             // Add services to the container.
 
-            //mapping values of JWT section in json file to properties in JWT class
-
-            builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
-
             var connectionString = builder.Configuration.GetConnectionString( "MyConn" );
 
             builder.Services.AddDbContext<ApplicationDbContext>( options =>
                 options.UseSqlServer( connectionString ) );
 
-            //Define Identity Services
-            builder.Services.AddIdentity<ApplicationUser , IdentityRole>( )
-                .AddEntityFrameworkStores<ApplicationDbContext>( );
+    
+            #region mapping values of JWT section in json file to properties in JWT class
 
-            //add my own components
-            builder.Services.AddScoped<IAouthRepo , AuthServices>( );
+            builder.Configuration.GetSection("JWT").Get<JWTData>();
+
+            #endregion
 
 
-            //add JWT Configuration
+            #region add JWT Configuration
 
-            builder.Services.AddAuthentication( option =>
+            builder.Services.AddAuthentication(option =>
             {
                 //Define JWT Default schema instead write it with each [Authorize] data annotation
 
                 option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 
                 option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            } )
+            })
                 // Define place of key , issuer , ... to validate it and how & which data need to validate and which not 
-                .AddJwtBearer( o =>
+                .AddJwtBearer(o =>
                 {
                     o.RequireHttpsMetadata = false;
                     o.SaveToken = false;
@@ -58,55 +55,91 @@ namespace ECommerce
                     {
 
                         //define which datawill be validate
-                        ValidateIssuerSigningKey = true ,
-                        ValidateIssuer = true ,
-                        ValidateAudience = true ,
-                        ValidateLifetime = true ,
+                        ValidateIssuerSigningKey = true,
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
 
                         //define data to compare with it
-                        ValidIssuer = builder.Configuration[ "JWT:Issuer" ] ,
-                        ValidAudience = builder.Configuration[ "JWT:Audience" ] ,
+                        ValidIssuer = builder.Configuration["JWT:Issuer"],
+                        ValidAudience = builder.Configuration["JWT:Audience"],
                         IssuerSigningKey = new SymmetricSecurityKey
-                                               ( Encoding.UTF8.GetBytes( builder.Configuration[ "JWT:Key" ] ) ) ,
+                                               (Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
                         ClockSkew = TimeSpan.Zero // to expire token after determined time not set delay time after expiration                
 
                     };
-                } );
+                });
+
+            #endregion
+
+
+            #region add my own services
+
+            builder.Services.AddScoped<IAouthRepo, AuthServices>();
+
+            //Define Identity Services
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
             await builder.Services.AddIdentityService();
 
-            await builder.Services.AddIdentityService( );
-            builder.Services.AddBaseRepo( );
-            builder.Services.AddAutoMapper( );
-            builder.Services.AddManagersServices( );
-            builder.Services.AddControllers( options =>
+            builder.Services.AddBaseRepo();
+
+            builder.Services.AddAutoMapper();
+
+            builder.Services.AddManagersServices();
+
+            builder.Services.AddControllers(options =>
             {
-                options.Filters.Add( new ExceptionFilter( builder.Environment ) );
-            } );
+                options.Filters.Add(new ExceptionFilter(builder.Environment));
+            });
+
+            #endregion
+
+
+            #region PayPal
+
+            //register the PaypalClient class as a singleton service
+            // paypal client configuration
+            builder.Services.AddSingleton(x =>
+                new PaypalClient(
+                    builder.Configuration["PayPalOptions:ClientId"],
+                    builder.Configuration["PayPalOptions:ClientSecret"],
+                    builder.Configuration["PayPalOptions:Mode"]
+                )
+            );
+
+            #endregion
+
+
+            #region BuiltIn Services
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            builder.Services.AddEndpointsApiExplorer( );
+            builder.Services.AddEndpointsApiExplorer();
 
-            builder.Services.AddSwaggerGen( );
+            builder.Services.AddSwaggerGen();
 
-            var app = builder.Build( );
+            var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if ( app.Environment.IsDevelopment( ) )
+            if (app.Environment.IsDevelopment())
             {
-                app.UseSwagger( );
-                app.UseSwaggerUI( );
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection( );
+            app.UseHttpsRedirection();
 
-            app.UseAuthentication( );
+            app.UseAuthentication();
 
-            app.UseAuthorization( );
+            app.UseAuthorization();
 
-            app.MapControllers( );
+            app.MapControllers();
 
-            app.Run( );
+            app.Run(); 
+            #endregion
+
+
         }
     }
 }
