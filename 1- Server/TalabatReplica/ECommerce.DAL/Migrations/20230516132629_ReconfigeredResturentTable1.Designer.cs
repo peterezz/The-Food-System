@@ -4,6 +4,7 @@ using ECommerce;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230516132629_ReconfigeredResturentTable1")]
+    partial class ReconfigeredResturentTable1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -174,7 +176,7 @@ namespace ECommerce.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
-                    b.Property<string>("ResAdminID")
+                    b.Property<string>("ResAdmin")
                         .IsRequired()
                         .HasMaxLength(450)
                         .HasColumnType("nvarchar(450)");
@@ -185,7 +187,7 @@ namespace ECommerce.Migrations
 
                     b.HasKey("RestaurantID");
 
-                    b.HasIndex("ResAdminID")
+                    b.HasIndex("ResAdmin")
                         .IsUnique();
 
                     b.ToTable("Restaurants");
@@ -486,7 +488,7 @@ namespace ECommerce.Migrations
                 {
                     b.HasOne("ECommerce.DAL.Models.IdentityModels.ApplicationUser", "ApplicationResAdmin")
                         .WithOne("Restaurant")
-                        .HasForeignKey("ECommerce.DAL.Models.Resturant", "ResAdminID")
+                        .HasForeignKey("ECommerce.DAL.Models.Resturant", "ResAdmin")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
