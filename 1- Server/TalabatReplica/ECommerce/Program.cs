@@ -9,8 +9,12 @@ using ECommerce.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+<<<<<<< Updated upstream
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+=======
+//using Microsoft.Extensions.Configuration;
+>>>>>>> Stashed changes
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -101,9 +105,9 @@ namespace ECommerce
                     };
                 });
 
-            //await builder.Services.AddIdentityService();
+            await builder.Services.AddIdentityService();
 
-            //await builder.Services.AddIdentityService( );
+            await builder.Services.AddIdentityService();
 
             #endregion
 
