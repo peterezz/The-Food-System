@@ -77,6 +77,8 @@ namespace ECommerce
 
             builder.Services.AddScoped<IAouthRepo, AuthServices>();
 
+            //builder.Services.AddScoped<IPayPalRepo, PayPalServices>();
+
             //Define Identity Services
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
