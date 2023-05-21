@@ -36,7 +36,7 @@ namespace ECommerce
                 .AddEntityFrameworkStores<ApplicationDbContext>( );
 
             //add my own components
-           builder.Services.AddScoped<IAouthRepo , IAuthServices>( );
+           builder.Services.AddScoped<IAouthRepo , AuthServices>( );
 
 
 
@@ -76,8 +76,8 @@ namespace ECommerce
                 } );
 
 
-            await builder.Services.AddIdentityService();
-            await builder.Services.AddIdentityService( );
+            //await builder.Services.AddIdentityService();
+            //await builder.Services.AddIdentityService( );
             builder.Services.AddBaseRepo( );
             builder.Services.AddAutoMapper( );
             builder.Services.AddManagersServices( );
@@ -91,6 +91,13 @@ Newtonsoft.Json.ReferenceLoopHandling.Ignore);;
             builder.Services.AddEndpointsApiExplorer( );
 
             builder.Services.AddSwaggerGen( );
+            builder.Services.AddCors((setup) =>
+            {
+                setup.AddPolicy("default", (options) =>
+                {
+                    options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                });
+            });
 
             var app = builder.Build( );
 
@@ -101,6 +108,7 @@ Newtonsoft.Json.ReferenceLoopHandling.Ignore);;
                 app.UseSwaggerUI( );
             }
 
+            app.UseCors("default");
             app.UseHttpsRedirection( );
 
             app.UseAuthentication( );
