@@ -7,6 +7,7 @@ using ECommerce.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -24,10 +25,18 @@ namespace ECommerce
 
             builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
 
-            var connectionString = builder.Configuration.GetConnectionString( "MyConn" );
+            var connectionString = builder.Configuration.GetConnectionString("MyConn");
 
-            builder.Services.AddDbContext<ApplicationDbContext>( options =>
-                options.UseSqlServer( connectionString ) );
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(connectionString));
+
+
+            //--------------------------------------//
+
+    //        builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    //options.UseSqlServer(builder.Configuration.GetConnectionString("MyConn")));
+
+            //--------------------------------------//
 
             //Define Identity Services
             builder.Services.AddIdentity<ApplicationUser , IdentityRole>( )
@@ -72,9 +81,10 @@ namespace ECommerce
                     };
                 } );
 
-            await builder.Services.AddIdentityService();
+            //await builder.Services.AddIdentityService();
 
-            await builder.Services.AddIdentityService( );
+            //await builder.Services.AddIdentityService( );
+
             builder.Services.AddBaseRepo( );
             builder.Services.AddAutoMapper( );
             builder.Services.AddManagersServices( );
