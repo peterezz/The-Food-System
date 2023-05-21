@@ -1,10 +1,12 @@
 ﻿using ECommerce.BAL.Managers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
 {
     [Route( "[controller]" )]
     [ApiController]
+    [Authorize]
     public class TestController : ControllerBase
     {
         private readonly TestManager manager;
