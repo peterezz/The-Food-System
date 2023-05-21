@@ -14,8 +14,6 @@ import { AllResturantsComponent } from './Components/all-resturants/all-resturan
 import { AllResturantsItemsComponent } from './Components/all-resturants-items/all-resturants-items.component';
 import { SingleproductComponent } from './Components/singleproduct/singleproduct.component';
 import { CartComponent } from './Components/cart/cart.component';
-import { PaymentComponent } from './Components/payment/payment.component';
-import { ConfirmationComponent } from './Components/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -30,8 +28,6 @@ import { ConfirmationComponent } from './Components/confirmation/confirmation.co
     AllResturantsItemsComponent,
     SingleproductComponent,
     CartComponent,
-    PaymentComponent,
-    ConfirmationComponent,
 
   ],
   imports: [
