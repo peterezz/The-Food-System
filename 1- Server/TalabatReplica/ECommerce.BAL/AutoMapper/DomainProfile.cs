@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ECommerce.BAL.DTOs;
 using ECommerce.DAL.Models;
+using ECommerce.DAL.Models.IdentityModels;
 
 namespace ECommerce.BAL.Mapper
 {
@@ -12,6 +13,7 @@ namespace ECommerce.BAL.Mapper
             CreateMap<MenuItem, MenueItemDto>().ReverseMap();
             CreateMap<Category , CategoryDto>( ).ReverseMap( );
             CreateMap<Resturant , RestaurantDto>( ).ReverseMap( );
+            CreateMap<ApplicationUser,ProfileUserDto>().ReverseMap( );
         }
     }
 }

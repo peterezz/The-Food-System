@@ -61,7 +61,7 @@ namespace ECommerce
                 .AddEntityFrameworkStores<ApplicationDbContext>( );
 
             //add my own components
-           builder.Services.AddScoped<IAouthRepo , IAuthServices>( );
+           builder.Services.AddScoped<IAouthRepo , AuthServices>( );
 
             #endregion
 
@@ -112,6 +112,7 @@ namespace ECommerce
 
             builder.Services.AddScoped<IAouthRepo, AuthServices>();
 
+
             //Define Identity Services
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -151,7 +152,6 @@ namespace ECommerce
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             await builder.Services.AddIdentityService();
-
           builder.Services.AddBaseRepo( );
             builder.Services.AddAutoMapper( );
             builder.Services.AddManagersServices( );
@@ -163,8 +163,15 @@ Newtonsoft.Json.ReferenceLoopHandling.Ignore);;
 
           // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer( );
+            builder.Services.AddSwaggerGen( );
+            builder.Services.AddCors((setup) =>
+            {
+                setup.AddPolicy("default", (options) =>
+                {
+                    options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin();
+                });
+            });
 
-            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
@@ -175,11 +182,15 @@ Newtonsoft.Json.ReferenceLoopHandling.Ignore);;
                 app.UseSwaggerUI();
             }
 
+
+            app.UseCors("default");
+
             app.UseHttpsRedirection();
 
             app.UseAuthentication();
 
             app.UseAuthorization();
+
 
             app.MapControllers();
 
