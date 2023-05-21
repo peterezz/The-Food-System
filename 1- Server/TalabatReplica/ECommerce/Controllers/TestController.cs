@@ -6,7 +6,6 @@ namespace ECommerce.API.Controllers
 {
     [Route( "[controller]" )]
     [ApiController]
-    [Authorize]
     public class TestController : ControllerBase
     {
         private readonly TestManager manager;
@@ -15,6 +14,7 @@ namespace ECommerce.API.Controllers
         {
             this.manager = manager;
         }
+        [Authorize]
         [HttpGet( Name = "test" )]
         public async Task<IActionResult> GetTests( )
         {
