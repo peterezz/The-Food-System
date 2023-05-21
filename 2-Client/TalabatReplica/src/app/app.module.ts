@@ -10,6 +10,10 @@ import { RestaurantComponent } from './Components/restaurant/restaurant.componen
 import { LoginComponent } from './Components/login/login.component';
 import { ErrorComponent } from './Components/error/error.component';
 import { CheckOutComponent } from './Components/check-out/check-out.component';
+import { AllResturantsComponent } from './Components/all-resturants/all-resturants.component';
+import { AllResturantsItemsComponent } from './Components/all-resturants-items/all-resturants-items.component';
+import { SingleproductComponent } from './Components/singleproduct/singleproduct.component';
+import { CartComponent } from './Components/cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +24,10 @@ import { CheckOutComponent } from './Components/check-out/check-out.component';
     LoginComponent,
     ErrorComponent,
     CheckOutComponent,
+    AllResturantsComponent,
+    AllResturantsItemsComponent,
+    SingleproductComponent,
+    CartComponent,
 
   ],
   imports: [

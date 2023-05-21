@@ -4,11 +4,17 @@ import { RestaurantComponent } from './Components/restaurant/restaurant.componen
 import { LoginComponent } from './Components/login/login.component';
 import { ErrorComponent } from './Components/error/error.component';
 import { CheckOutComponent } from './Components/check-out/check-out.component';
+import { AllResturantsComponent } from './Components/all-resturants/all-resturants.component';
+import { SingleproductComponent } from './Components/singleproduct/singleproduct.component';
+import { CartComponent } from './Components/cart/cart.component';
 
 const routes: Routes = [
   {path:"", component: RestaurantComponent},
   {path:"login", component: LoginComponent},
   {path:"checkOut", component: CheckOutComponent},
+  {path:"AllResturants", component: AllResturantsComponent},
+  {path:"singleProduct", component: SingleproductComponent},
+  {path:"cart", component: CartComponent },
   {path:"**", component: ErrorComponent}
 
 ];
