@@ -4,6 +4,7 @@ using ECommerce;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230522183424_AddedReviewsTable")]
+    partial class AddedReviewsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,7 +55,7 @@ namespace ECommerce.Migrations
 
                     b.HasIndex("usersId");
 
-                    b.ToTable("Carts", (string)null);
+                    b.ToTable("Carts");
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.Category", b =>
@@ -71,7 +73,7 @@ namespace ECommerce.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.MenuItem", b =>
@@ -116,7 +118,7 @@ namespace ECommerce.Migrations
 
                     b.HasIndex("ResturantID");
 
-                    b.ToTable("MenuItems", (string)null);
+                    b.ToTable("MenuItems");
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.Order", b =>
@@ -146,7 +148,7 @@ namespace ECommerce.Migrations
 
                     b.HasIndex("usersId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.Resturant", b =>
@@ -191,7 +193,7 @@ namespace ECommerce.Migrations
                     b.HasIndex("ResAdminID")
                         .IsUnique();
 
-                    b.ToTable("Restaurants", (string)null);
+                    b.ToTable("Restaurants");
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.Review", b =>
@@ -238,7 +240,7 @@ namespace ECommerce.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Tests", (string)null);
+                    b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -598,7 +600,7 @@ namespace ECommerce.Migrations
 
             modelBuilder.Entity("ECommerce.DAL.Models.IdentityModels.ApplicationUser", b =>
                 {
-                    b.OwnsMany("ECommerce.DAL.Models.IdentityModels.ApplicationUser.RefreshTokens#ECommerce.DAL.Models.IdentityModels.RefreshToken", "RefreshTokens", b1 =>
+                    b.OwnsMany("ECommerce.DAL.Models.IdentityModels.RefreshToken", "RefreshTokens", b1 =>
                         {
                             b1.Property<string>("ApplicationUserId")
                                 .HasColumnType("nvarchar(450)");
@@ -624,7 +626,7 @@ namespace ECommerce.Migrations
 
                             b1.HasKey("ApplicationUserId", "Id");
 
-                            b1.ToTable("RefreshToken", (string)null);
+                            b1.ToTable("RefreshToken");
 
                             b1.WithOwner()
                                 .HasForeignKey("ApplicationUserId");

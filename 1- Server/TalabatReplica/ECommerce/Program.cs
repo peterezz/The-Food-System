@@ -48,7 +48,14 @@ namespace ECommerce
                 options.UseSqlServer( connectionString );
                 options.UseQueryTrackingBehavior( QueryTrackingBehavior.NoTracking );
             } );
-            
+
+
+            builder.Services.AddIdentity<ApplicationUser , IdentityRole>( )
+                .AddEntityFrameworkStores<ApplicationDbContext>( ).AddDefaultTokenProviders( );
+
+            //add my own components
+            builder.Services.AddScoped<IAouthRepo , AuthServices>( );
+
 
             #endregion
 
