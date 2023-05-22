@@ -138,7 +138,7 @@ namespace ECommerce
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer( );
-            await builder.Services.AddIdentityService( );
+           // await builder.Services.AddIdentityService( );
             builder.Services.AddBaseRepo( );
             builder.Services.AddAutoMapper( );
             builder.Services.AddManagersServices( );
