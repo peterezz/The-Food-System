@@ -21,6 +21,7 @@ import {MatTooltipModule} from'@angular/material/tooltip'
 import { PaymentComponent } from './Components/payment/payment.component';
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
+import { ContactComponent } from './Components/contact/contact.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassw
     PaymentComponent,
     ForgotPasswordComponent,
     SetnewpasswordComponent,
+    ContactComponent,
 
   ],
   imports: [
