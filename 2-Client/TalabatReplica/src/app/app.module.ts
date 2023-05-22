@@ -14,6 +14,10 @@ import { AllResturantsComponent } from './Components/all-resturants/all-resturan
 import { AllResturantsItemsComponent } from './Components/all-resturants-items/all-resturants-items.component';
 import { SingleproductComponent } from './Components/singleproduct/singleproduct.component';
 import { CartComponent } from './Components/cart/cart.component';
+import { MatSidenavModule} from'@angular/material/sidenav'
+import {MatIconModule} from'@angular/material/icon'
+import {MatTooltipModule} from'@angular/material/tooltip'
+
 
 @NgModule({
   declarations: [
@@ -36,7 +40,11 @@ import { CartComponent } from './Components/cart/cart.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatTooltipModule
+    
 
   ],
   providers: [],

@@ -29,18 +29,9 @@ namespace ECommerce
             builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
 
             var connectionString = builder.Configuration.GetConnectionString("MyConn");
-            var connectionString = builder.Configuration.GetConnectionString( "MyConn" );
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
-
-
-            //--------------------------------------//
-
-    //        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    //options.UseSqlServer(builder.Configuration.GetConnectionString("MyConn")));
-
-            //--------------------------------------//
 
     
             #region mapping values of JWT section in json file to properties in JWT class
@@ -51,17 +42,11 @@ namespace ECommerce
 
             builder.Configuration.GetSection("JWT").Get<JWTData>();
 
-            var connectionString = builder.Configuration.GetConnectionString("MyConn");
-            builder.Services.AddDbContext<ApplicationDbContext>(options => { 
+            builder.Services.AddDbContext<ApplicationDbContext>(options => {
                 options.UseSqlServer(connectionString);
-            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-        }) ;
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            }) ;
             
-            builder.Services.AddIdentity<ApplicationUser , IdentityRole>( )
-                .AddEntityFrameworkStores<ApplicationDbContext>( );
-
-            //add my own components
-           builder.Services.AddScoped<IAouthRepo , IAuthServices>( );
 
             #endregion
 
@@ -112,7 +97,7 @@ namespace ECommerce
 
             builder.Services.AddScoped<IAouthRepo, AuthServices>();
 
-            //builder.Services.AddScoped<IPayPalRepo, PayPalServices>();
+            builder.Services.AddScoped<IPayPalRepo, PayPalServices>();
 
             //Define Identity Services
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -159,9 +144,8 @@ namespace ECommerce
             builder.Services.AddManagersServices( );
             builder.Services.AddControllers( options =>
             {
-                options.Filters.Add( new ExceptionFilter( builder.Environment ) );
-            } ).AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling =
-Newtonsoft.Json.ReferenceLoopHandling.Ignore);;
+                options.Filters.Add( new ExceptionFilter( builder.Environment ));
+            }).AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
           // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer( );

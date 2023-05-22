@@ -1,23 +1,23 @@
-﻿using ECommerce.BAL.Managers;
-using Microsoft.AspNetCore.Mvc;
+﻿//using ECommerce.BAL.Managers;
+//using Microsoft.AspNetCore.Mvc;
 
-namespace ECommerce.API.Controllers
-{
-    [Route( "[controller]" )]
-    [ApiController]
-    public class TestController : ControllerBase
-    {
-        private readonly TestManager manager;
+//namespace ECommerce.API.Controllers
+//{
+//    [Route( "[controller]" )]
+//    [ApiController]
+//    public class TestController : ControllerBase
+//    {
+//        private readonly TestManager manager;
 
-        public TestController( TestManager manager )
-        {
-            this.manager = manager;
-        }
-        [HttpGet( Name = "test" )]
-        public async Task<IActionResult> GetTests( )
-        {
-            var data = await manager.GetAllTestsAsync( );
-            return Ok( data );
-        }
-    }
-}
+//        public TestController( TestManager manager )
+//        {
+//            this.manager = manager;
+//        }
+//        [HttpGet( Name = "test" )]
+//        public async Task<IActionResult> GetTests( )
+//        {
+//            var data = await manager.GetAllTestsAsync( );
+//            return Ok( data );
+//        }
+//    }
+//}
