@@ -53,7 +53,7 @@ namespace ECommerce.Migrations
 
                     b.HasIndex("usersId");
 
-                    b.ToTable("Carts");
+                    b.ToTable("Carts", (string)null);
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.Category", b =>
@@ -71,7 +71,7 @@ namespace ECommerce.Migrations
 
                     b.HasKey("CategoryID");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.MenuItem", b =>
@@ -113,7 +113,7 @@ namespace ECommerce.Migrations
 
                     b.HasIndex("ResturantID");
 
-                    b.ToTable("MenuItems");
+                    b.ToTable("MenuItems", (string)null);
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.Order", b =>
@@ -143,7 +143,7 @@ namespace ECommerce.Migrations
 
                     b.HasIndex("usersId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.Resturant", b =>
@@ -188,7 +188,7 @@ namespace ECommerce.Migrations
                     b.HasIndex("ResAdminID")
                         .IsUnique();
 
-                    b.ToTable("Restaurants");
+                    b.ToTable("Restaurants", (string)null);
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.Test", b =>
@@ -205,7 +205,7 @@ namespace ECommerce.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Tests");
+                    b.ToTable("Tests", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -546,7 +546,7 @@ namespace ECommerce.Migrations
 
             modelBuilder.Entity("ECommerce.DAL.Models.IdentityModels.ApplicationUser", b =>
                 {
-                    b.OwnsMany("ECommerce.DAL.Models.IdentityModels.RefreshToken", "RefreshTokens", b1 =>
+                    b.OwnsMany("ECommerce.DAL.Models.IdentityModels.ApplicationUser.RefreshTokens#ECommerce.DAL.Models.IdentityModels.RefreshToken", "RefreshTokens", b1 =>
                         {
                             b1.Property<string>("ApplicationUserId")
                                 .HasColumnType("nvarchar(450)");
@@ -572,7 +572,7 @@ namespace ECommerce.Migrations
 
                             b1.HasKey("ApplicationUserId", "Id");
 
-                            b1.ToTable("RefreshToken");
+                            b1.ToTable("RefreshToken", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ApplicationUserId");
