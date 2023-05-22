@@ -4,9 +4,11 @@ using ECommerce.Helpers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace ECommerce.DAL.Reposatory.RepoServices
 {
@@ -103,18 +105,18 @@ namespace ECommerce.DAL.Reposatory.RepoServices
             .Union(userClaims) // old claims
             .Union(roleClaims); // new claims
 
-            //var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwt.Key)); //generate security key by using Key Defined in .json file
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("85rJNfiywPjPCdDzctSJpTNR3JOEFYAQm9BKjert9zk=")); //generate security key by using Key Defined in .json file
 
-            //var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256); // generate SigningCredentials using SymmetricSecurityKey 
+            var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256); // generate SigningCredentials using SymmetricSecurityKey 
 
             //values using when jwt token "property defined in JWT class and binding data from json file to it"
             var jwtSecurityToken = new JwtSecurityToken(
                 issuer: _jwt.Issuer,
                 audience: _jwt.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddDays(_jwt.DurationInDays));
-            //signingCredentials: signingCredentials
-            //);
+                expires: DateTime.Now.AddDays(_jwt.DurationInDays),
+                signingCredentials: signingCredentials
+            );
 
             return jwtSecurityToken;
         }

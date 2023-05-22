@@ -1,6 +1,3 @@
-﻿using ECommerce.BAL.Managers;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
 {
@@ -22,6 +19,4 @@ namespace ECommerce.API.Controllers
             return Ok( data );
         }
 
-
-    }
 }

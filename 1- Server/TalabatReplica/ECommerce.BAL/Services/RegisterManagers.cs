@@ -14,6 +14,10 @@ namespace ECommerce.BAL.Services
             services.AddScoped<IRestaurantRepo , RestaurantManager>( );
             services.AddScoped<orderManger>( );
             services.AddScoped<IReviewRepo , ReviewManager>( );
+            services.AddScoped<UserProfileManager>( );
+            services.AddScoped<CartManager>();
+            services.AddScoped<orderManger>();
+
             return services;
         }
     }
