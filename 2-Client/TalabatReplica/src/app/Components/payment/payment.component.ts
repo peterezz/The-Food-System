@@ -29,9 +29,10 @@ ngOnInit(): void{
   }
 
 
+   cancel() {
 
-  cancel(){
-
-  }
+    this.router.navigate(['checkOut']);
+    
+    }
 }
 
