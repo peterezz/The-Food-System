@@ -9,11 +9,11 @@ namespace ECommerce.BAL.Services
         public static IServiceCollection AddManagersServices( this IServiceCollection services )
         {
             services.AddScoped<TestManager>( );
-            services.AddScoped<MenueItemManager>();
+            services.AddScoped<MenueItemManager>( );
             services.AddScoped<CategoryManager>( );
             services.AddScoped<IRestaurantRepo , RestaurantManager>( );
-            services.AddScoped<UserProfileManager>( );
-            services.AddScoped<orderManger>();
+            services.AddScoped<orderManger>( );
+            services.AddScoped<IReviewRepo , ReviewManager>( );
             return services;
         }
     }

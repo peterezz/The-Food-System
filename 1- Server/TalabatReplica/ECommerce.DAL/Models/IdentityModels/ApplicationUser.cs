@@ -13,6 +13,7 @@ namespace ECommerce.DAL.Models.IdentityModels
         [Required, MaxLength( 50 )]
         public string LastName { get; set; }
         public Resturant? Restaurant { get; set; }
+        public List<Review> Reviews { get; set; }
 
         public List<RefreshToken> RefreshTokens { get; set; }
     }
