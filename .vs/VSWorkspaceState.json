@@ -2,7 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\1- Server",
-    "\\1- Server\\TalabatReplica"
+    "\\1- Server\\TalabatReplica",
+    "\\1- Server\\TalabatReplica\\ECommerce\\Controllers"
   ],
+  "SelectedNode": "\\1- Server\\TalabatReplica\\TalabatReplica.sln",
   "PreviewInSolutionExplorer": false
 }
