@@ -18,6 +18,8 @@ import { MatSidenavModule} from'@angular/material/sidenav'
 import {MatIconModule} from'@angular/material/icon'
 import {MatTooltipModule} from'@angular/material/tooltip'
 
+import { PaymentComponent } from './Components/payment/payment.component';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import {MatTooltipModule} from'@angular/material/tooltip'
     AllResturantsItemsComponent,
     SingleproductComponent,
     CartComponent,
+    PaymentComponent,
 
   ],
   imports: [
