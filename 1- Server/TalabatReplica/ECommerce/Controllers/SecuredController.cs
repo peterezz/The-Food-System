@@ -5,10 +5,10 @@ namespace ECommerce.API.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class Secured : ControllerBase
+    public class SecuredController : ControllerBase
     {
-        [HttpGet]
-        [Authorize(Roles = "customer")]
+        [HttpGet("Check")]
+        [Authorize]
         public IActionResult Get()
         {
             return Ok("Welcome in refresh token tester");

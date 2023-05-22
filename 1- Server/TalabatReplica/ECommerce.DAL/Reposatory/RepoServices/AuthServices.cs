@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace ECommerce.DAL.Reposatory.RepoServices
 {
@@ -104,7 +105,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
             .Union(userClaims) // old claims
             .Union(roleClaims); // new claims
 
-            var symmetricSecurityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(_jwt.Key)); //generate security key by using Key Defined in .json file
+            var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("85rJNfiywPjPCdDzctSJpTNR3JOEFYAQm9BKjert9zk=")); //generate security key by using Key Defined in .json file
 
             var signingCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256); // generate SigningCredentials using SymmetricSecurityKey 
 
