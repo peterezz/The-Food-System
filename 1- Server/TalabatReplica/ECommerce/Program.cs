@@ -43,17 +43,11 @@ namespace ECommerce
 
             builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
 
-            var connectionString = builder.Configuration.GetConnectionString( "MyConn" );
             builder.Services.AddDbContext<ApplicationDbContext>( options =>
             {
                 options.UseSqlServer( connectionString );
                 options.UseQueryTrackingBehavior( QueryTrackingBehavior.NoTracking );
             } );
-
-            builder.Services.AddDbContext<ApplicationDbContext>(options => {
-                options.UseSqlServer(connectionString);
-                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-            }) ;
             
 
             #endregion
