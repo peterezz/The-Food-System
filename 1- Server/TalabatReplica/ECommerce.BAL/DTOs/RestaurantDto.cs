@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 
+
 namespace ECommerce.BAL.DTOs
 {
     public class RestaurantDto

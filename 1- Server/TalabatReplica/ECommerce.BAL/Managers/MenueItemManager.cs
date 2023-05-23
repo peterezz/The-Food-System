@@ -16,12 +16,18 @@ namespace ECommerce.BAL.Managers
 
         public async Task<List<MenueItemDto>> GetAll_MenueItemAsync( )
         {
+
+            var data = await GetAllAsync();
+            return mapper.Map<List<MenueItemDto>>(data);
             var data = await GetWhereAsync( null , o => o.Orders , Cart => Cart.Carts );
             return mapper.Map<List<MenueItemDto>>( data );
 
         }
         public async Task<MenueItemDto> GetById_MenueItemAsync( int id )
         {
+            var data = await GetByIdAsync(id);
+        
+            return mapper.Map<MenueItemDto>(data);
             var data = await FirstOrDefaultAsync( m => m.ItemID == id , o => o.Orders , Cart => Cart.Carts );
 
             return mapper.Map<MenueItemDto>( data );
@@ -52,6 +58,12 @@ namespace ECommerce.BAL.Managers
 
 
         }
+
+
+        public async Task<List<MenueItemDto>> GetCategoryItemsAsync(string name)
+        {
+            return mapper.Map<List<MenueItemDto>>(await GetWhereAsync(cat => cat.Name == name,ca=>ca.category));
+
         public async Task<List<MenueItemDto>> GetTopMenuItemsAsync( int ResID )
         {
             var data = await GetWhereAsync( item => item.IsTopItem && item.ResturantID == ResID && item.IsAccepted );

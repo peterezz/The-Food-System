@@ -39,6 +39,23 @@ namespace ECommerce.API.Controllers
             return Ok(data);
 
         }
+
+        [HttpGet("{name:alpha}")]
+        public async Task<IActionResult> GetMenueitemsByCategoryName(string name)
+        {
+            var data = await Category.GetCategoryItemsAsync(name);
+            if (name == null)
+            {
+                return BadRequest("Name Not Valid");
+            }
+
+            if (data == null)
+            {
+                return NotFound("ID not found");
+            }
+            return Ok(data);
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
