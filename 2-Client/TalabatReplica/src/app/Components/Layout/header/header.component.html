@@ -31,7 +31,7 @@
 
 
 
-          <nav class="main-menu  ">
+          <nav class="main-menu">
             <ul>
               <!-- <li class="current-list-item"><a href="#">Home</a>
                 <ul class="sub-menu">
@@ -49,46 +49,35 @@
               </li>
               <li><a href="contactus">Contact</a></li>
               
-
                 <li ><a href="/login">Login/Registration</a>
-
-
-                <!-- <a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a> -->
-
 
               </li>
 
-              <!-- ////////////////////////// -->
-
-
-
               <li>
-                <div class="header-icons">
-                  <div class="container">
-                  <header>
-                    <!-- <h1>Your Shopping Cart</h1> -->
-                    <div class="shopping " >
-                        <img src="assets/img/carticon/1524618.png" (click)="visable()" s>
-                        <span class="quantity">1</span>
-                    </div>
-                </header>
+                
+                <div class="sidebar-nav">
+                  <nav>
+                      <div class="header-icons">
+                        <header>
+                          <!-- cart Toggle Button -->
+                          <button  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                            <span class="shopping navbar-toggler-icon bi bi-cart">      
+                              <img src="assets/img/carticon/1524618.png">
+                              <span class="quantity">1</span>
+                            </span>
+                          </button>
+                        </header>
+                
+                          <!-- List content -->
+                          <div class="offcanvas offcanvas-start shadow" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                            <div class="offcanvas-body">
+                           
+                            </div>
+                          </div>
+                      </div>
+                  </nav>
+                </div>
 
-                <div class="list">
-
-                </div>
-            </div>
-            <div class="card">
-                <h1>Card</h1>
-                <ul class="listCard">
-                </ul>
-                <div class="checkOut">
-                    <div class="total">0</div>
-                    <div class="closeShopping">Close</div>
-                </div>
-             </div>
-
-                  <!-- <a class="shopping-cart" href="cart.html" (click)="opencart()"><i class="fas fa-shopping-cart"></i></a> -->
-                </div>
               </li>
             </ul>
           </nav>
