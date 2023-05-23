@@ -1,21 +1,26 @@
-﻿using ECommerce.BAL.Managers;
+﻿using ECommerce.BAL.DTOs;
 using ECommerce.DAL.Models.IdentityModels;
 using ECommerce.DAL.Reposatory.Repo;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
 {
     public class AuthController : ControllerBase
     {
-        private readonly TestManager manager;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly SignInManager<ApplicationUser> signInManager;
+
 
         public IAouthRepo _authService { get; }
 
 
-        public AuthController( IAouthRepo aouthRepo , TestManager manager )
+        public AuthController( UserManager<ApplicationUser> userManager , IAouthRepo aouthRepo , SignInManager<ApplicationUser> signInManager )
         {
+            this.userManager = userManager;
             _authService = aouthRepo;
-            this.manager = manager;
+            this.signInManager = signInManager;
         }
 
         [HttpPost( "Register" )]
@@ -26,8 +31,8 @@ namespace ECommerce.API.Controllers
             if ( !ModelState.IsValid )
                 return BadRequest( ModelState );
 
-                if (!result.IsAuthenticated)
-                    return BadRequest(result.Message);
+            if ( !result.IsAuthenticated )
+                return BadRequest( result.Message );
 
             //SetRefreshTokenInCookie(result.Token, result.RefreshTokenExpiration);
 
@@ -55,8 +60,8 @@ namespace ECommerce.API.Controllers
 
             // in case token not null , empty add this on cookie
             if ( !string.IsNullOrEmpty( result.RefreshToken ) )
-              
-            SetRefreshTokenInCookie( result.RefreshToken , result.RefreshTokenExpiration );
+
+                SetRefreshTokenInCookie( result.RefreshToken , result.RefreshTokenExpiration );
 
             //return Ok(result);
 
@@ -94,38 +99,167 @@ namespace ECommerce.API.Controllers
         }
 
         // get refresh token 
-        [HttpGet("RefreshToken")]
-        public async Task<IActionResult> GetRefreshToken()
+        [HttpGet( "RefreshToken" )]
+        public async Task<IActionResult> GetRefreshToken( )
         {
-            var refreshToken = Request.Cookies["refreshToken"];
+            var refreshToken = Request.Cookies[ "refreshToken" ];
 
-            var result = await _authService.RefreshTokenASync(refreshToken);
+            var result = await _authService.RefreshTokenASync( refreshToken );
 
-            if (!result.IsAuthenticated)
-                return BadRequest(result);
+            if ( !result.IsAuthenticated )
+                return BadRequest( result );
 
-            SetRefreshTokenInCookie(result.RefreshToken, result.RefreshTokenExpiration);
+            SetRefreshTokenInCookie( result.RefreshToken , result.RefreshTokenExpiration );
 
-            return Ok(result);
+            return Ok( result );
         }
 
-        [HttpPost ("RevokeToken")] // create DTO to store refresh token which recieved from request 
-        public async Task<IActionResult> RevokeToken([FromBody] RevokeModel revoke )
+        [HttpPost( "RevokeToken" )] // create DTO to store refresh token which recieved from request 
+        public async Task<IActionResult> RevokeToken( [FromBody] RevokeModel revoke )
         {
             // in case token == null i.e user not send it then get it from cookies
-            var token = revoke.Token ?? Request.Cookies["refreshToken"];
+            var token = revoke.Token ?? Request.Cookies[ "refreshToken" ];
 
-            if (string.IsNullOrEmpty(token))
-                return BadRequest("Token Is Required");
+            if ( string.IsNullOrEmpty( token ) )
+                return BadRequest( "Token Is Required" );
 
             //in case the user already send token or his token exist in cookies then revoke his token from authmodel
-            var result =await _authService.RevokeTokenAsync(token);
+            var result = await _authService.RevokeTokenAsync( token );
 
-            if(!result)
-                return BadRequest("token is Invalid");
+            if ( !result )
+                return BadRequest( "token is Invalid" );
 
-            return Ok();
+            return Ok( );
 
+        }
+
+        //[HttpPut("Profile/{id}")]
+        //public async Task<IActionResult> UpdateProfile(string id,[FromBody] ProfileUserDto userDto)
+        //{
+
+        //    if (id != userDto.Id)
+        //    {
+        //        return BadRequest("Not Matched!");
+        //    }
+        //    if (ModelState.IsValid)
+        //    {
+
+        //        try
+        //        {
+
+
+        //            var data = await manager.UpdateProfile(id,userDto);
+
+
+        //            return Ok( data);
+        //        }
+        //        catch (Exception ex)
+
+        //        {
+        //            return BadRequest(ex.Message);
+        //        }
+        //    }
+        //    return BadRequest(ModelState);
+
+
+        //    //var UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //    //var userProfile = await user.FindByIdAsync(UserId);
+
+        //    //if ( userProfile == null)
+        //    //{
+        //    //    return NotFound("Data Not Valid");
+        //    //}
+
+        //    //var UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        //    //var userProfile = await user.FindByIdAsync(UserId);
+        //    //userProfile.FirstName = model.FirstName;
+        //    //userProfile.LastName = model.LastName;
+        //    //userProfile.PhoneNumber = model.PhoneNumber;
+        //    //userProfile.Email = model.Email;
+        //    //userProfile.UserName = model.UserName;
+
+        //    //var result = await user.UpdateAsync(userProfile);
+        //    //if (result.Succeeded)
+        //    //{
+        //    //    await signInManager.RefreshSignInAsync(userProfile);
+        //    //    return Ok(userProfile);
+        //    //}
+        //    //else
+        //    //{
+        //    //    return BadRequest(result.Errors);
+        //    //}
+
+        //    //    //await user.FindByIdAsync(model.Id);
+        //    //if (User == null)
+        //    //{
+        //    //    return NotFound();
+        //    //}
+
+        //    ////user.Email = model.Email;
+        //    //var result = await user.UpdateAsync(User);
+        //    //if (!result.Succeeded)
+        //    //{
+        //    //    return BadRequest(result.Errors);
+        //    //}
+
+        //    //return Ok();
+        //}
+
+
+
+        [Authorize]
+        [HttpPut( "profile" )]
+        public async Task<IActionResult> UpdateProfile( ProfileUserDto viewModel )
+        {
+            // Get the current user
+            var user = await userManager.GetUserAsync( User );
+            // Update the user's profile data
+            user.FirstName = viewModel.FirstName;
+            user.LastName = viewModel.LastName;
+            //user.Email = viewModel.Email;
+
+            // Save the changes to the database
+            var result = await userManager.UpdateAsync( user );
+
+            if ( !result.Succeeded )
+            {
+                return BadRequest( result.Errors );
+            }
+            return Ok( viewModel );
+
+        }
+        [HttpPut( "ForgetPassword" )]
+        public async Task<IActionResult> ResetPassword( ResetPasswordDto resetPassword )
+        {
+            var user = await userManager.FindByEmailAsync( resetPassword.UserEmailAddress );
+            if ( user == null )
+                return BadRequest( "User Not Fount" );
+            var result = await userManager.ResetPasswordAsync( user , resetPassword.Token , resetPassword.ConfirmPassword );
+            if ( !result.Succeeded )
+                return BadRequest( result.Errors );
+            return Ok( );
+        }
+        [HttpPost( "ForgetPassword" )]
+        public async Task<IActionResult> InitiateResetPasswordToken( ResetPasswordTokenInitDto tokenInitDto )
+        {
+            if ( !ModelState.IsValid )
+                return BadRequest( ModelState );
+            var user = await userManager.FindByEmailAsync( tokenInitDto.UserEmailAddress );
+            if ( user == null )
+                return NotFound( "User not found" );
+            var result = await userManager.GeneratePasswordResetTokenAsync( user );
+            if ( string.IsNullOrEmpty( result ) )
+                return BadRequest( "token not valid" );
+
+            // TODO: Email Service !Important
+
+
+            //TODO: Prevent DOS (Denial of service) attack using
+            //1- Token bucket algorithm
+            //2- Fixed window algorithm
+            //3- Sliding window algorithm
+
+            return Ok( new { Token = result } );
         }
 
     }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ECommerce.DAL.Models
+﻿namespace ECommerce.DAL.Models
 {
     public class MenuItem
     {
@@ -20,5 +14,8 @@ namespace ECommerce.DAL.Models
         public Category category { get; set; }
         public List<Order> Orders { get; set; }
         public List<Cart> Carts { get; set; }
+        public bool IsAccepted { get; set; }
+        public bool IsTopItem { get; set; }
+
     }
 }

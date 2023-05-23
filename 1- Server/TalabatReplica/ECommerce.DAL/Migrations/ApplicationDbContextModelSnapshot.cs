@@ -89,6 +89,12 @@ namespace ECommerce.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsAccepted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsTopItem")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -189,6 +195,36 @@ namespace ECommerce.Migrations
                         .IsUnique();
 
                     b.ToTable("Restaurants");
+                });
+
+            modelBuilder.Entity("ECommerce.DAL.Models.Review", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("CustomerID")
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("ResID")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CustomerID");
+
+                    b.HasIndex("ResID");
+
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.Test", b =>
@@ -493,6 +529,25 @@ namespace ECommerce.Migrations
                     b.Navigation("ApplicationResAdmin");
                 });
 
+            modelBuilder.Entity("ECommerce.DAL.Models.Review", b =>
+                {
+                    b.HasOne("ECommerce.DAL.Models.IdentityModels.ApplicationUser", "Customer")
+                        .WithMany("Reviews")
+                        .HasForeignKey("CustomerID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ECommerce.DAL.Models.Resturant", "Restaurant")
+                        .WithMany("Reviews")
+                        .HasForeignKey("ResID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Restaurant");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -596,11 +651,15 @@ namespace ECommerce.Migrations
             modelBuilder.Entity("ECommerce.DAL.Models.Resturant", b =>
                 {
                     b.Navigation("MenuItems");
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("ECommerce.DAL.Models.IdentityModels.ApplicationUser", b =>
                 {
                     b.Navigation("Restaurant");
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }
