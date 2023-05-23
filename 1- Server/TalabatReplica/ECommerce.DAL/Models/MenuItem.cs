@@ -15,6 +15,7 @@
         public List<Order> Orders { get; set; }
         public List<Cart> Carts { get; set; }
         public bool IsAccepted { get; set; }
+        public bool IsTopItem { get; set; }
 
     }
 }
