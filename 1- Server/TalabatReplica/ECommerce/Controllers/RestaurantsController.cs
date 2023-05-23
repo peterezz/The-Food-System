@@ -1,6 +1,9 @@
 ﻿using ECommerce.BAL.DTOs;
 using ECommerce.BAL.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Linq;
+
 namespace ECommerce.API.Controllers
 {
     [Route( "[controller]" )]
@@ -23,6 +26,38 @@ namespace ECommerce.API.Controllers
             return Ok( data );
         }
 
+        [HttpGet("GetResturantPage")]
+        public async Task<IActionResult> GetResturantsPages(int page = 1, int pageSize = 2)
+        {
+            var Restaurants = await restaurantManager.GetRestaurantsAsync();
+            var ResturantPage = Restaurants.Skip((page - 1) * pageSize)
+                                            .Take(pageSize)
+                                            .ToList();
+
+            return Ok(ResturantPage);
+
+            //var products =await restaurantManager.GetRestaurantsAsync();
+
+            //var totalCount = products.Count;
+            //var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+            //var results = products.Skip((page - 1) * pageSize)
+            //                      .Take(pageSize)
+            //                      .ToList();
+
+            //var paginationHeader = new
+            //{
+            //    currentPage = page,
+            //    totalPages = totalPages,
+            //    pageSize = pageSize,
+            //    totalCount = totalCount
+            //};
+
+            //Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationHeader));
+            //return Ok( results );
+
+        }
+
         // GET: RestaurantsController/Details/5
         [HttpGet( "{id:int}" , Name = "RestaurantDetails" )]
         public async Task<IActionResult> Details( int id )
@@ -34,6 +69,20 @@ namespace ECommerce.API.Controllers
                 return NotFound( "Restaurant not found" );
             return Ok( data );
         }
+
+        //Search About Restuarant By Restuarant Name
+
+        [HttpGet("{name:alpha}", Name = "SearchResturant")]
+        public async Task<IActionResult> SearchResturantByName(string name)
+        {
+            if (name == null)
+                return BadRequest("Not Name Entered Yet!");
+            var data = await restaurantManager.GetResturentByNameAsync(name);
+            if (data == null)
+                return NotFound("Restaurant not found");
+            return Ok(data);
+        }
+
 
         // GET: RestaurantsController/Create
         [HttpPost( Name = "CreateRestaurant" )]
