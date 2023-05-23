@@ -8,6 +8,7 @@ import { AllResturantsComponent } from './Components/all-resturants/all-resturan
 import { SingleproductComponent } from './Components/singleproduct/singleproduct.component';
 import { CartComponent } from './Components/cart/cart.component';
 import { PaymentComponent } from './Components/payment/payment.component';
+import { AdminDashbordComponent } from './Components/admin-dashbord/admin-dashbord.component';
 
 const routes: Routes = [
   {path:"", component: RestaurantComponent},
@@ -17,6 +18,8 @@ const routes: Routes = [
   {path:"singleProduct", component: SingleproductComponent},
   {path:"cart", component: CartComponent },
   {path:"pay", component: PaymentComponent },
+  {path:"Admin", component: AdminDashbordComponent },
+ 
   {path:"**", component: ErrorComponent}
 
 ];
