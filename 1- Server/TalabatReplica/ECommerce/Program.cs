@@ -23,7 +23,7 @@ namespace ECommerce
 
             //mapping values of JWT section in json file to properties in JWT class
 
-            builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
+       //     builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
 
             var connectionString = builder.Configuration.GetConnectionString("MyConn");
             //--------------------------------------//
@@ -47,7 +47,14 @@ namespace ECommerce
                 options.UseSqlServer( connectionString );
                 options.UseQueryTrackingBehavior( QueryTrackingBehavior.NoTracking );
             } );
-            
+
+
+            builder.Services.AddIdentity<ApplicationUser , IdentityRole>( )
+                .AddEntityFrameworkStores<ApplicationDbContext>( ).AddDefaultTokenProviders( );
+
+            //add my own components
+            builder.Services.AddScoped<IAouthRepo , AuthServices>( );
+
 
             #endregion
 
@@ -100,8 +107,8 @@ namespace ECommerce
 
 
             //Define Identity Services
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddBaseRepo( );
 
