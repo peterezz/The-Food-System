@@ -24,7 +24,7 @@ namespace ECommerce
 
             //mapping values of JWT section in json file to properties in JWT class
 
-            builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
+       //     builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
 
             var connectionString = builder.Configuration.GetConnectionString("MyConn");
             //--------------------------------------//
@@ -109,8 +109,8 @@ namespace ECommerce
             builder.Services.AddScoped<IPayPalRepo, PayPalServices>();
 
             //Define Identity Services
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddBaseRepo( );
 
