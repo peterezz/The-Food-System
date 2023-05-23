@@ -14,6 +14,15 @@ import { AllResturantsComponent } from './Components/all-resturants/all-resturan
 import { AllResturantsItemsComponent } from './Components/all-resturants-items/all-resturants-items.component';
 import { SingleproductComponent } from './Components/singleproduct/singleproduct.component';
 import { CartComponent } from './Components/cart/cart.component';
+import { MatSidenavModule} from'@angular/material/sidenav'
+import {MatIconModule} from'@angular/material/icon'
+import {MatTooltipModule} from'@angular/material/tooltip'
+
+import { PaymentComponent } from './Components/payment/payment.component';
+import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
+import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
+import { ContactComponent } from './Components/contact/contact.component';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +37,10 @@ import { CartComponent } from './Components/cart/cart.component';
     AllResturantsItemsComponent,
     SingleproductComponent,
     CartComponent,
+    PaymentComponent,
+    ForgotPasswordComponent,
+    SetnewpasswordComponent,
+    ContactComponent,
 
   ],
   imports: [
@@ -36,7 +49,11 @@ import { CartComponent } from './Components/cart/cart.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSidenavModule,
+    MatIconModule,
+    MatTooltipModule
+    
 
   ],
   providers: [],
