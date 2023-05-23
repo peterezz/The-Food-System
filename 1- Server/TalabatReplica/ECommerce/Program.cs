@@ -1,6 +1,5 @@
 using ECommerce.API.Cofigurations.Filters;
 using ECommerce.BAL.Services;
-using ECommerce.DAL.Models.Client;
 using ECommerce.DAL.Models.IdentityModels;
 using ECommerce.DAL.Reposatory.Repo;
 using ECommerce.DAL.Reposatory.RepoServices;
@@ -24,7 +23,7 @@ namespace ECommerce
 
             //mapping values of JWT section in json file to properties in JWT class
 
-            builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
+       //     builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
 
             var connectionString = builder.Configuration.GetConnectionString("MyConn");
             //--------------------------------------//
@@ -48,7 +47,14 @@ namespace ECommerce
                 options.UseSqlServer( connectionString );
                 options.UseQueryTrackingBehavior( QueryTrackingBehavior.NoTracking );
             } );
-            
+
+
+            builder.Services.AddIdentity<ApplicationUser , IdentityRole>( )
+                .AddEntityFrameworkStores<ApplicationDbContext>( ).AddDefaultTokenProviders( );
+
+            //add my own components
+            builder.Services.AddScoped<IAouthRepo , AuthServices>( );
+
 
             #endregion
 
@@ -99,11 +105,10 @@ namespace ECommerce
 
             builder.Services.AddScoped<IAouthRepo, AuthServices>();
 
-            builder.Services.AddScoped<IPayPalRepo, PayPalServices>();
 
             //Define Identity Services
-            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddBaseRepo( );
 
@@ -115,21 +120,6 @@ namespace ECommerce
             {
                 options.Filters.Add( new ExceptionFilter( builder.Environment ) );
             } );
-
-            #endregion
-
-
-            #region PayPal
-
-            //register the PaypalClient class as a singleton service
-            // paypal client configuration
-            builder.Services.AddSingleton( x =>
-                new PaypalClient(
-                    builder.Configuration[ "PayPalOptions:ClientId" ] ,
-                    builder.Configuration[ "PayPalOptions:ClientSecret" ] ,
-                    builder.Configuration[ "PayPalOptions:Mode" ]
-                )
-            );
 
             #endregion
 

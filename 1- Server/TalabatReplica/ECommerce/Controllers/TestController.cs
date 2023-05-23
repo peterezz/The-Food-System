@@ -1,7 +1,4 @@
 
-﻿//using ECommerce.BAL.Managers;
-//using Microsoft.AspNetCore.Mvc;
-
 //namespace ECommerce.API.Controllers
 //{
 //    [Route( "[controller]" )]
@@ -14,11 +11,12 @@
 //        {
 //            this.manager = manager;
 //        }
+//        [Authorize]
 //        [HttpGet( Name = "test" )]
 //        public async Task<IActionResult> GetTests( )
 //        {
 //            var data = await manager.GetAllTestsAsync( );
 //            return Ok( data );
 //        }
-//    }
+
 //}
