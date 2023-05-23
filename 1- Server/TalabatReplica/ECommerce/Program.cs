@@ -1,6 +1,5 @@
 using ECommerce.API.Cofigurations.Filters;
 using ECommerce.BAL.Services;
-using ECommerce.DAL.Models.Client;
 using ECommerce.DAL.Models.IdentityModels;
 using ECommerce.DAL.Reposatory.Repo;
 using ECommerce.DAL.Reposatory.RepoServices;
@@ -99,7 +98,6 @@ namespace ECommerce
 
             builder.Services.AddScoped<IAouthRepo, AuthServices>();
 
-            builder.Services.AddScoped<IPayPalRepo, PayPalServices>();
 
             //Define Identity Services
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
@@ -115,21 +113,6 @@ namespace ECommerce
             {
                 options.Filters.Add( new ExceptionFilter( builder.Environment ) );
             } );
-
-            #endregion
-
-
-            #region PayPal
-
-            //register the PaypalClient class as a singleton service
-            // paypal client configuration
-            builder.Services.AddSingleton( x =>
-                new PaypalClient(
-                    builder.Configuration[ "PayPalOptions:ClientId" ] ,
-                    builder.Configuration[ "PayPalOptions:ClientSecret" ] ,
-                    builder.Configuration[ "PayPalOptions:Mode" ]
-                )
-            );
 
             #endregion
 
