@@ -129,6 +129,21 @@ header .shopping span{
   margin: 0 10px;
 }
 
+
+
+
+
+
+
+
+
+
+
+.cont{
+  z-index: 1 ;
+}
+
+
 .sidebar {
 
   height: 100%;
@@ -139,7 +154,7 @@ header .shopping span{
   background-color:#051922  ;
   overflow-x: hidden;
   padding-top: 20px;
-  z-index: 5000000;
+  z-index: 50;
 }
 
 .hidde{
