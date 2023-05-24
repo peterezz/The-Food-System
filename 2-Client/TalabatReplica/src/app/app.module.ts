@@ -22,6 +22,12 @@ import { PaymentComponent } from './Components/payment/payment.component';
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
 import { ContactComponent } from './Components/contact/contact.component';
+import { CategoryItemsComponent } from './Components/category-items/category-items.component';
+import { RouterLink } from '@angular/router';
+// import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
+// import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
+// import { ContactComponent } from './Components/contact/contact.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +45,7 @@ import { ContactComponent } from './Components/contact/contact.component';
     ForgotPasswordComponent,
     SetnewpasswordComponent,
     ContactComponent,
+    CategoryItemsComponent,
 
 
 
@@ -53,7 +60,13 @@ import { ContactComponent } from './Components/contact/contact.component';
     // MatSidenavModule,
     // MatIconModule,
     // MatTooltipModule
-    
+
+    RouterLink,
+    // MatSidenavModule,
+    // MatIconModule,
+    // MatTooltipModule
+
+
 
   ],
   providers: [],

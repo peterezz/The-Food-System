@@ -12,9 +12,11 @@ import { AdminDashbordComponent } from './Components/admin-dashbord/admin-dashbo
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
 import { ContactComponent } from './Components/contact/contact.component';
+import { CategoryItemsComponent } from './Components/category-items/category-items.component';
 
 const routes: Routes = [
   {path:"", component: RestaurantComponent},
+  {path:"category/:name", component: CategoryItemsComponent},
   {path:"login", component: LoginComponent},
   {path:"checkOut", component: CheckOutComponent},
   {path:"AllResturants", component: AllResturantsComponent},

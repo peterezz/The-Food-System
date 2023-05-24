@@ -31,4 +31,4 @@ const barConfig = {
 }
 
 const barsCtx = document.getElementById('bars')
-window.myBar = new Chart(barsCtx, barConfig)
+
