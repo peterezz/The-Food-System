@@ -240,7 +240,7 @@ namespace ECommerce.API.Controllers
             return Ok( );
         }
         [HttpPost( "ForgetPassword" )]
-        public async Task<IActionResult> InitiateResetPasswordToken( ResetPasswordTokenInitDto tokenInitDto )
+        public async Task<IActionResult> InitiateResetPasswordToken( [FromBody] ResetPasswordTokenInitDto tokenInitDto )
         {
             if ( !ModelState.IsValid )
                 return BadRequest( ModelState );
