@@ -19,8 +19,8 @@ namespace ECommerce.API.Cofigurations.Filters
 
             context.Result = new ContentResult
             {
-                //StatusCode = 500 ,
-                //Content = context.Exception.Message
+                StatusCode = 500 ,
+                Content = context.Exception.Message
 
             };
         }

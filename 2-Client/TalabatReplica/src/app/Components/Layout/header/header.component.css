@@ -168,6 +168,7 @@ header .shopping span{
   color: white;
   padding: 16px;
   text-decoration: none;
+
 }
 
 .sidebar a:hover {
@@ -180,7 +181,11 @@ header .shopping span{
   padding: 20px;
 }
 
-
+.sidebar-nav .offcanvas {
+  background-color:#0a1b22  ;
+    width: 220px;
+    border: none;
+}
 
 
 

@@ -24,6 +24,12 @@ namespace ECommerce.BAL.Managers
         {
             return Mapper.Map<List<CategoryDto>>(await GetAllAsync());
         }
+
+        public async Task<List<CategoryItemDto>> GetCategoryItemsAsync(string name)
+        {
+            return Mapper.Map<List<CategoryItemDto>>(await GetWhereAsync(cat => cat.Name == name , item => item.MenuItems));
+        }
+
         public async Task<CategoryDto> GetCategoryAsync(int id)
         {
             return Mapper.Map<CategoryDto>(await GetByIdAsync(id));

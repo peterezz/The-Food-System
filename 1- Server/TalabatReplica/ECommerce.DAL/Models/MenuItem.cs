@@ -1,4 +1,4 @@
-﻿namespace ECommerce.DAL.Models
+namespace ECommerce.DAL.Models
 {
     public class MenuItem
     {
