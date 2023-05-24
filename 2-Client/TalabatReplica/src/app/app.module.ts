@@ -23,6 +23,11 @@ import { ForgotPasswordComponent } from './Components/forgot-password/forgot-pas
 import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
 import { ContactComponent } from './Components/contact/contact.component';
 import { CategoryItemsComponent } from './Components/category-items/category-items.component';
+import { RouterLink } from '@angular/router';
+// import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
+// import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
+// import { ContactComponent } from './Components/contact/contact.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +60,12 @@ import { CategoryItemsComponent } from './Components/category-items/category-ite
     // MatSidenavModule,
     // MatIconModule,
     // MatTooltipModule
+
+    RouterLink,
+    // MatSidenavModule,
+    // MatIconModule,
+    // MatTooltipModule
+
 
 
   ],
