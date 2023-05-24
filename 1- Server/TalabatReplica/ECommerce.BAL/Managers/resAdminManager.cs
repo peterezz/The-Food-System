@@ -69,8 +69,6 @@ namespace ECommerce.BAL.Managers
         {
             var user = userman.FindByIdAsync(dto.id).Result;
             user.Email=dto.Email;
-            user.FirstName=dto.FirstName;  
-            user.LastName=dto.LastName;
             user.EmailConfirmed = dto.EmailConfirm;
          //   var data = Mapper.Map<ApplicationUser>(dto);
             

@@ -7,8 +7,8 @@ namespace ECommerce.API.Controllers
     [ApiController]
     public class SecuredController : ControllerBase
     {
-        [HttpGet("Check")]
         [Authorize]
+        [HttpGet("Check")]
         public IActionResult Get()
         {
             return Ok("Welcome in refresh token tester");
