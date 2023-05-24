@@ -1,4 +1,4 @@
-
+<div class="panar"></div>
 <div id="container"></div>
 
 <div
@@ -10,12 +10,12 @@ class="flex h-screen bg-gray-50 dark:bg-gray-900"
   class="z-20  w-64 overflow-y-auto bg-white dark:bg-gray-800 md:block flex-shrink-0"
 >
   <div class="py-4 text-gray-500 dark:text-gray-400">
-    <a
+    <!-- <a
       class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
       href="#"
     >
     Admin Dashboard
-    </a>
+    </a> -->
     <ul class="mt-6">
       <li class="relative px-6 py-3">
         <!-- <a
@@ -68,9 +68,10 @@ class="flex h-screen bg-gray-50 dark:bg-gray-900"
           <span class="ml-4">Add Product</span>
         </a>
       </li>
+      
+      <!-- <li class="relative px-6 py-3">
 
-      <li class="relative px-6 py-3">
-        <a
+       <a
           class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
           href="cards.html"
         >
@@ -89,9 +90,9 @@ class="flex h-screen bg-gray-50 dark:bg-gray-900"
             ></path>
           </svg>
           <span class="ml-4"> Updat Product</span>
-        </a>
-      </li>
+        </a> 
 
+      </li> -->
 <!--
       <li class="relative px-6 py-3">
         <a
@@ -262,6 +263,8 @@ class="flex h-screen bg-gray-50 dark:bg-gray-900"
         </template>
       </li> -->
     </ul>
+
+
 
     <!-- <div class="px-6 my-6">
       <button
@@ -809,87 +812,124 @@ class="flex h-screen bg-gray-50 dark:bg-gray-900"
     </div>
   </header>
   <main class="h-full pb-16 overflow-y-auto">
+
+
+
     <div class="container px-6 mx-auto grid">
-      <h2
-        class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
-      >
-       product
-      </h2>
+  
       <!-- CTA -->
+
+
+
+      <!-- <div class="checkout-section "> -->
+        <div class="container mt-3">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="checkout-accordion-wrap">
+                <div class="accordion" id="accordionExample">
+             
+
+                  <div class="card single-accordion">
+                    <div class="card-header" id="headingThree">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                          Add Product
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                      <div class="card-body">
+                    
+                        <div
+                        class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
+                      >
+                      <!-- /////////////////////////////////////////////////// -->
+                      <!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+                        <label class="block text-sm">
+                          <span class="text-gray-700 dark:text-gray-400">title</span>
+                          <input
+                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            placeholder="Jane Doe"
+                          />
+                        </label>
+                
+                        <label class="block text-sm">
+                          <span class="text-gray-700 dark:text-gray-400">price</span>
+                          <input
+                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            placeholder="Jane Doe"
+                          />
+                        </label>
+                
+                
+                        <label class="block mt-4 text-sm">
+                          <span class="text-gray-700 dark:text-gray-400">
+                            catigorys
+                          </span>
+                          <select
+                            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                          >
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                          </select>
+                        </label>
+                
+                
+                
+                        <label class="block mt-4 text-sm">
+                          <span class="text-gray-700 dark:text-gray-400">discription</span>
+                          <textarea
+                            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                            rows="3"
+                            placeholder="Enter some long form content."
+                          ></textarea>
+                        </label>
+                
+                
+                        <label class="block text-sm">
+                          <span class="text-gray-700 dark:text-gray-400">Img</span>
+                          <input  type="file"
+                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            placeholder="Jane Doe"
+                          />
+                        </label>
+                
+                
+                        <div class="px-6 my-6">
+                          <button
+                            class="flex items-center justify-between
+                             px-4 py-2 text-sm font-medium leading-5
+                             text-white transition-colors duration-150 bg-purple-600
+                             border border-transparent rounded-lg active:bg-purple-600
+                             hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                          >
+                
+                            add product
+                            <span class="ml-2" aria-hidden="true">+</span>
+                          </button>
+                        </div>
+
+
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+        
+              </div>
+            </div>
+        
+      
+          </div>
+        </div>
+        <!-- </div> -->
 
 
       <!-- General elements -->
 
-      <div
-        class="px-4 py-3 mb-8 bg-white rounded-lg shadow-md dark:bg-gray-800"
-      >
-      <!-- /////////////////////////////////////////////////// -->
-      <!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
-        <label class="block text-sm">
-          <span class="text-gray-700 dark:text-gray-400">title</span>
-          <input
-            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-            placeholder="Jane Doe"
-          />
-        </label>
 
-        <label class="block text-sm">
-          <span class="text-gray-700 dark:text-gray-400">price</span>
-          <input
-            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-            placeholder="Jane Doe"
-          />
-        </label>
-
-
-        <label class="block mt-4 text-sm">
-          <span class="text-gray-700 dark:text-gray-400">
-            catigorys
-          </span>
-          <select
-            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-          >
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-          </select>
-        </label>
-
-
-
-        <label class="block mt-4 text-sm">
-          <span class="text-gray-700 dark:text-gray-400">discription</span>
-          <textarea
-            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
-            rows="3"
-            placeholder="Enter some long form content."
-          ></textarea>
-        </label>
-
-
-        <label class="block text-sm">
-          <span class="text-gray-700 dark:text-gray-400">Img</span>
-          <input  type="file"
-            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-            placeholder="Jane Doe"
-          />
-        </label>
-
-
-        <div class="px-6 my-6">
-          <button
-            class="flex items-center justify-between
-             px-4 py-2 text-sm font-medium leading-5
-             text-white transition-colors duration-150 bg-purple-600
-             border border-transparent rounded-lg active:bg-purple-600
-             hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-          >
-
-            add product
-            <span class="ml-2" aria-hidden="true">+</span>
-          </button>
-        </div>
 
       <!-- /////////////////////////////////////////////////// -->
       <!-- \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
@@ -941,6 +981,123 @@ class="flex h-screen bg-gray-50 dark:bg-gray-900"
             <option>Option 5</option>
           </select>
         </label>-->
+        <h2
+        class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200"
+      >
+       Product List
+      </h2>
+
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>
+                <!-- <span class="custom-checkbox">
+                    <input type="checkbox" id="selectAll">
+                    <label for="selectAll"></label>
+                  </span> -->
+              </th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+    
+            <tr>
+              <td>
+        
+              </td>
+              <td>Thomas Hardy</td>
+              <td>thomashardy@mail.com</td>
+              <td>89 Chiaroscuro Rd, Portland, USA</td>
+              <td>(171) 555-2222</td>
+              <td>
+                <a href="#editEmployeeModal" class="edit" data-toggle="modal">
+          <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
+                <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+          <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
+              </td>
+            </tr>
+    
+    
+          </tbody>
+        </table>
+
+
+
+
+
+
+        <div id="editEmployeeModal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form>
+                <div class="modal-header">
+                  <h4 class="modal-title">Edit Employee</h4>
+                  <button type="button" class="close" data-dismiss="modal" 
+              aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <div class="form-group">
+                    <label>title</label>
+                    <input type="text" class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <label>price</label>
+                    <input type="email" class="form-control" required>
+                  </div>
+
+                
+                  <label class="block mt-4 text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">
+                      catigorys
+                    </span>
+                    <select
+                      class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                    >
+                      <option>1</option>
+                      <option>2</option>
+                      <option>3</option>
+                      <option>4</option>
+                    </select>
+                  </label>
+          
+          
+          
+                  <label class="block mt-4 text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">discription</span>
+                    <textarea
+                      class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                      rows="3"
+                      placeholder="Enter some long form content."
+                    ></textarea>
+                  </label>
+          
+          
+                  <label class="block text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">Img</span>
+                    <input  type="file"
+                      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                      placeholder="Jane Doe"
+                    />
+                  </label>
+                </div>
+                <div class="modal-footer">
+                  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                  <input type="submit" class="btn btn-info" value="Save">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
 
 
 
