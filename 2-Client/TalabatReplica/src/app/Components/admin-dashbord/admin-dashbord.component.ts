@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Output  } from '@angular/core';
+
 
 @Component({
   selector: 'app-admin-dashbord',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
 
 })
 export class AdminDashbordComponent {
-
+// @Output () hidden="hidden"
 }
