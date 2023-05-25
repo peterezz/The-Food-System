@@ -23,13 +23,15 @@ namespace ECommerce
 
             //mapping values of JWT section in json file to properties in JWT class
 
-       //     builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
+            //     builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
 
             var connectionString = builder.Configuration.GetConnectionString("MyConn");
+
+            //var connectionString = "Data Source=.;Initial Catalog=TalabatReplica;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
             //--------------------------------------//
 
             //        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            //options.UseSqlServer(builder.Configuration.GetConnectionString("MyConn")));
+            //options.UseSqlServer(builder.Configuration.GetConnectionString("Data Source=.;Initial Catalog=TalabatReplica;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False")));
 
             //--------------------------------------//
 
@@ -79,16 +81,16 @@ namespace ECommerce
                    {
 
                        //define which datawill be validate
-                       ValidateIssuerSigningKey = true ,
-                       ValidateIssuer = true ,
-                       ValidateAudience = true ,
-                       ValidateLifetime = true ,
+                       ValidateIssuerSigningKey = true,
+                       ValidateIssuer = true,
+                       ValidateAudience = true,
+                       ValidateLifetime = true,
 
                        //define data to compare with it
-                       ValidIssuer = builder.Configuration[ "JWT:Issuer" ] ,
-                       ValidAudience = builder.Configuration[ "JWT:Audience" ] ,
+                       ValidIssuer = builder.Configuration["JWT:Issuer"],
+                       ValidAudience = builder.Configuration["JWT:Audience"],
                        IssuerSigningKey = new SymmetricSecurityKey
-                                              ( Encoding.UTF8.GetBytes( builder.Configuration[ "JWT:Key" ] ) ) ,
+                                              (Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
                        ClockSkew = TimeSpan.Zero // to expire token after determined time not set delay time after expiration                
 
                    };
