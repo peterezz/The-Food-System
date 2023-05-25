@@ -11,16 +11,17 @@ namespace ECommerce.API.Controllers
     {
         private readonly UserManager<ApplicationUser> userManager;
         private readonly SignInManager<ApplicationUser> signInManager;
-
+        private readonly IEmailService emailService;
 
         public IAouthRepo _authService { get; }
 
 
-        public AuthController( UserManager<ApplicationUser> userManager , IAouthRepo aouthRepo , SignInManager<ApplicationUser> signInManager )
+        public AuthController( UserManager<ApplicationUser> userManager , IAouthRepo aouthRepo , SignInManager<ApplicationUser> signInManager , IEmailService emailService )
         {
             this.userManager = userManager;
             _authService = aouthRepo;
             this.signInManager = signInManager;
+            this.emailService = emailService;
         }
 
         [HttpPost( "Register" )]
@@ -251,15 +252,30 @@ namespace ECommerce.API.Controllers
             if ( string.IsNullOrEmpty( result ) )
                 return BadRequest( "token not valid" );
 
+
+
             // TODO: Email Service !Important
 
+            //Email Body
+            var filePath = $"{Directory.GetCurrentDirectory( )}\\Templates\\EmailTemplate.html";
+
+            var BackgroundPath = $"{Directory.GetCurrentDirectory( )}\\Templates\\Asset 1.png";
+            var str = new StreamReader( filePath );
+
+            var mailText = str.ReadToEnd( );
+            str.Close( );
+
+
+            mailText = mailText.Replace( "[username]" , tokenInitDto.UserEmailAddress.Split( '@' )[ 0 ] ).Replace( "[email]" , tokenInitDto.UserEmailAddress ).Replace( "[token]" , result );
+
+            await emailService.SendEmailAsync( tokenInitDto.UserEmailAddress , mailText , "Reset Password" );
 
             //TODO: Prevent DOS (Denial of service) attack using
             //1- Token bucket algorithm
             //2- Fixed window algorithm
             //3- Sliding window algorithm
 
-            return Ok( new { Token = result } );
+            return Ok( "Email sent" );
         }
 
     }
