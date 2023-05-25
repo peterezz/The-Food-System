@@ -23,37 +23,15 @@
   <div class="container" >
 
     <div class="row" >
-              <div class="col-md-12 order:1 mb-5" >
+              <div class="col-md-12" >
                   <div class="product-filters" >
-                      <ul  >
+                      <ul >
                           <!-- <li class="active" data-filter="*">All</li> -->
                           <!-- <li><a routerLink="/category/{{c.name}}">{{c.name}}</a></li> -->
-                          <li *ngFor="let c of categories"  ><a  class="text-decoration-none text-dark" routerLink="/category/{{c.name}}">{{c.name}}</a>
-                          </li>
-                            <!-- <li data-filter=".lemon">Lemon</li> -->
+                          <li *ngFor="let c of categories" ><a class="text-decoration-none text-dark" routerLink="/category/{{c.name}}">{{c.name}}</a></li>
+                          <!-- <li data-filter=".lemon">Lemon</li> -->
                       </ul>
-
-
                   </div>
-
-                  <div class="row product-lists" >
-                    <div class="  col-lg-4 col-md-6 text-center strawberry mb-5 "  *ngFor="let c of categories"  >
-                      <div class="single-product-item mb-5" >
-                        <div class="product-image">
-                          <a href="\singleProduct"><img src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Thumbnail/0ec204db-24b2-45fe-8de1-ee586c92f969.jpg" alt=""></a>
-                        </div>
-                        <h3>{{c.name}}</h3>
-                        <p class="product-price"><span>Per Kg</span> 85$ </p>
-                        <a href="cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                      </div>
-
-
-     
-
-                </div>
-              </div>
-              
-              
               </div>
           </div>
 
@@ -61,20 +39,3 @@
   </div>
   <!-- </div> -->
   <!-- end products -->
-
-
-
-  <div class="col-lg-12 text-center mt-5 mb-5 order:2" style="height: 50px; ;"></div>
-
-<!-- <div class="row mt-5 order: -1 " > -->
-  <div class="col-lg-12 text-center order:50 mt-5 ">
-    <div class="pagination-wrap">
-      <ul>
-        <li><a href="#">Prev</a></li>
-        <li><a href="#">1</a></li>
-        <li><a class="active" href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">Next</a></li>
-      </ul>
-    </div>
-  </div>

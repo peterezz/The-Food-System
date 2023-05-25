@@ -15,10 +15,11 @@ export class RestaurantComponent implements OnInit {
 
       }
   ngOnInit(): void {
+
+
     this.service.GetAllCategories().subscribe({
       next:(data)=>{
         this.categories = data;
-        console.log(data);
       }
     })
 

@@ -27,7 +27,6 @@ const routes: Routes = [
   {path:"forgetpassword", component: ForgotPasswordComponent },
   {path:"setnewpassword", component: SetnewpasswordComponent },
   {path:"contactus", component: ContactComponent },
-  {path:"menue", component: CategoryItemsComponent },
   {path:"**", component: ErrorComponent}
 
 ];
