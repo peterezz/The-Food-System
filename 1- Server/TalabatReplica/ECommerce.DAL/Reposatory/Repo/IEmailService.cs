@@ -4,6 +4,6 @@ namespace ECommerce.DAL.Reposatory.Repo
 {
     public interface IEmailService
     {
-        Task SendEmailAsync( string mailTo , string body , IList<IFormFile> attachments = null );
+        Task SendEmailAsync( string mailTo , string subject , string body , IList<IFormFile> attachments = null );
     }
 }
