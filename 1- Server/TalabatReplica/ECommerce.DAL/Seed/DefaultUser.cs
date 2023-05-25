@@ -31,8 +31,8 @@ namespace ECommerce.DAL.Seed
         {
             var appOwner = new ApplicationUser
             {
-                Email = "appowner@talabat.com" ,
-                UserName = "appowner@talabat.com" ,
+                Email = "peterezzat97@gmail.com" ,
+                UserName = "peterezzat97@gmail.com" ,
                 EmailConfirmed = true ,
                 FirstName = "App" ,
                 LastName = "Owner"
