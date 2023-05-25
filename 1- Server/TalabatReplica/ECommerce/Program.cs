@@ -1,9 +1,9 @@
 using ECommerce.API.Cofigurations.Filters;
 using ECommerce.BAL.Services;
+using ECommerce.DAL.Helpers;
 using ECommerce.DAL.Models.IdentityModels;
 using ECommerce.DAL.Reposatory.Repo;
 using ECommerce.DAL.Reposatory.RepoServices;
-using ECommerce.DAL.Services;
 using ECommerce.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -23,9 +23,9 @@ namespace ECommerce
 
             //mapping values of JWT section in json file to properties in JWT class
 
-       //     builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
+            //     builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
 
-            var connectionString = builder.Configuration.GetConnectionString("MyConn");
+            var connectionString = builder.Configuration.GetConnectionString( "MyConn" );
             //--------------------------------------//
 
             //        builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -103,7 +103,7 @@ namespace ECommerce
 
             #region add my own services
 
-            builder.Services.AddScoped<IAouthRepo, AuthServices>();
+            builder.Services.AddScoped<IAouthRepo , AuthServices>( );
 
 
             //Define Identity Services
@@ -128,14 +128,14 @@ namespace ECommerce
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer( );
-           // await builder.Services.AddIdentityService( );
+            // await builder.Services.AddIdentityService( );
             builder.Services.AddBaseRepo( );
             builder.Services.AddAutoMapper( );
             builder.Services.AddManagersServices( );
             builder.Services.AddControllers( options =>
             {
-                options.Filters.Add( new ExceptionFilter( builder.Environment ));
-            }).AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+                options.Filters.Add( new ExceptionFilter( builder.Environment ) );
+            } ).AddNewtonsoftJson( x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore );
 
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -148,7 +148,8 @@ namespace ECommerce
                     options.AllowAnyMethod( ).AllowAnyHeader( ).AllowAnyOrigin( );
                 } );
             } );
-
+            //Email service
+            builder.Services.Configure<MailSettings>( builder.Configuration.GetSection( "MailSettings" ) );
 
             var app = builder.Build( );
 
