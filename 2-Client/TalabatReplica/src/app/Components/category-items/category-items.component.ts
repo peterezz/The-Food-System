@@ -16,11 +16,11 @@ export class CategoryItemsComponent  implements OnInit {
 
   }
   ngOnInit(): void {
-    this.service.GetCategoryByName(this.name).subscribe({
-      next:(data)=>{
-        console.log(data);
-      }
-    });
+    // this.service.GetCategoryByName(this.name).subscribe({
+    //   next:(data)=>{
+    //     console.log(data);
+    //   }
+    // });
   }
 
 }
