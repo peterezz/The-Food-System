@@ -20,6 +20,7 @@ export class ForgotPasswordComponent implements OnDestroy {
   });
   serviceSubscription: Subscription = new Subscription();
   public serverMss:string="";
+  
   get inValidEmail() {
     return this.forgetPasswordFormGroup.controls.UserEmailAddress.invalid && (this.forgetPasswordFormGroup.controls.UserEmailAddress.dirty || this.forgetPasswordFormGroup.controls.UserEmailAddress.touched);
   }
