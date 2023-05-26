@@ -1,25 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { EmailValidator } from '@angular/forms';
-import { LoginModule } from '../Models/login/login.module';
+import { Login } from '../Models/login.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
+  private BaseUrl:string="https://localhost:7065/Login";
 
-  private BaseUrl:string="hhttps://localhost:44318/Login";
-
-  constructor(private httpClient:  HttpClient  )
+  constructor(private httpClient:  HttpClient )
    {
 
    }
   
-   UserLogin(UserData:LoginModule)
+   UserLogin(UserData:Login)
    {
-     return this.httpClient.post(this.BaseUrl,{Email:UserData.Email, Pass:UserData.Password})
-   }
-
+     return this.httpClient.post(this.BaseUrl,UserData)
+   };
 
 }
