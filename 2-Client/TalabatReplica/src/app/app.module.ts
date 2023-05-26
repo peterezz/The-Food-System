@@ -20,6 +20,7 @@ import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassw
 import { ContactComponent } from './Components/contact/contact.component';
 import { CategoryItemsComponent } from './Components/category-items/category-items.component';
 import { RouterLink } from '@angular/router';
+import { FilterbycatComponent } from './Components/filterbycat/filterbycat.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { RouterLink } from '@angular/router';
     SetnewpasswordComponent,
     ContactComponent,
     CategoryItemsComponent,
+    FilterbycatComponent,
 
 
 

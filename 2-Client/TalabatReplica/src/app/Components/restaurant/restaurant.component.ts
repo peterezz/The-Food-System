@@ -11,7 +11,8 @@ export class RestaurantComponent implements OnInit {
   name:any;
   categories:any;
   items:any;
-      constructor(public service:CategoryService, myRoute: ActivatedRoute){
+  alldishes:any[]=[];
+      constructor(public service:CategoryService  , myRoute: ActivatedRoute){
 
       }
   ngOnInit(): void {
@@ -20,8 +21,39 @@ export class RestaurantComponent implements OnInit {
     this.service.GetAllCategories().subscribe({
       next:(data)=>{
         this.categories = data;
+        console.log(this.items)
       }
     })
+
+    this.service.GetAllDises().subscribe({
+      next:(data:any)=>{
+         this.alldishes = data;
+         console.log(this.alldishes)
+      }
+    })
+
+
+
+  }
+
+  filterbycat(catname:any){
+   let value = catname.target.value
+    console.log(value)
+if(value=="All"){
+  this.service.GetAllDises().subscribe({
+    next:(data:any)=>{
+       this.alldishes = data;
+       console.log(this.alldishes)
+    }
+  })
+}else
+   
+    this.service.GetCategoryByName(value).subscribe({
+      next:(data:any)=>{
+        console.log(data);
+        this.alldishes=data;
+      }
+    });
 
   }
 
