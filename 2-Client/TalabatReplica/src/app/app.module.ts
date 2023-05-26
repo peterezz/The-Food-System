@@ -24,6 +24,7 @@ import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassw
 import { ContactComponent } from './Components/contact/contact.component';
 import { CategoryItemsComponent } from './Components/category-items/category-items.component';
 import { RouterLink } from '@angular/router';
+import { FilterbycatComponent } from './Components/filterbycat/filterbycat.component';
 // import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 // import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
 // import { ContactComponent } from './Components/contact/contact.component';
@@ -46,6 +47,7 @@ import { RouterLink } from '@angular/router';
     SetnewpasswordComponent,
     ContactComponent,
     CategoryItemsComponent,
+    FilterbycatComponent,
 
 
 
