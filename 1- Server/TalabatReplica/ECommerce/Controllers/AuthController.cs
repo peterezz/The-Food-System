@@ -230,14 +230,14 @@ namespace ECommerce.API.Controllers
 
         }
         [HttpPut( "ForgetPassword" )]
-        public async Task<IActionResult> ResetPassword( ResetPasswordDto resetPassword )
+        public async Task<IActionResult> ResetPassword( [FromBody] ResetPasswordDto resetPassword )
         {
             var user = await userManager.FindByEmailAsync( resetPassword.UserEmailAddress );
             if ( user == null )
                 return BadRequest( "User Not Fount" );
             var result = await userManager.ResetPasswordAsync( user , resetPassword.Token , resetPassword.ConfirmPassword );
             if ( !result.Succeeded )
-                return BadRequest( result.Errors );
+                return BadRequest( "Reset Password time out, Please try again later" );
             return Ok( );
         }
         [HttpPost( "ForgetPassword" )]
