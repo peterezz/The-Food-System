@@ -42,7 +42,7 @@ export class ForgotPasswordComponent implements OnDestroy {
           },
           error: (err:HttpErrorResponse) => {
             console.log('error: ' + err.error);
-            this.serverMss =err.error
+            this.serverMss =err.error;
           },
         });
     }
