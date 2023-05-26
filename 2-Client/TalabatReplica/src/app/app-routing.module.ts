@@ -13,6 +13,7 @@ import { ForgotPasswordComponent } from './Components/forgot-password/forgot-pas
 import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
 import { ContactComponent } from './Components/contact/contact.component';
 import { CategoryItemsComponent } from './Components/category-items/category-items.component';
+import { FilterbycatComponent } from './Components/filterbycat/filterbycat.component';
 
 const routes: Routes = [
   {path:"", component: RestaurantComponent},
@@ -27,6 +28,8 @@ const routes: Routes = [
   {path:"forgetpassword", component: ForgotPasswordComponent },
   {path:"setnewpassword", component: SetnewpasswordComponent },
   {path:"contactus", component: ContactComponent },
+  {path:"category", component: CategoryItemsComponent},
+  {path:"Filterbycat", component: FilterbycatComponent},
   {path:"**", component: ErrorComponent}
 
 ];
