@@ -7,7 +7,7 @@ import { Login } from '../Models/login.model';
 })
 export class LoginService {
 
-  private BaseUrl:string="https://localhost:7065/Login";
+  private BaseUrl:string="https://localhost:44318/Login";
 
   constructor(private httpClient:  HttpClient )
    {

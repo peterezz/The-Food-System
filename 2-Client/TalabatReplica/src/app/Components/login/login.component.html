@@ -8,7 +8,7 @@
         <h2 class="title">Sign in</h2>
        
         <div class="vlidation-container" *ngIf="foundErrorMessage">
-          <p class="text-danger">{{errMss}}</p>
+          <p class="text-danger m-3">{{errMss}}</p>
       </div>
 
         <div class="input-field">
@@ -20,8 +20,10 @@
            type="email" placeholder="Email" />
         </div>
 
+  
+
         <div class="alert alert-danger mt-3" *ngIf="inValidEmail">
-          <p>Invalid Email </p>
+          <p class=" m-1" >Invalid Email </p>
       </div>
 
         <div class="input-field">
@@ -35,12 +37,18 @@
           type="password" placeholder="Password" />
         </div>
         <div class="alert alert-danger mt-3" *ngIf="inValidPassword">
-          <p>Incorrect Password</p>
+          <p class=" m-1" >Incorrect Password</p>
       </div>
-
+   
         <a href="forgetpassword" class="mt-3">Forgot Your Password?</a>
-        <input type="submit" value="Login" class="btn solid" (click)="LoginAction()"/>
 
+        <input type="submit" value="Login" class="btn solid" (click)="LoginAction()"/>
+      
+        <div class="alert alert-danger mt-3" *ngIf="checkinput">
+          <p id="requiremai"> Email is required</p>
+      </div>
+      
+     
         <p class="social-text">Or Sign in with social platforms</p>
         <div class="social-media">
           <a href="https://www.facebook.com/" class="social-icon">
@@ -76,7 +84,7 @@
           
           ></div>
           <div class="alert alert-danger mt-3" *ngIf="validFirstName">
-            <p>First Name is required</p>
+            <p class=" m-1" >First Name is required</p>
         </div>
           
         <div class="input-field">
@@ -94,7 +102,7 @@
         </div>
 
         <div class="alert alert-danger mt-3" *ngIf="validUserName">
-          <p>Enter Correct UserName</p>
+          <p class=" m-1" >Enter Correct UserName</p>
       </div>
 
         <div class="input-field">
@@ -108,33 +116,33 @@
         </div>
 
         <div class="alert alert-danger mt-3" *ngIf="ValidEmail">
-          <p>Invalid Email </p>
+          <p class=" m-1" >Invalid Email Format ..... <br>email must take format user@example.com</p>
       </div>
 
         <div class="input-field">
           <i class="fas fa-lock"></i>
           <input type="password" placeholder="Password"
+          [formControl]="Password" 
           [ngClass]="{
-            'is-valid': registerEmailFormGroup.controls.Password.valid && (loginEmailFormGroup.controls.Password.dirty || loginEmailFormGroup.controls.Password.touched),
-            'is-invalid': registerEmailFormGroup.controls.Password.invalid && (loginEmailFormGroup.controls.Password.dirty || loginEmailFormGroup.controls.Password.touched)
+            'is-valid': registerEmailFormGroup.controls.Password.valid && (registerEmailFormGroup.controls.Password.dirty || registerEmailFormGroup.controls.Password.touched) && !validPassword,
+            'is-invalid': registerEmailFormGroup.controls.Password.invalid && (registerEmailFormGroup.controls.Password.dirty || registerEmailFormGroup.controls.Password.touched) && validPassword
           }"
            />
         </div>
 
-        <div class="alert alert-danger" *ngIf="validPassword">
-          <p>password is required</p>
-      </div>
-   
-      <div class="alert alert-danger" *ngIf="Password.hasError('pattern') || Password.dirty">
-      
-        <p>. At least 8 characters long<br>
-          . Contains at least one uppercase letter<br>
-          . Contains at least one lowercase letter<br>
-          . Contains at least one number</p>
-          
+        <div class="alert alert-danger" *ngIf="Password.hasError('required') && Password.dirty ">
+          <p class="m-1">password is required</p>
         </div>
+        
+        <div  id="d1" class="alert alert-danger m-1" *ngIf="Password.hasError('pattern') || Password.dirty ">
+          <p class="m-1">. At least 8 characters long<br>
+            . Contains at least one uppercase letter<br>
+            . Contains at least one lowercase letter<br>
+            . Contains at least one number</p>
+        </div>
+        
 
-        <input type="submit" class="btn" value="Sign up" (click)="RegisterAction()"/>
+        <input type="submit" class="btn solid" value="Sign up" (click)="RegisterAction()"/>
 
         <p class="social-text">Or Sign up with social platforms</p>
         <div class="social-media">
