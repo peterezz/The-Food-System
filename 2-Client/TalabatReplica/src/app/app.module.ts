@@ -53,6 +53,7 @@ import { isNgTemplate } from '@angular/compiler';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterLink,
@@ -62,4 +63,6 @@ import { isNgTemplate } from '@angular/compiler';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  FormsModule:any
+}
