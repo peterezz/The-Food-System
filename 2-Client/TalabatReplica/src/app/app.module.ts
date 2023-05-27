@@ -57,6 +57,7 @@ import { FilterbycatComponent } from './Components/filterbycat/filterbycat.compo
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     // MatSidenavModule,
@@ -74,4 +75,6 @@ import { FilterbycatComponent } from './Components/filterbycat/filterbycat.compo
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  FormsModule:any
+}
