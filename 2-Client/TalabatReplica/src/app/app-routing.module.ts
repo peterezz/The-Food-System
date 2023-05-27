@@ -13,6 +13,8 @@ import { ForgotPasswordComponent } from './Components/forgot-password/forgot-pas
 import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
 import { ContactComponent } from './Components/contact/contact.component';
 import { CategoryItemsComponent } from './Components/category-items/category-items.component';
+import { AdminDashbordMenueComponent } from './Components/admin-dashbord-menue/admin-dashbord-menue.component';
+import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.component';
 
 const routes: Routes = [
   {path:"", component: RestaurantComponent},
@@ -24,6 +26,8 @@ const routes: Routes = [
   {path:"cart", component: CartComponent },
   {path:"pay", component: PaymentComponent },
   {path:"Admin", component: AdminDashbordComponent },
+  {path:"Adminmenu", component: AdminDashbordMenueComponent },
+  {path:"Updatemenu/:itemID", component: UpdatemenuComponent },
   {path:"forgetpassword", component: ForgotPasswordComponent },
   {path:"setnewpassword", component: SetnewpasswordComponent },
   {path:"contactus", component: ContactComponent },

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ECommerce.BAL.DTOs;
 using ECommerce.BAL.Repository;
+using ECommerce.DAL.Manager;
 using ECommerce.DAL.Models;
 
 namespace ECommerce.BAL.Managers
@@ -16,12 +17,12 @@ namespace ECommerce.BAL.Managers
 
         public async Task<List<MenueItemDto>> GetAll_MenueItemAsync( )
         {
-            var data = await GetAllAsync( );
+            var data = await GetWhereAsync(null, ca => ca.category);
             return mapper.Map<List<MenueItemDto>>( data );
         }
         public async Task<MenueItemDto> GetById_MenueItemAsync( int id )
         {
-            var data = await GetByIdAsync( id );
+            var data = await FirstOrDefaultAsync( item=>item.ItemID==id , ca => ca.category);
             return mapper.Map<MenueItemDto>( data );
         }
         public async Task Delete_MenueItemAsync( int id )
@@ -34,12 +35,14 @@ namespace ECommerce.BAL.Managers
         }
         public async Task<MenueItemDto> Add_MenueItem( MenueItemDto dto )
         {
+           // dto.Photo = await FileManager.UploadFileAsync(dto.PhotoFile);
             var data = mapper.Map<MenuItem>( dto );
             await AddAsync( data );
             return dto;
         }
         public async Task<MenueItemDto> update_MenueItem( MenueItemDto dto , int id )
         {
+           // dto.Photo = await FileManager.UploadFileAsync(dto.PhotoFile);
             var data = mapper.Map<MenuItem>( dto );
             await UpdateAsync( data );
             return dto;
@@ -53,6 +56,11 @@ namespace ECommerce.BAL.Managers
         {
             var data = await GetWhereAsync( item => item.IsTopItem && item.ResturantID == ResID && item.IsAccepted );
             return mapper.Map<List<MenueItemDto>>( data );
+        }
+        public async Task<List<MenueItemDto>> GetMenuByResIDAsync(int ResID)
+        {
+            var data = await GetWhereAsync(item=> item.ResturantID == ResID ,res=>res.resturant);
+            return mapper.Map<List<MenueItemDto>>(data);
         }
     }
 }

@@ -72,10 +72,13 @@ namespace ECommerce.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Add_Item( [FromBody] MenueItemDto dto )
         {
+            dto.ResturantID = 1;
+            dto.CategoryID = 1;
             if ( ModelState.IsValid )
             {
                 try
                 {
+                    
                     var data = await manager.Add_MenueItem( dto );
                     return Ok( data );
                 }
@@ -89,7 +92,7 @@ namespace ECommerce.API.Controllers
 
         }
         [HttpPut( "{id}" )]
-        public async Task<IActionResult> update_Item( MenueItemDto dto , int id )
+        public async Task<IActionResult> update_Item( [FromBody]MenueItemDto dto , int id )
         {
             if ( id != dto.ItemID )
             {
@@ -128,6 +131,12 @@ namespace ECommerce.API.Controllers
                 return NotFound( "Restaurant not found" );
             var topIems = await manager.GetTopMenuItemsAsync( id );
             return Ok( topIems );
+        }
+        [HttpGet("Resmenu/{Resid}")]
+        public async Task<IActionResult> GetMenueitemByResID(int Resid)
+        {
+            var data = await manager.GetMenuByResIDAsync(Resid);
+            return Ok(data);
         }
 
     }

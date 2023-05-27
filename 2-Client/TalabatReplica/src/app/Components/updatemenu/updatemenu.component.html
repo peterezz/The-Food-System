@@ -1,0 +1,213 @@
+
+<div class="panar"></div>
+<div class="panar"  style="z-index:50000000 ;"  ></div>
+<div class="container ml-3">
+    <div class=" mx-auto justify-content-center  col-lg-10">
+        <div class="checkout-accordion-wrap">
+          <div class="accordion" id="accordionExample">
+            <div class="card single-accordion">
+              <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Add Prodect
+                  </button>
+                </h5>
+              </div>
+              <form *ngIf="itemdetails" enctype="multipart/form-data">
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+              <div class="card-body">
+
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">title</span>
+                  <input #name  value="{{itemdetails.name}}"
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="Jane Doe"
+                  />
+                </label>
+                <input #itemid type="hidden"  value="{{itemdetails.itemID}}"  class="form-control" required>
+                          
+
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">price</span>
+                  <input
+                  #price value="{{itemdetails.price}}"
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="Jane Doe"
+                  />
+                </label>
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">Size</span>
+                  <input
+                  #size value="{{itemdetails.size}}"
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="Jane Doe"
+                  />
+                </label>
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">ResID</span>
+                  <input
+                  #ResID value="{{itemdetails.resturantID}}" 
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="Jane Doe"
+                  />
+                </label>
+
+
+                <label class="block mt-4 text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">
+                    catigorys
+                  </span>
+                  <select #catigorys 
+                    class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                  >
+                  <option value="{{itemdetails.categoryID}}" selected>{{itemdetails.categoryName}}</option>
+                    <option  *ngFor="let c of Category" value="{{+c.categoryID}}">{{c.name}}</option>
+                    
+                 
+                  </select>
+                </label>
+
+
+
+                <label class="block mt-4 text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">description</span>
+                  <textarea #description value="{{itemdetails.description}}"
+                    class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                    rows="3"
+                    placeholder="Enter some long form content."
+                  ></textarea>
+                </label>
+
+
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">Img</span>
+                  <input  #photo value="{{itemdetails.photoFile}}" type="file"
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="Jane Doe"
+                  />
+                </label>
+               
+
+                <div class="px-6 my-6">
+                 
+                
+
+                    <div class="modal-footer">
+                        <input type="button"  class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit"  (click)="updateItem(itemid.value,name.value,+price.value,description.value,size.value,+ResID.value,+catigorys.value)" class="btn btn-info" value="Save">
+                      </div>
+                </div>
+                </div>
+
+
+              </div>
+              </form>
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+    <!-- <div class="row">
+        <div class=" mx-auto justify-content-center  col-lg-10">
+            <div class="checkout-accordion-wrap">
+              <div class="accordion" id="accordionExample">
+                <div class="card single-accordion">
+                  <div class="card-header" id="headingThree">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Edit prodct
+                      </button>
+                    </h5>
+                  </div>
+                  <form *ngIf="itemdetails"  >
+    
+                    <div class="modal-header">
+                        
+                        <button type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true">&times;</button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="form-group">
+                          <label>title</label>
+                          <input  #name  value="{{itemdetails.name}}" type="text" class="form-control" required  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                          placeholder="Jane Doe">
+                        </div>
+                       
+                            <input #itemid type="hidden"  value="{{itemdetails.itemID}}"  class="form-control" required>
+                          
+                        <div class="form-group">
+                          <label>price</label>
+                          <input #price value="{{itemdetails.price}}" type="email" class="form-control" required  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                          placeholder="Jane Doe">
+                        </div>
+                        
+                        <div class="form-group">
+                          <label>size</label>
+                          <input #size value="{{itemdetails.size}}"
+                          class="form-control" required  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                          placeholder="Jane Doe">
+                        </div>
+                        
+                
+                        <div class="form-group">
+                          <label>ResID</label>
+                          <input #ResID value="{{itemdetails.resturantID}}"
+                          class="form-control" required  class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                          placeholder="Jane Doe">
+                        </div>
+                        <label class="block mt-4 text-sm">
+                          <span class="text-gray-700 dark:text-gray-400">
+                            catigorys
+                          </span>
+                          <select #catigorys value="{{itemdetails.categoryName}}"
+                            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                          >
+                          <option *ngFor="let c of Category" value="{{+c.categoryID}}">{{c.name}}</option>
+                          </select>
+                        </label>
+                
+                
+                
+                        <label class="block mt-4 text-sm">
+                          <span class="text-gray-700 dark:text-gray-400">discription</span>
+                          <textarea
+                          #description value="{{itemdetails.description}}"
+                            class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                            rows="3"
+                            placeholder="Enter some long form content."
+                          ></textarea>
+                        </label>
+                
+                
+                        <label class="block text-sm">
+                          <span class="text-gray-700 dark:text-gray-400">Img</span>
+                          <input #photo value="{{itemdetails.photoFile}}"  type="file"
+                            class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                            placeholder="Jane Doe"
+                          />
+                        </label>
+                        
+                      </div>
+                      <div class="modal-footer">
+                        <input type="button"  class="btn btn-default" data-dismiss="modal" value="Cancel">
+                        <input type="submit"  (click)="updateItem(itemid.value,name.value,+price.value,description.value,size.value,+ResID.value,+catigorys.value)" class="btn btn-info" value="Save">
+                      </div>
+                  </form> 
+                </div>
+  
+  
+  
+              </div>
+            </div>
+          </div>
+
+    </div> -->
+</div>
+
+
+
+    
+
+   

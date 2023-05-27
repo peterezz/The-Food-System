@@ -24,6 +24,10 @@ import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassw
 import { ContactComponent } from './Components/contact/contact.component';
 import { CategoryItemsComponent } from './Components/category-items/category-items.component';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { AdminDashbordMenueComponent } from './Components/admin-dashbord-menue/admin-dashbord-menue.component';
+import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.component';
+
 // import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 // import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
 // import { ContactComponent } from './Components/contact/contact.component';
@@ -46,6 +50,9 @@ import { RouterLink } from '@angular/router';
     SetnewpasswordComponent,
     ContactComponent,
     CategoryItemsComponent,
+    AdminDashbordMenueComponent,
+    UpdatemenuComponent,
+    
 
 
 
@@ -62,6 +69,9 @@ import { RouterLink } from '@angular/router';
     // MatTooltipModule
 
     RouterLink,
+    CommonModule,
+    
+    
     // MatSidenavModule,
     // MatIconModule,
     // MatTooltipModule
