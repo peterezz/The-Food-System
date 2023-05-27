@@ -6,10 +6,14 @@ import { Restaurant } from '../Models/restaurant.model';
   providedIn: 'root'
 })
 export class RestuarantService {
- private BaseURL:string = "https://localhost:7065/Restaurants"
+ private BaseURL:string = "https://localhost:44318/Restaurants"
   constructor(private httpClient:HttpClient) { }
   AddRestaurant(restaurant: Restaurant)
   {
     return this.httpClient.post(this.BaseURL,restaurant);
+  }
+
+  GetAllRestuarants(){
+    return this.httpClient.get(this.BaseURL);
   }
 }

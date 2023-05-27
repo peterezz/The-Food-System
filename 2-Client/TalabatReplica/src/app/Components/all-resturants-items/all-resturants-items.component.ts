@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-all-resturants-items',
@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./all-resturants-items.component.css']
 })
 export class AllResturantsItemsComponent {
-
+  @Input() RestaurantItem:any;
 }

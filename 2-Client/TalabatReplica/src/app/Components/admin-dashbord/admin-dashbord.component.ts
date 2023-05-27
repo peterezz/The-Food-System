@@ -9,4 +9,6 @@ import { Component, Output  } from '@angular/core';
 })
 export class AdminDashbordComponent {
 // @Output () hidden="hidden"
+
+// nana:any []=['a','s','s','w']
 }
