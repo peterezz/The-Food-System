@@ -3,19 +3,44 @@
 <div class="container {{in_or_up}} ">
   <div class="forms-container">
     <div class="signin-signup">
-      <form action="#" class="sign-in-form">
+     
+      <form  class="sign-in-form"  autocomplete="off"  [formGroup]="loginEmailFormGroup" method="post">
         <h2 class="title">Sign in</h2>
+       
+        <div class="vlidation-container" *ngIf="foundErrorMessage">
+          <p class="text-danger">{{errMss}}</p>
+      </div>
+
         <div class="input-field">
           <i class="fas fa-envelope"></i>
-          <input type="email" placeholder="Email" />
-        </div>
-        <div class="input-field">
-          <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Password" />
+          <input formControlName="UserEmailAddress" [ngClass]="{
+            'is-valid': loginEmailFormGroup.controls.UserEmailAddress.valid && (loginEmailFormGroup.controls.UserEmailAddress.dirty || loginEmailFormGroup.controls.UserEmailAddress.touched),
+            'is-invalid': loginEmailFormGroup.controls.UserEmailAddress.invalid && (loginEmailFormGroup.controls.UserEmailAddress.dirty || loginEmailFormGroup.controls.UserEmailAddress.touched)
+          }"
+           type="email" placeholder="Email" />
         </div>
 
-        <a href="forgetpassword">Forgot Your Password?</a>
-        <input type="submit" value="Login" class="btn solid" />
+        <div class="alert alert-danger mt-3" *ngIf="inValidEmail">
+          <p>Invalid Email </p>
+      </div>
+
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+
+          <input formControlName="Password"
+           [ngClass]="{
+            'is-valid': loginEmailFormGroup.controls.Password.valid && (loginEmailFormGroup.controls.Password.dirty || loginEmailFormGroup.controls.Password.touched),
+            'is-invalid': loginEmailFormGroup.controls.Password.invalid && (loginEmailFormGroup.controls.Password.dirty || loginEmailFormGroup.controls.Password.touched)
+          }"
+          type="password" placeholder="Password" />
+        </div>
+        <div class="alert alert-danger mt-3" *ngIf="inValidPassword">
+          <p>Incorrect Password</p>
+      </div>
+
+        <a href="forgetpassword" class="mt-3">Forgot Your Password?</a>
+        <input type="submit" value="Login" class="btn solid" (click)="LoginAction()"/>
+
         <p class="social-text">Or Sign in with social platforms</p>
         <div class="social-media">
           <a href="https://www.facebook.com/" class="social-icon">
@@ -32,29 +57,85 @@
           </a>
         </div>
       </form>
-      <form action="#" class="sign-up-form">
+
+
+      <form  class="sign-up-form"  autocomplete="off"  [formGroup]="registerEmailFormGroup" method="post">
         <h2 class="title">Sign up</h2>
-             <div class="input-field">
+
+        <div class="vlidation-container" *ngIf="foundErrorMessage">
+          <p class="text-danger">{{errMss}}</p>
+      </div>
+           
+        <div class="input-field">
           <i class="fas fa-user"></i>
-          <input type="text" placeholder="FirstName" />
+          <input type="text" placeholder="FirstName"
+          formControlName="firstName" [ngClass]="{
+            'is-valid': registerEmailFormGroup.controls.firstName.valid && (registerEmailFormGroup.controls.firstName.dirty || registerEmailFormGroup.controls.firstName.touched),
+            'is-invalid': registerEmailFormGroup.controls.firstName.invalid && (registerEmailFormGroup.controls.firstName.dirty || registerEmailFormGroup.controls.firstName.touched)
+          }"
+          
+          ></div>
+          <div class="alert alert-danger mt-3" *ngIf="validFirstName">
+            <p>First Name is required</p>
         </div>
+          
         <div class="input-field">
           <i class="fas fa-user"></i>
           <input type="text" placeholder="LastName" />
         </div>
+
         <div class="input-field">
           <i class="fas fa-user"></i>
-          <input type="text" placeholder="Username" />
+          <input type="text" placeholder="Username" 
+          formControlName="username" [ngClass]="{
+            'is-valid': registerEmailFormGroup.controls.username.valid && (registerEmailFormGroup.controls.username.dirty || registerEmailFormGroup.controls.username.touched),
+            'is-invalid': registerEmailFormGroup.controls.username.invalid && (registerEmailFormGroup.controls.username.dirty || registerEmailFormGroup.controls.username.touched)
+          }"/>
         </div>
+
+        <div class="alert alert-danger mt-3" *ngIf="validUserName">
+          <p>Enter Correct UserName</p>
+      </div>
+
         <div class="input-field">
           <i class="fas fa-envelope"></i>
-          <input type="email" placeholder="Email" />
+          <input type="email" placeholder="Email"
+          formControlName="EmailAddress" [ngClass]="{
+            'is-valid': registerEmailFormGroup.controls.EmailAddress.valid && (registerEmailFormGroup.controls.EmailAddress.dirty || registerEmailFormGroup.controls.EmailAddress.touched),
+            'is-invalid': registerEmailFormGroup.controls.EmailAddress.invalid && (registerEmailFormGroup.controls.EmailAddress.dirty || registerEmailFormGroup.controls.EmailAddress.touched)
+          }"
+          />
         </div>
+
+        <div class="alert alert-danger mt-3" *ngIf="ValidEmail">
+          <p>Invalid Email </p>
+      </div>
+
         <div class="input-field">
           <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Password" />
+          <input type="password" placeholder="Password"
+          [ngClass]="{
+            'is-valid': registerEmailFormGroup.controls.Password.valid && (loginEmailFormGroup.controls.Password.dirty || loginEmailFormGroup.controls.Password.touched),
+            'is-invalid': registerEmailFormGroup.controls.Password.invalid && (loginEmailFormGroup.controls.Password.dirty || loginEmailFormGroup.controls.Password.touched)
+          }"
+           />
         </div>
-        <input type="submit" class="btn" value="Sign up" />
+
+        <div class="alert alert-danger" *ngIf="validPassword">
+          <p>password is required</p>
+      </div>
+   
+      <div class="alert alert-danger" *ngIf="Password.hasError('pattern') || Password.dirty">
+      
+        <p>. At least 8 characters long<br>
+          . Contains at least one uppercase letter<br>
+          . Contains at least one lowercase letter<br>
+          . Contains at least one number</p>
+          
+        </div>
+
+        <input type="submit" class="btn" value="Sign up" (click)="RegisterAction()"/>
+
         <p class="social-text">Or Sign up with social platforms</p>
         <div class="social-media">
           <a href="https://www.facebook.com/" class="social-icon">
