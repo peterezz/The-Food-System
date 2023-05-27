@@ -35,30 +35,148 @@
             </select>
           </label>
 
-          
 
 
-          <div class="row product-lists  mb-5 h-100" >
+
+          <div class="row product-lists  my-5  h-100" >
             <div class=" mb-5 mt-5  col-lg-4 col-md-6 text-center strawberry order:1" *ngFor="let c of alldishes">
               <div class=" my-5 single-product-item">
-                <div class="product-image">
-                  <a href="\singleProduct"><img src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Thumbnail/0ec204db-24b2-45fe-8de1-ee586c92f969.jpg" alt=""></a>
+                <div class="product-image" >
+                  <a routerLink="singleProduct" ><img src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Thumbnail/0ec204db-24b2-45fe-8de1-ee586c92f969.jpg" alt=""></a>
+
                 </div>
                 <h3>Strawberry</h3>
                 <p class="product-price"><span>{{c.category
                 }}</span> 85$ </p>
-                <a href="cart" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                <a href="{{amountInput}}"  data-toggle="modal" class="cart-btn mr-2" >   <button   > Amount</button> </a>
+               <button   (click)="addtocart(c)" data-toggle="modal"> <a  class="cart-btn" ><i class="fas fa-shopping-cart"></i> Add to Cart</a></button>
+                <!-- href="cart" -->
+
+                <!-- <div id="editEmployeeModal" class="modal fade">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <form>
+                        <div class="modal-header">
+                          <h4 class="modal-title"></h4>
+                          <button  type="button" class="close" data-dismiss="modal"
+                      aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+
+                          <div class="form-group"  >
+                            <label>Amount</label>
+                            <input type="number" class="form-control" >
+
+                          </div>
+
+
+
+
+
+
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                          <input type="submit" class="btn btn-info"   value="Save" >
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div> -->
+
+
+
+
+
+
+
+                <div id="editEmployeeModal" class="modal fade">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <form>
+                        <div class="modal-header">
+                          <h4 class="modal-title"></h4>
+                          <button type="button" class="close" data-dismiss="modal"
+                      aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="form-group">
+                            <label>Amount</label>
+                            <input type="text" class="form-control" required  (change)="amount($event)">
+                          </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+                          <input type="submit" routerLink="" class="btn btn-info" data-dismiss="modal" (click)="save()" value="Save">
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
               </div>
             </div>
 
-          
-          
 
-          
-            
-            
+
+
+<!--
+
+            <div class="row">
+              <div class="col-lg-4 col-md-6 text-center">
+                <div class="single-product-item">
+                  <div class="product-image">
+                    <a href="single-product.html"><img src="assets/img/products/product-img-1.jpg" alt=""></a>
+                  </div>
+                  <h3>Strawberry</h3>
+                  <p class="product-price"><span>Per Kg</span> 85$ </p>
+                  <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 text-center">
+                <div class="single-product-item">
+                  <div class="product-image">
+                    <a href="single-product.html"><img src="assets/img/products/product-img-2.jpg" alt=""></a>
+                  </div>
+                  <h3>Berry</h3>
+                  <p class="product-price"><span>Per Kg</span> 70$ </p>
+                  <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 offset-md-3 offset-lg-0 text-center">
+                <div class="single-product-item">
+                  <div class="product-image">
+                    <a href="single-product.html"><img src="assets/img/products/product-img-3.jpg" alt=""></a>
+                  </div>
+                  <h3>Lemon</h3>
+                  <p class="product-price"><span>Per Kg</span> 35$ </p>
+                  <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                </div>
+              </div>
+            </div> -->
+
+
+
+
+
+
+
+
+
           </div>
-          
+
           <!-- <div class="col-lg-12 text-center" style="height: 2000px; "></div> -->
           <div class="pagination " >
           <div class="col-lg-12 text-center order:50   mt-5">

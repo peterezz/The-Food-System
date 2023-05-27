@@ -12,6 +12,10 @@ export class RestaurantComponent implements OnInit {
   categories:any;
   items:any;
   alldishes:any[]=[];
+  dishesInCart:any[] = []
+  quantity:number = 1 ;
+  amountInput:any="#editEmployeeModal";
+
       constructor(public service:CategoryService  , myRoute: ActivatedRoute){
 
       }
@@ -47,17 +51,42 @@ if(value=="All"){
     }
   })
 }else
-   
     this.service.GetCategoryByName(value).subscribe({
       next:(data:any)=>{
         console.log(data);
         this.alldishes=data;
       }
     });
-
   }
 
-
+  /////////////////////////////////////////// Add Dishes TO Cart
+  amount(amount:any){
+   this.quantity = amount.target.value;
+  }
+ save(){
+   console.log(this.quantity)
+  }
+addtocart(data:any){
+  if("cart" in localStorage){
+  data.quantity = this.quantity ;
+  console.log(data)
+  this.dishesInCart= JSON.parse(localStorage.getItem("cart")!)
+  let exist =
+  this.dishesInCart.find(item => item.id == data.id)
+  if(exist){
+    alert("product is already in your cart")
+  }else{
+    alert(" Don ")
+    this.dishesInCart.push(data)
+    localStorage.setItem("cart",JSON.stringify(this.dishesInCart))
+  }
+}else{
+  data.quantity = this.quantity ;
+  console.log(data)
+  this.dishesInCart.push(data)
+  localStorage.setItem("cart",JSON.stringify(this.dishesInCart))
+}
+  }
 
 
 }
