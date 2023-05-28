@@ -17,6 +17,7 @@ import { FilterbycatComponent } from './Components/filterbycat/filterbycat.compo
 
 const routes: Routes = [
   {path:"", component: RestaurantComponent},
+  {path:"ResProfile/:restaurantID", component: RestaurantComponent},
   {path:"category/:name", component: CategoryItemsComponent},
   {path:"login", component: LoginComponent},
   {path:"checkOut", component: CheckOutComponent},

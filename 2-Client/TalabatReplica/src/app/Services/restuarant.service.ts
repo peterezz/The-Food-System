@@ -16,4 +16,14 @@ export class RestuarantService {
   GetAllRestuarants(){
     return this.httpClient.get(this.BaseURL);
   }
+
+  GetRestuarantById(id:any){
+    return this.httpClient.get(`${this.BaseURL}/${id}`);
+
+  }
+  GetRestuarantByName(name:any){
+    return this.httpClient.get(`${this.BaseURL}/${name}`);
+
+  }
+
 }

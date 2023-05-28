@@ -1,16 +1,16 @@
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg " style="height: 500px;">
-  <div class="" >
+  <div class="" *ngIf="Restaurant">
     <div class="row">
-      <div class="col-lg-12  ">
+      <div class="col-lg-12">
         <img class="" style="width:100%; height: auto ;margin-top: -100px;" src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Normal/9ac7f67e-0927-4347-a1f8-6c62d9c41c9b.jpg">
       </div>
       <div col-lg-3 style="width: 200px; height: 200px; z-index: 1;">
-        <img style=" border-radius: 50%; margin-top: -20px;" src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Normal/03ba3a38-6ed1-43a5-8ade-9f1fa91ed224.jpg">
+        <img style=" border-radius: 50%; margin-top: -20px;" src="data:image/jpeg;base64,{{ Restaurant.poster }}">
       </div>
       <div class="col-lg-9  text-left">
         <div class="breadcrumb-text">
-          <h1>KFC</h1>
+          <h1>{{ Restaurant.name }}</h1>
         </div>
       </div>
     </div>
@@ -24,7 +24,7 @@
 
           <label class="block mt-5">
             <span class="text-gray-700 dark:text-gray-400   ">
-              catigorys
+              categories
             </span>
             <select (change)="filterbycat($event)"
               class="block w-25    dark:text-gray-300  mt-5 dark:border-gray-600 dark:bg-gray-700 form-select

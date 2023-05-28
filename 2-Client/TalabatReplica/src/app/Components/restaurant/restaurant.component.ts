@@ -1,6 +1,8 @@
+import { Restaurant } from './../../Models/restaurant.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/Services/category.service';
+import { RestuarantService } from 'src/app/Services/restuarant.service';
 
 @Component({
   selector: 'app-restaurant',
@@ -15,9 +17,10 @@ export class RestaurantComponent implements OnInit {
   dishesInCart:any[] = []
   quantity:number = 1 ;
   amountInput:any="#editEmployeeModal";
-
-      constructor(public service:CategoryService  , myRoute: ActivatedRoute){
-
+  ResID:any;
+  Restaurant:any;
+      constructor(public service:CategoryService  , myRoute: ActivatedRoute , public ResService:RestuarantService){
+               this.ResID = myRoute.snapshot.params["restaurantID"];
       }
   ngOnInit(): void {
 
@@ -36,9 +39,17 @@ export class RestaurantComponent implements OnInit {
       }
     })
 
-
+    this.GetResByID(this.ResID);
 
   }
+
+  GetResByID(id:any){
+    this.ResService.GetRestuarantById(id).subscribe({
+      next:(data)=>{this.Restaurant = data;}
+    })
+  }
+
+
 
   filterbycat(catname:any){
    let value = catname.target.value

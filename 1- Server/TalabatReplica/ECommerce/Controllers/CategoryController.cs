@@ -39,6 +39,22 @@ namespace ECommerce.API.Controllers
             return Ok(data);
 
         }
+        //[HttpGet("res/{id}")]
+        //public async Task<ActionResult> GetCategoryPerRes(int id)
+        //{
+
+        //    if (id <= 0)
+        //    {
+        //        return NotFound("Not Valid ID");
+        //    }
+        //    var data = await Category.GetCategoryByResIDAsync(id);
+        //    if (data == null)
+        //    {
+        //        return NotFound("Category not found");
+        //    }
+        //    return Ok(data);
+
+        //}
 
         [HttpGet("{name:alpha}")]
         public async Task<IActionResult> GetMenueitemsByCategoryName(string name)
