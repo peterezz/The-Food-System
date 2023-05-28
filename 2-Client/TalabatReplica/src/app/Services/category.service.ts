@@ -8,7 +8,7 @@ export class CategoryService {
 
   constructor(private http:HttpClient) { }
 
-  private BaseUrl = "https://localhost:7065/api/Category";
+  private BaseUrl = "https://localhost:44318/api/Category";
 
   GetAllCategories(){
     return this.http.get('https://fakestoreapi.com/products/categories');

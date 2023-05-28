@@ -7,9 +7,9 @@ import { Register } from '../Models/register.model';
 })
 export class RegisterModelService {
 
-  private BaseUrl:string="https://localhost:7065/Register";
+  private BaseUrl:string="https://localhost:44318/Register";
   
-  constructor(private httpClient:  HttpClient ) { }
+  constructor(private httpClient:  HttpClient ) {}
   
   Register(UserData:Register)
   {

@@ -50,6 +50,11 @@ export class LoginComponent  implements OnDestroy{
     return this.errMss
   }
 
+  get checkinput(){
+    return this.email!="";
+
+  }
+
   //inject services
   constructor(public userlog:LoginService, public userreg:RegisterModelService  ,rout:ActivatedRoute, private router:Router){
   }
@@ -57,6 +62,11 @@ export class LoginComponent  implements OnDestroy{
   //Click Action
   LoginAction()
   {
+
+    if(!this.loginEmailFormGroup.valid)
+    {
+      alert("Some Data is missed, please Fill both Fields ")
+    }
 
     if(this.loginEmailFormGroup.valid)
     {
@@ -80,9 +90,7 @@ export class LoginComponent  implements OnDestroy{
   
   ////////////////////////////////////// REGISTRE
 
-    firstName:string="";
-    lastName: string="";
-    username:string="";
+
     Password =new FormControl('', [
       Validators.required,
       Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d]{8,}$/),
@@ -111,8 +119,7 @@ export class LoginComponent  implements OnDestroy{
       Validators.email,
     ]),
     Password: new FormControl('', [
-      Validators.required,
-      Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d]{8,}$/)
+   
 
     ]),
   });
@@ -135,11 +142,14 @@ export class LoginComponent  implements OnDestroy{
     return this.registerEmailFormGroup.controls.Password.invalid && (this.registerEmailFormGroup.controls.Password.dirty || this.registerEmailFormGroup.controls.Password.touched);
   }
 
-  SubscribeService1 : Subscription = new Subscription();
-
   RegisterAction(){
 
-    if(this.registerEmailFormGroup.valid)
+    if(!this.registerEmailFormGroup.valid)
+    {
+      alert("Some Required Data is missed, please Fill both Fields ")
+    }
+
+   else if(this.registerEmailFormGroup.valid)
     {
       let registerData = new Register(
         this.registerEmailFormGroup.controls['firstName'].value,
@@ -149,9 +159,9 @@ export class LoginComponent  implements OnDestroy{
         this.registerEmailFormGroup.controls['Password'].value
 
       );
-      this.SubscribeService1=this.userreg.Register(registerData).subscribe({
-        next: () => {
-          alert("Registered Successfully")
+      this.SubscribeService=this.userreg.Register(registerData).subscribe({
+        next: (data) => {
+          alert("Registered Successfully" + data)
           this.router.navigate(['/AllResturants'])
         },
         error : (err:any) =>{
@@ -159,9 +169,7 @@ export class LoginComponent  implements OnDestroy{
         }
       })
     }
-
   }
-
 
   login(){
     this.in_or_up  ="" ;

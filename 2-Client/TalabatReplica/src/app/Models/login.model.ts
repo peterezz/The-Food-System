@@ -6,4 +6,5 @@ export class Login {
         this.email=email;
         this.password=pass;
     };
+
 }
