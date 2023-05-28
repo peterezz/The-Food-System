@@ -8,12 +8,13 @@ import { AllResturantsComponent } from './Components/all-resturants/all-resturan
 import { SingleproductComponent } from './Components/singleproduct/singleproduct.component';
 import { CartComponent } from './Components/cart/cart.component';
 import { PaymentComponent } from './Components/payment/payment.component';
-import { AdminDashbordComponent } from './Components/admin-dashbord/admin-dashbord.component';
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
 import { ContactComponent } from './Components/contact/contact.component';
 import { CategoryItemsComponent } from './Components/category-items/category-items.component';
+import { AdminDashbordMenueComponent } from './Components/admin-dashbord-menue/admin-dashbord-menue.component';
 import { FilterbycatComponent } from './Components/filterbycat/filterbycat.component';
+import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.component';
 
 const routes: Routes = [
   {path:"", component: RestaurantComponent},
@@ -25,7 +26,8 @@ const routes: Routes = [
   {path:"singleProduct", component: SingleproductComponent},
   {path:"cart", component: CartComponent },
   {path:"pay", component: PaymentComponent },
-  {path:"Admin", component: AdminDashbordComponent },
+  {path:"Adminmenu", component: AdminDashbordMenueComponent },
+  {path:"Updatemenu/:itemID", component: UpdatemenuComponent },
   {path:"forgetpassword", component: ForgotPasswordComponent },
   {path:"setnewpassword", component: SetnewpasswordComponent },
   {path:"contactus", component: ContactComponent },
