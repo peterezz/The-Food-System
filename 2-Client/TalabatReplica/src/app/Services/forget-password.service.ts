@@ -7,7 +7,7 @@ import { ForgetPassword } from '../Models/forget-password.model';
   providedIn: 'root'
 })
 export class ForgetPasswordService {
-private BaseUrl:string="https://localhost:7065/ForgetPassword"
+private BaseUrl:string="https://localhost:44318/ForgetPassword"
   constructor(private httpClient:HttpClient) { }
   
   SendEmailToResetPassword(forgetPassword:ForgetPassword){

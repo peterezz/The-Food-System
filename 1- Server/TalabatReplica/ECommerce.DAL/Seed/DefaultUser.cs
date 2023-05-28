@@ -31,24 +31,24 @@ namespace ECommerce.DAL.Seed
         {
             var appOwner = new ApplicationUser
             {
-                Email = "appowner@talabat.com" ,
-                UserName = "appowner@talabat.com" ,
+                Email = "peterezzat97@gmail.com" ,
+                UserName = "peterezzat97@gmail.com" ,
                 EmailConfirmed = true ,
                 FirstName = "App" ,
                 LastName = "Owner"
             };
-            bool userAreadyExists = await userManager.FindByEmailAsync( appOwner.Email ) != null;
-            if ( !userAreadyExists )
-            {
-                var result = await userManager.CreateAsync( appOwner , "App.Owner000" );
-                if ( result.Succeeded )
-                {
-                    foreach ( Roles role in Enum.GetValues( typeof( Roles ) ) )
-                    {
-                        await userManager.AddToRoleAsync( appOwner , role.ToString( ) );
-                    }
-                }
-            }
+            //bool userAreadyExists = await userManager.FindByEmailAsync( appOwner.Email ) != null;
+        //    if ( !userAreadyExists )
+        //    {
+        //        var result = await userManager.CreateAsync( appOwner , "App.Owner000" );
+        //        if ( result.Succeeded )
+        //        {
+        //            foreach ( Roles role in Enum.GetValues( typeof( Roles ) ) )
+        //            {
+        //                await userManager.AddToRoleAsync( appOwner , role.ToString( ) );
+        //            }
+        //        }
+        //    }
         }
     }
 }

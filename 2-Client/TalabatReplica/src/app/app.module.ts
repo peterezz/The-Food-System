@@ -14,10 +14,6 @@ import { AllResturantsComponent } from './Components/all-resturants/all-resturan
 import { AllResturantsItemsComponent } from './Components/all-resturants-items/all-resturants-items.component';
 import { SingleproductComponent } from './Components/singleproduct/singleproduct.component';
 import { CartComponent } from './Components/cart/cart.component';
-// import { MatSidenavModule} from'@angular/material/sidenav'
-// import {MatIconModule} from'@angular/material/icon'
-// import {MatTooltipModule} from'@angular/material/tooltip'
-
 import { PaymentComponent } from './Components/payment/payment.component';
 import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
 import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
@@ -25,7 +21,9 @@ import { ContactComponent } from './Components/contact/contact.component';
 import { CategoryItemsComponent } from './Components/category-items/category-items.component';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { FilterbycatComponent } from './Components/filterbycat/filterbycat.component';
 import { AdminDashbordMenueComponent } from './Components/admin-dashbord-menue/admin-dashbord-menue.component';
+import { isNgTemplate } from '@angular/compiler';
 import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.component';
 
 // import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
@@ -51,6 +49,7 @@ import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.componen
     ContactComponent,
     CategoryItemsComponent,
     AdminDashbordMenueComponent,
+    FilterbycatComponent,
     UpdatemenuComponent,
     
 
@@ -62,12 +61,9 @@ import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.componen
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    // MatSidenavModule,
-    // MatIconModule,
-    // MatTooltipModule
-
     RouterLink,
     CommonModule,
     
@@ -77,9 +73,10 @@ import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.componen
     // MatTooltipModule
 
 
-
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  FormsModule:any
+}

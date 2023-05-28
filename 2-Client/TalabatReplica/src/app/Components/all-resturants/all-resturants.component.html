@@ -14,82 +14,23 @@
 </div>
 
 <div class="searshContainer d-flex mt-5 m-auto justify-content-center">
-<input type="text"  class="searsh form-control w-50 text-center "  placeholder="search by resturant">
-<label for="" class="label label-default   "><button class="btn btn-outline-dark"> <i class="fas fa-search"></i>  </button></label>
+<input type="text"  class="searsh form-control w-50 text-center " #name placeholder="search by resturant">
+<label for="" class="label label-default   "><button class="btn btn-outline-dark" (click)=" GetResByName(name.value)"> <i class="fas fa-search"></i>  </button></label>
 </div>
 	<!-- ------------------------------------------------------------------------- -->
 
           <div class="product-section  mt-5 mb-150">
             <div class="container">
-              <div class="row product-lists  ">
+              <div class="row">
+                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5" *ngFor="let R of Restarunts">
 
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
 
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
+              <app-all-resturants-items [RestaurantItem]="R" ></app-all-resturants-items>
 
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
 
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
+            <!-- <app-all-resturants-items [RestaurantItem]="R" *ngFor="let R of Restarunts"></app-all-resturants-items> -->
+            </div>
 
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
-
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
-
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
-
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
-
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
-
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
-
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
-
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
-
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
-
-                <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5">
-<app-all-resturants-items></app-all-resturants-items>
-</div>
 
 
 </div>

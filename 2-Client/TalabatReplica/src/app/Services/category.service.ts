@@ -11,10 +11,13 @@ export class CategoryService {
   private BaseUrl = "https://localhost:44318/api/Category";
 
   GetAllCategories(){
-    return this.http.get(this.BaseUrl);
+    return this.http.get('https://fakestoreapi.com/products/categories');
   }
   GetCategoryByName(name:any){
-    return this.http.get(`${this.BaseUrl}/${name}`);
+    return this.http.get('https://fakestoreapi.com/products/category/'+name);
+  }
+  GetAllDises(){
+    return this.http.get('https://fakestoreapi.com/products');
   }
 
 }

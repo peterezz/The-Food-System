@@ -4,6 +4,7 @@ using ECommerce.DAL.Helpers;
 using ECommerce.DAL.Models.IdentityModels;
 using ECommerce.DAL.Reposatory.Repo;
 using ECommerce.DAL.Reposatory.RepoServices;
+using ECommerce.DAL.Services;
 using ECommerce.Helpers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -94,7 +95,7 @@ namespace ECommerce
                    };
                } );
 
-            //await builder.Services.AddIdentityService();
+            //await builder.Services.AddIdentityService( );
 
             //await builder.Services.AddIdentityService( );
 
@@ -150,6 +151,7 @@ namespace ECommerce
             } );
             //Email service
             builder.Services.Configure<MailSettings>( builder.Configuration.GetSection( "MailSettings" ) );
+            builder.Services.AddTransient<IEmailService , MailingService>( );
 
             var app = builder.Build( );
 

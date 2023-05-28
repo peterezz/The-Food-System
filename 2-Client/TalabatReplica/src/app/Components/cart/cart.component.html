@@ -31,30 +31,25 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-1.jpg" alt=""></td>
-									<td class="product-name">Strawberry</td>
-									<td class="product-price">$85</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
+								<tr class="table-body-row" *ngFor=" let item of dishesInCart;" >
+									<td class="product-remove">  <a  (click)="deleteItem(item)"><i class="far fa-window-close"></i></a></td>
+									<td class="product-image"><img src="{{item.image}}" alt=""></td>
+									<td class="product-name">{{item.title}}</td>
+
+									<td class="product-price">{{item.price}}</td>
+									<td class="product-quantity">
+                    <div class="quantity row">
+
+
+                    <button class="btn btn-dark w-25 ml-4 col-2" (click)="minsAmount(item)">-</button>
+                    <input type="number" class="form-control w-25 col-5"  [(ngModel)]="item.quantity" (change)="quantatychange()"  value = "{{item.quantity}}" >
+                    <button class="btn btn-dark w-25 col-2" (click)="addAmount(item)">+</button>
+
+                   </div>
+                  </td>
+									<td class="product-total">{{item.price * item.quantity }}</td>
 								</tr>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-2.jpg" alt=""></td>
-									<td class="product-name">Berry</td>
-									<td class="product-price">$70</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>
-								<tr class="table-body-row">
-									<td class="product-remove"><a href="#"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="assets/img/products/product-img-3.jpg" alt=""></td>
-									<td class="product-name">Lemon</td>
-									<td class="product-price">$35</td>
-									<td class="product-quantity"><input type="number" placeholder="0"></td>
-									<td class="product-total">1</td>
-								</tr>
+
 							</tbody>
 						</table>
 					</div>
@@ -72,21 +67,23 @@
 							<tbody>
 								<tr class="total-data">
 									<td><strong>Subtotal: </strong></td>
-									<td>$500</td>
+									<td>${{total}}</td>
 								</tr>
 								<tr class="total-data">
 									<td><strong>Shipping: </strong></td>
-									<td>$45</td>
+									<td>${{Shipping}}</td>
 								</tr>
 								<tr class="total-data">
 									<td><strong>Total: </strong></td>
-									<td>$545</td>
+									<td>${{total+Shipping}}</td>
 								</tr>
 							</tbody>
 						</table>
-						<div class="cart-buttons">
-							<a href="cart.html" class="boxed-btn">Update Cart</a>
+						<div class="cart-buttons ">
+							<!-- <a href="cart.html" class="boxed-btn">Update Cart</a> -->
 							<a href="/checkOut" class="boxed-btn black">Check Out</a>
+              <a  class="boxed-btn black" (click)="deleteAll()">Remove Cart</a>
+
 						</div>
 					</div>
 
