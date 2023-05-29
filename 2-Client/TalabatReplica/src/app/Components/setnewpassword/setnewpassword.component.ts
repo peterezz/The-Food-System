@@ -10,13 +10,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./setnewpassword.component.css'],
 })
 export class SetnewpasswordComponent implements OnInit {
-  userEmailAddress: string = '';
+  userid : string = '';
   token: string = '';
   successMassege: string = '';
   errorMassege: string = '';
   newPassword = new FormControl('', [
     Validators.required,
-    Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z\d]{8,}$/),
+    Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[_.@$!%*?&])[A-Za-z\d_.@$!%*?&]{8,}$/),
   ]);
   confirmPassword = new FormControl('', [Validators.required]);
 
@@ -33,7 +33,7 @@ export class SetnewpasswordComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
-      this.userEmailAddress = params['emailaddress'];
+      this.userid  = params['userid'];
       
       this.token = params['token'];
     });
@@ -45,7 +45,7 @@ export class SetnewpasswordComponent implements OnInit {
       !this.passwordMatchValidator
     ) {
       let model: ResetPassword = new ResetPassword(
-        this.userEmailAddress,
+        this.userid ,
         this.newPassword.value,
         this.confirmPassword.value,
         this.token
