@@ -11,7 +11,7 @@ namespace ECommerce.BAL.DTOs
         public string Name { get; set; } = string.Empty;
         [Required( ErrorMessage = "price is Required" )]
         public int price { get; set; }
-      // public byte[]? Photo { get; set; }
+        public byte[]? image { get; set; }
         [Required( ErrorMessage = " Description is Required" )]
         public string Description { get; set; } = string.Empty;
         [Required( ErrorMessage = " size is Required" )]
@@ -22,8 +22,8 @@ namespace ECommerce.BAL.DTOs
         public int ResturantID { get; set; }
 
         public int CategoryID { get; set; }
-        public string ?CategoryName { get; set; }
-       //public IFormFile ?PhotoFile { get; set; }
+        public string? CategoryName { get; set; }
+       public IFormFile ?PhotoFile { get; set; }
 
     }
 }

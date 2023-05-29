@@ -2,6 +2,7 @@ import { Restaurant } from './../../Models/restaurant.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/Services/category.service';
+import { MenuItemService } from 'src/app/Services/menu-item.service';
 import { RestuarantService } from 'src/app/Services/restuarant.service';
 
 @Component({
@@ -19,16 +20,16 @@ export class RestaurantComponent implements OnInit {
   amountInput:any="#editEmployeeModal";
   ResID:any;
   Restaurant:any;
-      constructor(public service:CategoryService  , myRoute: ActivatedRoute , public ResService:RestuarantService){
+      constructor(public service:CategoryService,public MenuService :MenuItemService  , myRoute: ActivatedRoute , public ResService:RestuarantService){
                this.ResID = myRoute.snapshot.params["restaurantID"];
       }
   ngOnInit(): void {
 
 
-    this.service.GetAllCategories().subscribe({
+    this.MenuService.GetAllCategoriesByResID(this.ResID).subscribe({
       next:(data)=>{
         this.categories = data;
-        console.log(this.items)
+        console.log(this.categories)
       }
     })
 

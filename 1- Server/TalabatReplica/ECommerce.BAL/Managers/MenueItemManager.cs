@@ -3,15 +3,19 @@ using ECommerce.BAL.DTOs;
 using ECommerce.BAL.Repository;
 using ECommerce.DAL.Manager;
 using ECommerce.DAL.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.BAL.Managers
 {
     public class MenueItemManager : BaseRepo<MenuItem>
     {
+        private readonly ApplicationDbContext context;
         private readonly IMapper mapper;
 
         public MenueItemManager( ApplicationDbContext context , IMapper mapper ) : base( context )
         {
+            this.context = context;
             this.mapper = mapper;
         }
 
@@ -20,6 +24,12 @@ namespace ECommerce.BAL.Managers
             var data = await GetWhereAsync(null, ca => ca.category);
             return mapper.Map<List<MenueItemDto>>( data );
         }
+        public List<CategoryDto> GetAllCategoriesPerResIDAsync(int ResID)
+        {
+            var data = context.MenuItems.Where(r => r.ResturantID == ResID).Include(c => c.category).Select(c => new CategoryDto { Name = c.category.Name }).Distinct().ToList();
+            return data;
+        }
+
         public async Task<MenueItemDto> GetById_MenueItemAsync( int id )
         {
             var data = await FirstOrDefaultAsync( item=>item.ItemID==id , ca => ca.category);
@@ -37,14 +47,14 @@ namespace ECommerce.BAL.Managers
         
         public async Task<MenueItemDto> Add_MenueItem( MenueItemDto dto )
         {
-           // dto.Photo = await FileManager.UploadFileAsync(dto.PhotoFile);
+            dto.image = await FileManager.UploadFileAsync(dto.PhotoFile);
             var data = mapper.Map<MenuItem>( dto );
             await AddAsync( data );
             return dto;
         }
         public async Task<MenueItemDto> update_MenueItem( MenueItemDto dto , int id )
         {
-           // dto.Photo = await FileManager.UploadFileAsync(dto.PhotoFile);
+            dto.image = await FileManager.UploadFileAsync(dto.PhotoFile);
             var data = mapper.Map<MenuItem>( dto );
             await UpdateAsync( data );
             return dto;
