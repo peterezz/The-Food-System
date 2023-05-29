@@ -6,7 +6,7 @@ namespace ECommerce.BAL.DTOs
     {
         [Required( ErrorMessage = "Not valid User" )]
         [EmailAddress( ErrorMessage = "Not Valid Email Address" )]
-        public string UserEmailAddress { get; set; } = string.Empty;
+        public string UserID { get; set; } = string.Empty;
 
 
         [Required( ErrorMessage = "Password is required" )]
