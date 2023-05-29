@@ -35,7 +35,7 @@ export class RestaurantComponent implements OnInit {
     this.service.GetAllDises().subscribe({
       next:(data:any)=>{
          this.alldishes = data;
-         console.log(this.alldishes)
+        //  console.log(this.alldishes)
       }
     })
 
@@ -53,19 +53,23 @@ export class RestaurantComponent implements OnInit {
 
   filterbycat(catname:any){
    let value = catname.target.value
-    console.log(value)
+    // console.log(value)
 if(value=="All"){
   this.service.GetAllDises().subscribe({
     next:(data:any)=>{
        this.alldishes = data;
-       console.log(this.alldishes)
+      //  console.log(this.alldishes)
     }
   })
 }else
     this.service.GetCategoryByName(value).subscribe({
       next:(data:any)=>{
-        console.log(data);
-        this.alldishes=data;
+        // console.log(data["name"])
+        for (let key in data) {
+          console.log(data[key]["menuItems"]); 
+          this.alldishes=data[key]["menuItems"];
+        }
+
       }
     });
   }
