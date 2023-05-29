@@ -22,5 +22,6 @@ namespace ECommerce.DAL.Models
         public string ResAdminID { get; set; } = string.Empty;
         public ApplicationUser ApplicationResAdmin { get; set; }
         public List<Review>? Reviews { get; set; }
+        public byte[ ] CoverBanner { get; set; }
     }
 }

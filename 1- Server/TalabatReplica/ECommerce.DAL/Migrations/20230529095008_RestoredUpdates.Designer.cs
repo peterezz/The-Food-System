@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230525114108_photo")]
-    partial class photo
+    [Migration("20230529095008_RestoredUpdates")]
+    partial class RestoredUpdates
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

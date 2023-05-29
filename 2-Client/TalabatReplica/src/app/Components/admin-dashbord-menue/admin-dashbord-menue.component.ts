@@ -18,6 +18,8 @@ export class AdminDashbordMenueComponent {
   file:any;
   myValidations!: FormGroup;
   constructor(private fb : FormBuilder,public route: Router,public service:MenuItemService,public CategorieService:CategoryService,myRoute:ActivatedRoute){
+  resAdminID="4182cad5-8c73-4a8d-8841-181db9732939";
+  constructor(public service:MenuItemService,public CategorieService:CategoryService,myRoute:ActivatedRoute){
     this.ID = myRoute.snapshot.params["itemID"];
   }
   ngOnInit(): void {

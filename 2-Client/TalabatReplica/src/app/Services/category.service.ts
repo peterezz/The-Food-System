@@ -15,9 +15,10 @@ export class CategoryService {
   }
   GetCategoryByName(name:any){
     return this.http.get(this.BaseUrl+"/"+name);
+
   }
   GetAllDises(){
-    return this.http.get('https://fakestoreapi.com/products');
+    return this.http.get('https://localhost:44318/api/MenueItem');
   }
 
 }

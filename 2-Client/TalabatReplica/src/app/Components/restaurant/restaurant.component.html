@@ -32,25 +32,108 @@
             >
             <option value="All" selected > All </option>
               <option value="{{c.categoryID}}" *ngFor="let c of categories "  >{{c.name}}</option>
+
             </select>
           </label>
 
 
+<!--  ///////////////////////////////////////////////////////  -->
 
 
-          <div class="row product-lists  my-5  h-100" >
-            <div class=" mb-5 mt-5  col-lg-4 col-md-6 text-center strawberry order:1" *ngFor="let c of alldishes">
+<main>
+  <header>
+    <h1>Top Dishes </h1>
+    <p>
+      <span>&#139;</span>
+      <span>&#155;</span>
+    </p>
+  </header>
+  <section>
+    <div class="product" *ngFor="let c of alldishes">
+      <div class="product-image" >
+        <a routerLink="singleProduct" >
+          <img src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Thumbnail/0ec204db-24b2-45fe-8de1-ee586c92f969.jpg" alt=""></a>
+      </div>
+      <div class="detail"  >
+        <p>
+          <b>{{c.name}}</b><br>
+          <small> {{c.description}} </small>
+          <br>
+          <b>Price</b>
+          <samp class="ml-5">    {{c.price}}$ </samp>
+        </p>
+      </div>
+       <button class=" tbtn  "  (click)="addtocart(c)"  data-toggle="modal"> <a  class="cart-btn" ><i class="fas fa-shopping-cart"></i> Add to Cart</a></button>
+       <button class=" tbtn2  "    >    <a  href="{{amountInput}}"  data-toggle="modal" class="cart-btn mr-2" >  Amount </a></button>
+
+    </div>
+
+  </section>
+</main>
+
+
+<!--  ///////////////////////////////////////////////////////  -->
+
+
+<!--  ///////////////////////////////////////////////////////  -->
+
+
+<main>
+  <header>
+    <h1> Offers </h1>
+    <p>
+      <span class="text-white bg-wite">&#139;</span>
+      <span>&#155;</span>
+    </p>
+  </header>
+
+  <section>
+    <div class="product" *ngFor="let c of alldishes">
+      <div class="product-image" >
+        <a routerLink="singleProduct" >
+          <img src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Thumbnail/0ec204db-24b2-45fe-8de1-ee586c92f969.jpg" alt=""></a>
+      </div>
+      <div class="detail"  >
+        <p>
+          <b>{{c.name}}</b><br>
+          <small> {{c.description}} </small><br>
+          <b>Offer</b>
+          <samp class="text-success ">  25%</samp>
+        </p>
+      </div>
+       <button class=" tbtn  "  (click)="addtocart(c)"  data-toggle="modal"> <a  class="cart-btn" ><i class="fas fa-shopping-cart"></i> Add to Cart</a></button>
+       <button class=" tbtn2  "    >    <a  href="{{amountInput}}"  data-toggle="modal" class="cart-btn mr-2" >  Amount </a></button>
+
+    </div>
+
+  </section>
+</main>
+
+
+<!--  ///////////////////////////////////////////////////////  -->
+
+
+<header class="mb-1 "  >
+  <h1 > All Dishes </h1>
+
+</header>
+
+          <div class="row product-lists  mb-5  h-100" >
+            <div class=" mb -3  col-lg-4 col-md-6 text-center strawberry order:1" *ngFor="let c of alldishes">
               <div class=" my-5 single-product-item">
                 <div class="product-image" >
-                  <a routerLink="singleProduct" ><img src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Thumbnail/0ec204db-24b2-45fe-8de1-ee586c92f969.jpg" alt=""></a>
+                  <a routerLink="singleProduct" >
+                    <img src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Thumbnail/0ec204db-24b2-45fe-8de1-ee586c92f969.jpg" alt=""></a>
 
                 </div>
-                <h3>Strawberry</h3>
+                <h3>{{c.name}}</h3>
                 <p class="product-price"><span>{{c.category
-                }}</span> 85$ </p>
+                }}</span> {{c.price}}$ </p>
                 <a href="{{amountInput}}"  data-toggle="modal" class="cart-btn mr-2" >   <button   > Amount</button> </a>
                <button   (click)="addtocart(c)" data-toggle="modal"> <a  class="cart-btn" ><i class="fas fa-shopping-cart"></i> Add to Cart</a></button>
                 <!-- href="cart" -->
+
+
 
                 <!-- <div id="editEmployeeModal" class="modal fade">
                   <div class="modal-dialog">

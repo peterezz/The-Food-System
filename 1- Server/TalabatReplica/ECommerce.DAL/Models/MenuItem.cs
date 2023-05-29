@@ -5,7 +5,7 @@ namespace ECommerce.DAL.Models
         public int ItemID { get; set; }
         public string Name { get; set; } = string.Empty;
         public int price { get; set; }
-        public byte[]?image { get; set; }
+        public byte[]?Photo { get; set; }
         public string Description { get; set; } = string.Empty;
         public string size { get; set; } = string.Empty;
         public int ResturantID { get; set; }

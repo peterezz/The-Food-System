@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230526165018_m")]
-    partial class m
+    [Migration("20230529132259_AddedCoverBannerPhotoToRestaurantTable")]
+    partial class AddedCoverBannerPhotoToRestaurantTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,11 +102,11 @@ namespace ECommerce.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("ResturantID")
                         .HasColumnType("int");
+
+                    b.Property<byte[]>("image")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int>("price")
                         .HasColumnType("int");
@@ -161,6 +161,10 @@ namespace ECommerce.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RestaurantID"), 1L, 1);
+
+                    b.Property<byte[]>("CoverBanner")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
