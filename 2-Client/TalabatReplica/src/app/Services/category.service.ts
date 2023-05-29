@@ -11,10 +11,11 @@ export class CategoryService {
   private BaseUrl = "https://localhost:44318/api/Category";
 
   GetAllCategories(){
-    return this.http.get("https://localhost:44318/api/Category");
+    return this.http.get(this.BaseUrl);
   }
   GetCategoryByName(name:any){
-    return this.http.get('https://localhost:44318/api/Category/'+name);
+    return this.http.get(this.BaseUrl+"/"+name);
+
   }
   GetAllDises(){
     return this.http.get('https://localhost:44318/api/MenueItem');
