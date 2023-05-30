@@ -17,25 +17,27 @@ export class AdminDashbordMenueComponent {
   itemdetails:any;
   file:any;
   myValidations!: FormGroup;
-  resAdminID="4182cad5-8c73-4a8d-8841-181db9732939";
   constructor(private fb : FormBuilder,public route: Router,public service:MenuItemService,public CategorieService:CategoryService,myRoute:ActivatedRoute){
     this.ID = myRoute.snapshot.params["itemID"];
   }
   ngOnInit(): void {
+this.GetAllMenuItems()
+    this.GetItemByID(this.ID);
+    this.GetAllCategories();
+    this.myValidations = this.fb.group({
+      title:['',[Validators.maxLength(50),Validators.required,Validators.pattern(/^[a-zA-Z]+$/)]],
+      price:['',[Validators.required,Validators.pattern(/^[0-9]+$/)]],
+      size:['',[Validators.required,Validators.pattern(/^[MmLlSs]+$/)]],
+
+      desc:['',[Validators.required]],
+      img:['',[Validators.required]],
+    })
+  }
+  GetAllMenuItems(){
     this.service.GetAllMenuItem().subscribe({
       next:(data)=>{this.items=data;console.log(data);},
       error:(err)=>{console.log(err)}
 
-    })
-    this.GetItemByID(this.ID);
-    this.GetAllCategories();
-    this.myValidations = this.fb.group({
-      title:['',[Validators.maxLength(50),Validators.required]],
-      price:['',[Validators.required]],
-      size:['',[Validators.required]],
-selectedOption:['',[Validators.required]],
-      desc:['',[Validators.required]],
-      img:['',[Validators.required]],
     })
   }
   Additem (name:any,price:any,description:any,size:any,resturantID:any,categoryID:any,categoryName:any){
@@ -53,9 +55,10 @@ selectedOption:['',[Validators.required]],
         'Content-Type': 'multipart/form-data',
         'Accept': 'application/json'
        });
-      console.log(formData)
-    this.service.Additem(formData,header).subscribe(  )
+
+    this.service.Additem(formData,header).subscribe( {next:()=>{this.GetAllMenuItems();}} )
     this.route.navigateByUrl("/Adminmenu");
+
     }else{
       this.validateAllFormFields(this.myValidations);
     }
