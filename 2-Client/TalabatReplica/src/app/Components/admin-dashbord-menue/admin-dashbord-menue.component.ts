@@ -29,18 +29,14 @@ export class AdminDashbordMenueComponent {
     'Accept': 'application/json'
    });
   ngOnInit(): void {
-    this.service.GetAllMenuItem().subscribe({
-      next:(data)=>{this.items=data;console.log(data);},
-      error:(err)=>{console.log(err)}
-
-    })
+this.GetAllMenuItems()
     this.GetItemByID(this.ID);
     this.GetAllCategories();
     this.myValidations = this.fb.group({
-      title:['',[Validators.maxLength(50),Validators.required]],
-      price:['',[Validators.required]],
-      size:['',[Validators.required]],
-selectedOption:['',[Validators.required]],
+      title:['',[Validators.maxLength(50),Validators.required,Validators.pattern(/^[a-zA-Z]+$/)]],
+      price:['',[Validators.required,Validators.pattern(/^[0-9]+$/)]],
+      size:['',[Validators.required,Validators.pattern(/^[MmLlSs]+$/)]],
+
       desc:['',[Validators.required]],
       img:['',[Validators.required]],
     });
@@ -55,6 +51,13 @@ selectedOption:['',[Validators.required]],
       BannearFile:[null,Validators.required]    
     })
   }
+  GetAllMenuItems(){
+    this.service.GetAllMenuItem().subscribe({
+      next:(data)=>{this.items=data;console.log(data);},
+      error:(err)=>{console.log(err)}
+
+    })
+  }
   Additem (name:any,price:any,description:any,size:any,resturantID:any,categoryID:any,categoryName:any){
     if(this.myValidations.valid){
       const formData = new FormData();
@@ -66,9 +69,13 @@ selectedOption:['',[Validators.required]],
       formData.append('CategoryID',categoryID);
       formData.append('CategoryName',categoryName);
       formData.append('PhotoFile',this.file);
-      console.log(formData)
-    this.service.Additem(formData,this.header).subscribe(  )
+
+
+
+    this.service.Additem(formData,this.header).subscribe( {next:()=>{this.GetAllMenuItems();}} )
+
     this.route.navigateByUrl("/Adminmenu");
+
     }else{
       this.validateAllFormFields(this.myValidations);
     }

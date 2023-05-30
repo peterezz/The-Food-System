@@ -17,31 +17,49 @@ export class UpdatemenuComponent  {
   ResID:any;
   categories:any;
   selectedFile:any;
-  myValidations!: FormGroup;
  // noFileChosen:any;
   constructor(private fb : FormBuilder,public service:MenuItemService,myRoute:ActivatedRoute,public CategorieService:CategoryService,public route:Router){
     this.ID = myRoute.snapshot.params["itemID"];
   }
   ngOnInit(): void {
     this.service.GetItemById(this.ID).subscribe({
-      next:(data)=>{this.itemdetails=data;console.log(this.itemdetails);},
+      next:(data)=>{this.itemdetails=data;
+        console.log(data);
+        this.myValidations.patchValue({
+          title : this.itemdetails.name,
+          price : this.itemdetails.price,
+          size: this.itemdetails.size,
+          desc: this.itemdetails.description
+
+        });
+      },
       error:(err)=>{console.log(err)}
 
 
     })
     this.GetAllCategories();
   //this.GetAllCategoriesByResID(this.ResID);
+  // this.myValidations.setValue({
+  //   title: this.itemdetails.name,
 
-  this.myValidations = this.fb.group({
-    title:['',[Validators.maxLength(50),Validators.required]],
-    price:['',[Validators.required]],
-    size:['',[Validators.required]],
-    category:['',[Validators.required]],
-    desc:['',[Validators.required]],
-    img:['',[Validators.required]],
-  })
+
+  // });
+
+
   }
+  myValidations = new FormGroup({
+    title :new FormControl(null,[Validators.maxLength(50),Validators.required,Validators.pattern(/^[a-zA-Z]+$/)]),
+    price :new FormControl(null,[Validators.required,Validators.pattern(/^[0-9]+$/)]),
+    size :new FormControl(null,[Validators.required,Validators.pattern(/^[MmLlSs]+$/)]),
+    desc :new FormControl(null,[Validators.required]),
+    //img :new FormControl(null,[Validators.required]),
+    })
+
+
+
   updateItem(itemID:any,name:any,price:any,description:any,size:any,resturantID:any,categoryID:any){
+    if(this.myValidations.valid){
+
     const formData = new FormData();
     formData.append('ItemID',itemID);
     formData.append('Name',name);
@@ -55,10 +73,12 @@ export class UpdatemenuComponent  {
       'Content-Type': 'multipart/form-data',
       'Accept': 'application/json'
      });
-    console.log({itemID,name,price,description,size,resturantID,categoryID},+this.ID);
+    //console.log({itemID,name,price,description,size,resturantID,categoryID},+this.ID);
     this.service.updateItem(formData,+this.ID,header).subscribe();
     this.route.navigateByUrl("/Adminmenu");
-
+    }else{
+      this.validateAllFormFields(this.myValidations);
+    }
   }
   GetAllCategories(){
     this.CategorieService.GetAllCategories().subscribe({
@@ -84,7 +104,7 @@ private validateAllFormFields(formGroup: FormGroup){
   Object.keys(formGroup.controls).forEach(field =>{
     const control = formGroup.get(field);
     if(control instanceof FormControl){
-      control.markAsDirty({onlySelf: true});
+      control.markAsDirty({onlySelf: false});
     }else if ( control instanceof FormGroup){
       this.validateAllFormFields(control);
     }
