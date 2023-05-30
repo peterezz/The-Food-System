@@ -26,6 +26,7 @@ namespace ECommerce
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Test> Tests { get; set; }
         public DbSet<Review> Reviews { get; set; }
+        // public DbSet<RefreshToken> RefreshTokens { get; set; }
 
     }
 }

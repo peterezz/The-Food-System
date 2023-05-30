@@ -290,7 +290,109 @@
 
      <div class="row" >
 
-        <div class=" mx-auto justify-content-center  col-lg-10">
+      <div class=" mx-auto justify-content-center mt-2  col-lg-10">
+        <div class="checkout-accordion-wrap">
+          <div class="accordion" id="accordionExample3">
+            <div class="card single-accordion">
+              <div class="card-header" id="headingThree3">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree3" aria-expanded="false" aria-controls="collapseThree2">
+                Add Resturant profile
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseThree3" class="collapse" aria-labelledby="headingThree2" data-parent="#accordionExample3">
+              <div class="card-body">
+
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">name</span>
+                  <input
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="Restaurant name"
+                  />
+                </label>
+
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">Email Address</span>
+                  <input type="email"
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="Restaurant Emailaddress"
+                  />
+                </label>
+
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">Phone number</span>
+                  <input type="tel"
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="Restaurant phone number"
+                  />
+                </label>
+
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">location</span>
+                  <input type="text"
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="Restaurant location"
+                  />
+                </label>
+
+
+
+
+                <label class="block mt-4 text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">discription</span>
+                  <textarea
+                    class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
+                    rows="3"
+                    placeholder="Enter some long form content."
+                  ></textarea>
+                </label>
+
+
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">profile photo</span>
+                  <input  type="file"
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="Jane Doe"
+                  />
+                </label>
+
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400">paner photo</span>
+                  <input  type="file"
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="Jane Doe"
+                  />
+                </label>
+                
+
+                <div class="px-6 my-6">
+                  <button
+                    class="flex items-center justify-between
+                     px-4 py-2 text-sm font-medium leading-5
+                     text-white transition-colors duration-150 bg-purple-600
+                     border border-transparent rounded-lg active:bg-purple-600
+                     hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                  >
+
+                    save
+                    <span class="ml-2" aria-hidden="true">+</span>
+                  </button>
+                </div>
+                </div>
+
+
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+      </div>
+
+
+        <div class=" mx-auto justify-content-center mt-2  col-lg-10">
           <div class="checkout-accordion-wrap">
             <div class="accordion" id="accordionExample">
               <div class="card single-accordion">
@@ -301,20 +403,62 @@
                     </button>
                   </h5>
                 </div>
+                <form [formGroup]="myValidations" enctype="multipart/form-data">
                 <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                 <div class="card-body">
 
                   <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">title</span>
-                    <input
-                      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    <input #name
+                    formControlName="title"
+                    [ngClass]="{
+                      'is-valid': myValidations.controls['title'].valid && (myValidations.controls['title'].dirty || myValidations.controls['title'].touched),
+                      'is-invalid': myValidations.controls['title'].invalid && (myValidations.controls['title'].dirty || myValidations.controls['title'].touched)
+                    }"
+                      class="form-control block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                       placeholder="Jane Doe"
                     />
                   </label>
+                  <span class="text-danger text-center mx-5" *ngIf="myValidations.controls['title'].dirty && myValidations.hasError('required','title')">  *Title is Required </span>
+                  <span class="text-danger text-center mx-5" *ngIf="myValidations.controls['title'].dirty && myValidations.hasError('maxlength','title')">  *Title must be less than 50 character </span>
+
+
 
                   <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">price</span>
                     <input
+                      #price
+                      formControlName="price"
+                      [ngClass]="{
+                        'is-valid': myValidations.controls['price'].valid && (myValidations.controls['price'].dirty || myValidations.controls['price'].touched),
+                        'is-invalid': myValidations.controls['price'].invalid && (myValidations.controls['price'].dirty || myValidations.controls['price'].touched)
+                      }"
+                      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                      placeholder="Jane Doe"
+                    />
+                  </label>
+                  <span class="text-danger text-center mx-5" *ngIf="myValidations.controls['price'].dirty && myValidations.hasError('required','price')">  *Price is Required </span>
+
+                  <label class="block text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">Size</span>
+                    <input
+                      #size
+                      formControlName="size"
+                      [ngClass]="{
+                        'is-valid': myValidations.controls['size'].valid && (myValidations.controls['size'].dirty || myValidations.controls['size'].touched),
+                        'is-invalid': myValidations.controls['size'].invalid && (myValidations.controls['size'].dirty || myValidations.controls['size'].touched)
+                      }"
+                      class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                      placeholder="Jane Doe"
+                    />
+                  </label>
+                  <span class="text-danger text-center mx-5" *ngIf="myValidations.controls['size'].dirty && myValidations.hasError('required','size')">  *Size is Required </span>
+
+                  <label class="block text-sm">
+                    <span class="text-gray-700 dark:text-gray-400">ResID</span>
+                    <input
+                      #ResID
+
                       class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                       placeholder="Jane Doe"
                     />
@@ -325,54 +469,69 @@
                     <span class="text-gray-700 dark:text-gray-400">
                       catigorys
                     </span>
-                    <select
+                    <select  #catigorys
                       class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                     >
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
+                      <option *ngFor="let c of Category"  value="{{+c.categoryID}}">{{c.name}}</option>
+
+
                     </select>
                   </label>
 
 
 
                   <label class="block mt-4 text-sm">
-                    <span class="text-gray-700 dark:text-gray-400">discription</span>
-                    <textarea
+                    <span class="text-gray-700 dark:text-gray-400">description</span>
+                    <textarea #desc
+                    formControlName="desc"
+                    [ngClass]="{
+                      'is-valid': myValidations.controls['desc'].valid && (myValidations.controls['desc'].dirty || myValidations.controls['desc'].touched),
+                      'is-invalid': myValidations.controls['desc'].invalid && (myValidations.controls['desc'].dirty || myValidations.controls['desc'].touched)
+                    }"
                       class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                       rows="3"
                       placeholder="Enter some long form content."
                     ></textarea>
                   </label>
 
+                  <span class="text-danger text-center mx-5" *ngIf="myValidations.controls['desc'].dirty && myValidations.hasError('required','desc')">  *Description is Required </span>
 
                   <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Img</span>
-                    <input  type="file"
+                    <input #image  type="file" name="file" (change)="UploadFile($event)" formControlName="img"
+                    [ngClass]="{
+                      'is-valid': myValidations.controls['img'].valid && (myValidations.controls['img'].dirty || myValidations.controls['img'].touched),
+                      'is-invalid': myValidations.controls['img'].invalid && (myValidations.controls['img'].dirty || myValidations.controls['img'].touched)
+                    }"
                       class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                       placeholder="Jane Doe"
                     />
                   </label>
+                  <span class="text-danger text-center mx-5" *ngIf="myValidations.controls['img'].dirty && myValidations.hasError('required','img')">  *MenuItem Image is Required </span>
+
 
 
                   <div class="px-6 my-6">
-                    <button
-                      class="flex items-center justify-between
-                       px-4 py-2 text-sm font-medium leading-5
-                       text-white transition-colors duration-150 bg-purple-600
-                       border border-transparent rounded-lg active:bg-purple-600
-                       hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
-                    >
 
-                      add product
-                      <span class="ml-2" aria-hidden="true">+</span>
-                    </button>
+
+
+                    <button  (click)="Additem(name.value,+price.value,desc.value,size.value,+ResID.value,+catigorys.value,catigorys.options[catigorys.selectedIndex].text)"
+                    class="flex items-center justify-between
+                     px-4 py-2 text-sm font-medium leading-5
+                     text-white transition-colors duration-150 bg-purple-600
+                     border border-transparent rounded-lg active:bg-purple-600
+                     hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
+                  >
+
+                    add product
+                    <span class="ml-2" aria-hidden="true">+</span>
+                  </button>
                   </div>
                   </div>
 
 
                 </div>
+                </form>
               </div>
 
 
@@ -478,29 +637,27 @@
             </thead>
             <tbody>
 
-              <tr>
+               <tr #row *ngFor="let i of items">
+                <td></td>
+                <td>{{i.name}}</td>
+                <td> {{i.description}} </td>
+                <td>{{i.price}}</td>
+                <td>{{i.categoryName}}</td>
                 <td>
-
-                </td>
-                <td>chiken</td>
-                <td> good teasty </td>
-                <td>20 $</td>
-                <td>ssun </td>
-                <td>
-                  <a href="#editEmployeeModal" class="edit" data-toggle="modal">
+                  <a  routerLink="/Updatemenu/{{i.itemID}}"   class="edit" data-toggle="modal">
             <i class="material-icons" data-toggle="tooltip" title="Edit">&#xE254;</i></a>
-                  <a href="#deleteEmployeeModal" class="delete" data-toggle="modal">
+                  <a (click)="Delete(i.itemID,row)" class="delete" data-toggle="modal">
             <i class="material-icons" data-toggle="tooltip" title="Delete">&#xE872;</i></a>
                 </td>
-              </tr>
 
+              </tr>
 
             </tbody>
           </table>
 
         </div>
 
-        <div id="editEmployeeModal" class="modal fade">
+        <div *ngIf="itemdetails" id="editEmployeeModal" class="modal fade">
           <div class="modal-dialog">
             <div class="modal-content">
               <form>
@@ -512,25 +669,33 @@
                 <div class="modal-body">
                   <div class="form-group">
                     <label>title</label>
-                    <input type="text" class="form-control" required>
+                    <input  #name  value="{{itemdetails.name}}" type="text" class="form-control" required>
                   </div>
                   <div class="form-group">
                     <label>price</label>
-                    <input type="email" class="form-control" required>
+                    <input #price value="{{itemdetails.price}}" type="email" class="form-control" required>
+                  </div>
+
+                  <div class="form-group">
+                    <label>size</label>
+                    <input #size value="{{itemdetails.size}}"
+                    class="form-control" required>
                   </div>
 
 
+                  <div class="form-group">
+                    <label>ResID</label>
+                    <input #ResID value="{{itemdetails.resturantID}}"
+                    class="form-control" required>
+                  </div>
                   <label class="block mt-4 text-sm">
                     <span class="text-gray-700 dark:text-gray-400">
                       catigorys
                     </span>
-                    <select
+                    <select #catigorys value="{{itemdetails.categoryName}}"
                       class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-select focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                     >
-                      <option>1</option>
-                      <option>2</option>
-                      <option>3</option>
-                      <option>4</option>
+                    <option *ngFor="let c of Category"  value="{{+c.categoryID}}">{{c.name}}</option>
                     </select>
                   </label>
 
@@ -539,6 +704,7 @@
                   <label class="block mt-4 text-sm">
                     <span class="text-gray-700 dark:text-gray-400">discription</span>
                     <textarea
+                    #description value="{{itemdetails.description}}"
                       class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                       rows="3"
                       placeholder="Enter some long form content."
@@ -548,15 +714,16 @@
 
                   <label class="block text-sm">
                     <span class="text-gray-700 dark:text-gray-400">Img</span>
-                    <input  type="file"
+                    <input #photo value="{{itemdetails.photoFile}}"  type="file"
                       class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                       placeholder="Jane Doe"
                     />
                   </label>
+
                 </div>
                 <div class="modal-footer">
-                  <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                  <input type="submit" class="btn btn-info" value="Save">
+                  <input type="button"  class="btn btn-default" data-dismiss="modal" value="Cancel">
+                  <input type="submit"  class="btn btn-info" value="Save">
                 </div>
               </form>
             </div>
@@ -571,6 +738,8 @@
 
 
     </div>
+
+
 
 
 

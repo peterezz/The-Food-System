@@ -20,6 +20,7 @@ namespace ECommerce.BAL.Managers
         {
 
             restaurantDto.Poster = await FileManager.UploadFileAsync( restaurantDto.PosterFile );
+            restaurantDto.CoverBanner = await FileManager.UploadFileAsync( restaurantDto.BannearFile );
             var data = _mapper.Map<Resturant>( restaurantDto );
             await AddAsync( data );
             restaurantDto.RestaurantID = data.RestaurantID;
@@ -48,13 +49,13 @@ namespace ECommerce.BAL.Managers
             var data = await GetByIdAsync( resID );
             return _mapper.Map<RestaurantDto>( data );
         }
-        public async Task<RestaurantDto> GetResturentByNameAsync(string resName)
+        public async Task<RestaurantDto> GetResturentByNameAsync( string resName )
         {
-            var data = await FirstOrDefaultAsync(res => res.Name == resName);
-           
-            return _mapper.Map<RestaurantDto>(data);
+            var data = await FirstOrDefaultAsync( res => res.Name == resName );
+
+            return _mapper.Map<RestaurantDto>( data );
         }
-        
+
         public async Task<bool> FindRestaurantByAdminID( string adminID ) => await FirstOrDefaultAsync( res => res.ResAdminID.Equals( adminID ) ) != null;
 
         //public async Task<List<RestaurantDto>> GetRestaurantPagesAsync(int page = 1, int pageSize = 2)

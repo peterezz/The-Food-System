@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230524124650_AddRefreshTokenTablewithoutOwned")]
-    partial class AddRefreshTokenTablewithoutOwned
+    [Migration("20230529132259_AddedCoverBannerPhotoToRestaurantTable")]
+    partial class AddedCoverBannerPhotoToRestaurantTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,37 +76,6 @@ namespace ECommerce.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("ECommerce.DAL.Models.IdentityModels.RefreshToken", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ApplicationUserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ExpiresOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("RevokedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("refreshTokens");
-                });
-
             modelBuilder.Entity("ECommerce.DAL.Models.MenuItem", b =>
                 {
                     b.Property<int>("ItemID")
@@ -133,11 +102,11 @@ namespace ECommerce.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("Photo")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("ResturantID")
                         .HasColumnType("int");
+
+                    b.Property<byte[]>("image")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int>("price")
                         .HasColumnType("int");
@@ -192,6 +161,10 @@ namespace ECommerce.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RestaurantID"), 1L, 1);
+
+                    b.Property<byte[]>("CoverBanner")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -515,13 +488,6 @@ namespace ECommerce.Migrations
                     b.Navigation("users");
                 });
 
-            modelBuilder.Entity("ECommerce.DAL.Models.IdentityModels.RefreshToken", b =>
-                {
-                    b.HasOne("ECommerce.DAL.Models.IdentityModels.ApplicationUser", null)
-                        .WithMany("RefreshTokens")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
             modelBuilder.Entity("ECommerce.DAL.Models.MenuItem", b =>
                 {
                     b.HasOne("ECommerce.DAL.Models.Category", "category")
@@ -639,6 +605,43 @@ namespace ECommerce.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ECommerce.DAL.Models.IdentityModels.ApplicationUser", b =>
+                {
+                    b.OwnsMany("ECommerce.DAL.Models.IdentityModels.RefreshToken", "RefreshTokens", b1 =>
+                        {
+                            b1.Property<string>("ApplicationUserId")
+                                .HasColumnType("nvarchar(450)");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"), 1L, 1);
+
+                            b1.Property<DateTime>("CreatedOn")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<DateTime>("ExpiresOn")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<DateTime?>("RevokedOn")
+                                .HasColumnType("datetime2");
+
+                            b1.Property<string>("Token")
+                                .IsRequired()
+                                .HasColumnType("nvarchar(max)");
+
+                            b1.HasKey("ApplicationUserId", "Id");
+
+                            b1.ToTable("RefreshToken");
+
+                            b1.WithOwner()
+                                .HasForeignKey("ApplicationUserId");
+                        });
+
+                    b.Navigation("RefreshTokens");
+                });
+
             modelBuilder.Entity("ECommerce.DAL.Models.Category", b =>
                 {
                     b.Navigation("MenuItems");
@@ -660,8 +663,6 @@ namespace ECommerce.Migrations
 
             modelBuilder.Entity("ECommerce.DAL.Models.IdentityModels.ApplicationUser", b =>
                 {
-                    b.Navigation("RefreshTokens");
-
                     b.Navigation("Restaurant");
 
                     b.Navigation("Reviews");

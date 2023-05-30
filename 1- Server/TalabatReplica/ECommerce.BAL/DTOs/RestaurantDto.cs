@@ -16,6 +16,7 @@ namespace ECommerce.BAL.DTOs
         [MaxLength( 50 , ErrorMessage = "Exceeded max length of Restaurant name of 50 char" )]
         public string Name { get; set; } = string.Empty;
         public byte[ ]? Poster { get; set; }
+        public byte[ ]? CoverBanner { get; set; }
         [Required( ErrorMessage = "Description field is required" )]
         public string Description { get; set; } = string.Empty;
 
@@ -31,6 +32,8 @@ namespace ECommerce.BAL.DTOs
         public string ResAdminID { get; set; } = string.Empty;
         [Required( ErrorMessage = "Please upload a photo of your restaurant" )]
         public IFormFile PosterFile { get; set; }
+        [Required( ErrorMessage = "Please upload a Banner photo for your restaurant" )]
+        public IFormFile BannearFile { get; set; }
 
     }
 }

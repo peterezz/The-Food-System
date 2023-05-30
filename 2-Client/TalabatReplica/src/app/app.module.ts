@@ -20,9 +20,15 @@ import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassw
 import { ContactComponent } from './Components/contact/contact.component';
 import { CategoryItemsComponent } from './Components/category-items/category-items.component';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { FilterbycatComponent } from './Components/filterbycat/filterbycat.component';
+import { AdminDashbordMenueComponent } from './Components/admin-dashbord-menue/admin-dashbord-menue.component';
 import { isNgTemplate } from '@angular/compiler';
+import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.component';
 
+// import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
+// import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
+// import { ContactComponent } from './Components/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -42,8 +48,10 @@ import { isNgTemplate } from '@angular/compiler';
     SetnewpasswordComponent,
     ContactComponent,
     CategoryItemsComponent,
+    AdminDashbordMenueComponent,
     FilterbycatComponent,
-
+    UpdatemenuComponent,
+    
 
 
 
@@ -57,7 +65,13 @@ import { isNgTemplate } from '@angular/compiler';
     ReactiveFormsModule,
     HttpClientModule,
     RouterLink,
+    CommonModule,
     
+    
+    // MatSidenavModule,
+    // MatIconModule,
+    // MatTooltipModule
+
 
   ],
   providers: [],

@@ -26,6 +26,9 @@ export class LoginComponent  implements OnDestroy{
   password:string="";
   public errMss:string="";
 
+
+
+
   //set validation
   loginEmailFormGroup  = new FormGroup({
     UserEmailAddress: new FormControl('', [
@@ -79,7 +82,7 @@ export class LoginComponent  implements OnDestroy{
         next: () => {
           alert("Login Successfull")
           this.router.navigate(['/AllResturants'])
-          
+
         },
         error : (err:any) =>{
           alert(err.error)
@@ -87,8 +90,8 @@ export class LoginComponent  implements OnDestroy{
       })
     }
   }
- 
-  
+
+
   ////////////////////////////////////// REGISTRE
 
 
@@ -100,12 +103,12 @@ export class LoginComponent  implements OnDestroy{
 
       //set validation
   registerEmailFormGroup  = new FormGroup({
-   
+
     firstName: new FormControl('', [
       Validators.required,
       Validators.minLength(2)
 
-    ]),   
+    ]),
     lastName: new FormControl('', [
       Validators.minLength(3)
 
@@ -121,15 +124,16 @@ export class LoginComponent  implements OnDestroy{
     ]),
     Password: new FormControl('', [
 
+
     ]),
   });
-  
-  get validFirstName() 
+
+  get validFirstName()
   {
     return this.registerEmailFormGroup.controls.firstName.invalid && (this.registerEmailFormGroup.controls.firstName.dirty || this.registerEmailFormGroup.controls.firstName.touched);
   }
-  
-  get validUserName() 
+
+  get validUserName()
   {
     return this.registerEmailFormGroup.controls.username.invalid && (this.registerEmailFormGroup.controls.username.dirty || this.registerEmailFormGroup.controls.username.touched);
   }
@@ -188,11 +192,14 @@ export class LoginComponent  implements OnDestroy{
   logup(){
     this.in_or_up  ="sign-up-mode" ;
   }
-  
+
   //after apply services making unsubscribe "Destructor of class"
-  ngOnDestroy(): void 
+  ngOnDestroy(): void
   {
     this.SubscribeService.unsubscribe();
   }
+
+
+
 
 }

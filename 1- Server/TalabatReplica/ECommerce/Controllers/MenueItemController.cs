@@ -39,6 +39,24 @@ namespace ECommerce.API.Controllers
             return Ok( data );
         }
 
+
+        [HttpGet("Res/{id}")]
+        public async Task<IActionResult> GetAllCategoriesinRes(int id)
+        {
+            var data = manager.GetAllCategoriesPerResIDAsync(id);
+            if (id <= 0)
+            {
+                return BadRequest("Not Valid ID");
+            }
+
+            if (data == null)
+            {
+                return NotFound("ID not found");
+            }
+            return Ok(data);
+        }
+
+
         [HttpGet( "{name:alpha}" )]
         public async Task<IActionResult> GetMenueitemsByName( string name )
         {
@@ -70,12 +88,15 @@ namespace ECommerce.API.Controllers
             return Ok( data );
         }
         [HttpPost]
-        public async Task<IActionResult> Add_Item( [FromBody] MenueItemDto dto )
+        public async Task<IActionResult> Add_Item( [FromForm] MenueItemDto dto )
         {
+            //dto.ResturantID = 1;
+            //dto.CategoryID = 1;
             if ( ModelState.IsValid )
             {
                 try
                 {
+                    
                     var data = await manager.Add_MenueItem( dto );
                     return Ok( data );
                 }
@@ -89,7 +110,7 @@ namespace ECommerce.API.Controllers
 
         }
         [HttpPut( "{id}" )]
-        public async Task<IActionResult> update_Item( MenueItemDto dto , int id )
+        public async Task<IActionResult> update_Item( [FromForm]MenueItemDto dto , int id )
         {
             if ( id != dto.ItemID )
             {
@@ -128,6 +149,12 @@ namespace ECommerce.API.Controllers
                 return NotFound( "Restaurant not found" );
             var topIems = await manager.GetTopMenuItemsAsync( id );
             return Ok( topIems );
+        }
+        [HttpGet("Resmenu/{Resid}")]
+        public async Task<IActionResult> GetMenueitemByResID(int Resid)
+        {
+            var data = await manager.GetMenuByResIDAsync(Resid);
+            return Ok(data);
         }
 
     }

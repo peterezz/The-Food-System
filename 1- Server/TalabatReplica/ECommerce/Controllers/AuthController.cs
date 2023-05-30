@@ -4,6 +4,8 @@ using ECommerce.DAL.Reposatory.Repo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Text;
 
 namespace ECommerce.API.Controllers
 {
@@ -232,12 +234,17 @@ namespace ECommerce.API.Controllers
         [HttpPut( "ForgetPassword" )]
         public async Task<IActionResult> ResetPassword( [FromBody] ResetPasswordDto resetPassword )
         {
-            var user = await userManager.FindByEmailAsync( resetPassword.UserEmailAddress );
+            var user = await userManager.FindByIdAsync( resetPassword.UserID );
             if ( user == null )
                 return BadRequest( "User Not Fount" );
-            var result = await userManager.ResetPasswordAsync( user , resetPassword.Token , resetPassword.ConfirmPassword );
+            var deCode = Encoding.UTF8.GetString( WebEncoders.Base64UrlDecode( resetPassword.Token ) );
+            //ode =
+            var result = await userManager.ResetPasswordAsync( user , deCode , resetPassword.ConfirmPassword );
             if ( !result.Succeeded )
-                return BadRequest( "Reset Password time out, Please try again later" );
+            {
+                string errorMassages = string.Join( "\n" , result.Errors.Select( err => err.Description ) );
+                return BadRequest( errorMassages );
+            }
             return Ok( );
         }
         [HttpPost( "ForgetPassword" )]
@@ -248,11 +255,12 @@ namespace ECommerce.API.Controllers
             var user = await userManager.FindByEmailAsync( tokenInitDto.UserEmailAddress );
             if ( user == null )
                 return NotFound( "User not found" );
+
             var result = await userManager.GeneratePasswordResetTokenAsync( user );
             if ( string.IsNullOrEmpty( result ) )
                 return BadRequest( "token not valid" );
 
-
+            var token = WebEncoders.Base64UrlEncode( Encoding.UTF8.GetBytes( result ) );
 
             // TODO: Email Service !Important
 
@@ -266,7 +274,7 @@ namespace ECommerce.API.Controllers
             str.Close( );
 
 
-            mailText = mailText.Replace( "[username]" , tokenInitDto.UserEmailAddress.Split( '@' )[ 0 ] ).Replace( "[email]" , tokenInitDto.UserEmailAddress ).Replace( "[token]" , result );
+            mailText = mailText.Replace( "[username]" , tokenInitDto.UserEmailAddress.Split( '@' )[ 0 ] ).Replace( "[email]" , tokenInitDto.UserEmailAddress ).Replace( "[token]" , token ).Replace( "[userid]" , user.Id );
 
             await emailService.SendEmailAsync( tokenInitDto.UserEmailAddress , mailText , "Reset Password" );
 
@@ -275,7 +283,7 @@ namespace ECommerce.API.Controllers
             //2- Fixed window algorithm
             //3- Sliding window algorithm
 
-            return Ok( "Email sent" );
+            return Ok( );
         }
 
     }

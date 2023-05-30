@@ -1,6 +1,9 @@
+import { Restaurant } from './../../Models/restaurant.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/Services/category.service';
+import { MenuItemService } from 'src/app/Services/menu-item.service';
+import { RestuarantService } from 'src/app/Services/restuarant.service';
 
 @Component({
   selector: 'app-restaurant',
@@ -15,46 +18,59 @@ export class RestaurantComponent implements OnInit {
   dishesInCart:any[] = []
   quantity:number = 1 ;
   amountInput:any="#editEmployeeModal";
-
-      constructor(public service:CategoryService  , myRoute: ActivatedRoute){
-
+  ResID:any;
+  Restaurant:any;
+      constructor(public service:CategoryService,public MenuService :MenuItemService  , myRoute: ActivatedRoute , public ResService:RestuarantService){
+               this.ResID = myRoute.snapshot.params["restaurantID"];
       }
   ngOnInit(): void {
 
 
-    this.service.GetAllCategories().subscribe({
+    this.MenuService.GetAllCategoriesByResID(this.ResID).subscribe({
       next:(data)=>{
         this.categories = data;
-        console.log(this.items)
+        console.log(this.categories)
       }
     })
 
     this.service.GetAllDises().subscribe({
       next:(data:any)=>{
          this.alldishes = data;
-         console.log(this.alldishes)
+        //  console.log(this.alldishes)
       }
     })
 
-
+    this.GetResByID(this.ResID);
 
   }
 
+  GetResByID(id:any){
+    this.ResService.GetRestuarantById(id).subscribe({
+      next:(data)=>{this.Restaurant = data;}
+    })
+  }
+
+
+
   filterbycat(catname:any){
    let value = catname.target.value
-    console.log(value)
+    // console.log(value)
 if(value=="All"){
   this.service.GetAllDises().subscribe({
     next:(data:any)=>{
        this.alldishes = data;
-       console.log(this.alldishes)
+      //  console.log(this.alldishes)
     }
   })
 }else
     this.service.GetCategoryByName(value).subscribe({
       next:(data:any)=>{
-        console.log(data);
-        this.alldishes=data;
+        // console.log(data["name"])
+        for (let key in data) {
+          console.log(data[key]["menuItems"]); 
+          this.alldishes=data[key]["menuItems"];
+        }
+
       }
     });
   }

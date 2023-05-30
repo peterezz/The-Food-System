@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
 
 namespace ECommerce.BAL.DTOs
 {
@@ -10,17 +11,19 @@ namespace ECommerce.BAL.DTOs
         public string Name { get; set; } = string.Empty;
         [Required( ErrorMessage = "price is Required" )]
         public int price { get; set; }
-        public string? Photo { get; set; }
+        public byte[]? image { get; set; }
         [Required( ErrorMessage = " Description is Required" )]
         public string Description { get; set; } = string.Empty;
         [Required( ErrorMessage = " size is Required" )]
         public string size { get; set; } = string.Empty;
-        public bool IsAccepted { get; set; }
-        public bool IsTopItem { get; set; }
+        public bool ?IsAccepted { get; set; }
+        public bool ?IsTopItem { get; set; }
 
         public int ResturantID { get; set; }
 
         public int CategoryID { get; set; }
+        public string? CategoryName { get; set; }
+       public IFormFile ?PhotoFile { get; set; }
 
     }
 }

@@ -1,8 +1,6 @@
 ﻿using ECommerce.BAL.DTOs;
 using ECommerce.BAL.Repository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using System.Linq;
 
 namespace ECommerce.API.Controllers
 {
@@ -26,15 +24,15 @@ namespace ECommerce.API.Controllers
             return Ok( data );
         }
 
-        [HttpGet("GetResturantPage")]
-        public async Task<IActionResult> GetResturantsPages(int page = 1, int pageSize = 2)
+        [HttpGet( "GetResturantPage" )]
+        public async Task<IActionResult> GetResturantsPages( int page = 1 , int pageSize = 2 )
         {
-            var Restaurants = await restaurantManager.GetRestaurantsAsync();
-            var ResturantPage = Restaurants.Skip((page - 1) * pageSize)
-                                            .Take(pageSize)
-                                            .ToList();
+            var Restaurants = await restaurantManager.GetRestaurantsAsync( );
+            var ResturantPage = Restaurants.Skip( (page - 1) * pageSize )
+                                            .Take( pageSize )
+                                            .ToList( );
 
-            return Ok(ResturantPage);
+            return Ok( ResturantPage );
 
             //var products =await restaurantManager.GetRestaurantsAsync();
 
@@ -72,20 +70,21 @@ namespace ECommerce.API.Controllers
 
         //Search About Restuarant By Restuarant Name
 
-        [HttpGet("{name:alpha}", Name = "SearchResturant")]
-        public async Task<IActionResult> SearchResturantByName(string name)
+        [HttpGet( "{name:alpha}" , Name = "SearchResturant" )]
+        public async Task<IActionResult> SearchResturantByName( string name )
         {
-            if (name == null)
-                return BadRequest("Not Name Entered Yet!");
-            var data = await restaurantManager.GetResturentByNameAsync(name);
-            if (data == null)
-                return NotFound("Restaurant not found");
-            return Ok(data);
+            if ( name == null )
+                return BadRequest( "Not Name Entered Yet!" );
+            var data = await restaurantManager.GetResturentByNameAsync( name );
+            if ( data == null )
+                return NotFound( "Restaurant not found" );
+            return Ok( data );
         }
 
 
         // GET: RestaurantsController/Create
         [HttpPost( Name = "CreateRestaurant" )]
+        // [Consumes( "application/x-www-form-urlencoded" )]
         public async Task<IActionResult> Create( [FromForm] RestaurantDto restaurantDto )
         {
             if ( !ModelState.IsValid )
