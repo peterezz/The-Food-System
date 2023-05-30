@@ -92,7 +92,7 @@ namespace ECommerce.API.Controllers
             if ( await restaurantManager.FindRestaurantByAdminID( restaurantDto.ResAdminID ) )
                 return BadRequest( "Request is rejected as already registered a restaurant to the system" );
             var data = await restaurantManager.CreateRestaurantAsync( restaurantDto );
-            return CreatedAtAction( nameof( Details ) , new { id = data.RestaurantID } , data );
+            return Ok( );
         }
         [HttpPut( "{id:int}" )]
         public async Task<IActionResult> EditRestaurant( [FromHeader] int id , [FromForm] RestaurantDto restaurantDto )

@@ -8,9 +8,9 @@ import { Restaurant } from '../Models/restaurant.model';
 export class RestuarantService {
  private BaseURL:string = "https://localhost:44318/Restaurants"
   constructor(private httpClient:HttpClient) { }
-  AddRestaurant(restaurant: Restaurant)
+  AddRestaurant(formData:FormData,header:any)
   {
-    return this.httpClient.post(this.BaseURL,restaurant);
+    return this.httpClient.post(this.BaseURL,formData,header);
   }
 
   GetAllRestuarants(){
