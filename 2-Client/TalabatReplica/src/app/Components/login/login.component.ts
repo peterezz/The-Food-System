@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy,  } from '@angular/core';
 import { FormControl,FormGroup,Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -56,7 +57,7 @@ export class LoginComponent  implements OnDestroy{
   }
 
   //inject services
-  constructor(public userlog:LoginService, public userreg:RegisterModelService  ,rout:ActivatedRoute, private router:Router){
+  constructor(public userlog:LoginService, public httpClient:HttpClient ,public userreg:RegisterModelService  ,rout:ActivatedRoute, private router:Router){
   }
 
   //Click Action
@@ -119,7 +120,6 @@ export class LoginComponent  implements OnDestroy{
       Validators.email,
     ]),
     Password: new FormControl('', [
-   
 
     ]),
   });
@@ -157,12 +157,22 @@ export class LoginComponent  implements OnDestroy{
         this.registerEmailFormGroup.controls['username'].value,
         this.registerEmailFormGroup.controls['EmailAddress'].value,
         this.registerEmailFormGroup.controls['Password'].value
-
-      );
+        );
       this.SubscribeService=this.userreg.Register(registerData).subscribe({
         next: (data) => {
           alert("Registered Successfully" + data)
-          this.router.navigate(['/AllResturants'])
+
+          const chk = document.querySelector('#Admin') as HTMLInputElement
+          if(chk.checked)
+          {
+          this.router.navigate(['/cart'])
+          }
+          else
+          {
+            this.router.navigate(['/AllResturants'])
+            // this.SubscribeService=this.userreg.AsigneRole(registerData).subscribe({})
+
+          }
         },
         error : (err:any) =>{
           alert(err.error)

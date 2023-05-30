@@ -89,7 +89,11 @@
           
         <div class="input-field">
           <i class="fas fa-user"></i>
-          <input type="text" placeholder="LastName" />
+          <input type="text" placeholder="LastName"
+          formControlName="lastName" [ngClass]="{
+            'is-valid': registerEmailFormGroup.controls.lastName.valid && (registerEmailFormGroup.controls.lastName.dirty || registerEmailFormGroup.controls.lastName.touched),
+            'is-invalid': registerEmailFormGroup.controls.lastName.invalid && (registerEmailFormGroup.controls.lastName.dirty || registerEmailFormGroup.controls.lastName.touched)
+          }" />
         </div>
 
         <div class="input-field">
@@ -122,25 +126,17 @@
         <div class="input-field">
           <i class="fas fa-lock"></i>
           <input type="password" placeholder="Password"
-          [formControl]="Password" 
+          formControlName="Password" 
           [ngClass]="{
-            'is-valid': registerEmailFormGroup.controls.Password.valid && (registerEmailFormGroup.controls.Password.dirty || registerEmailFormGroup.controls.Password.touched) && !validPassword,
-            'is-invalid': registerEmailFormGroup.controls.Password.invalid && (registerEmailFormGroup.controls.Password.dirty || registerEmailFormGroup.controls.Password.touched) && validPassword
+            'is-valid': registerEmailFormGroup.controls.Password.valid && (registerEmailFormGroup.controls.Password.dirty || registerEmailFormGroup.controls.Password.touched) ,
+            'is-invalid': registerEmailFormGroup.controls.Password.invalid && (registerEmailFormGroup.controls.Password.dirty || registerEmailFormGroup.controls.Password.touched) 
           }"
            />
         </div>
 
-        <div class="alert alert-danger" *ngIf="Password.hasError('required') && Password.dirty ">
+        <div class="alert alert-danger"  *ngIf="validPassword">
           <p class="m-1">password is required</p>
         </div>
-        
-        <div  id="d1" class="alert alert-danger m-1" *ngIf="Password.hasError('pattern') || Password.dirty ">
-          <p class="m-1">. At least 8 characters long<br>
-            . Contains at least one uppercase letter<br>
-            . Contains at least one lowercase letter<br>
-            . Contains at least one number</p>
-        </div>
-        
 
         <input type="submit" class="btn solid" value="Sign up" (click)="RegisterAction()"/>
 
@@ -173,7 +169,10 @@
         </p>
         <button class="btn transparent" id="sign-up-btn" (click)="logup()">
           Sign up
-        </button>
+        </button><br>
+
+        <input type="checkbox" id="Admin"  class="form-check-input mt-3"> <label class="label label-default ml-4 mt-2"  for="Admin" style="font-size: larger; font-weight: bold;">Admin</label>
+
       </div>
       <img src="assets/img/login/log.svg" class="image" alt="" />
     </div>

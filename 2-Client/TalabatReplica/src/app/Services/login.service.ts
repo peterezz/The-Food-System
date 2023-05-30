@@ -9,6 +9,7 @@ export class LoginService {
 
   private BaseUrl:string="https://localhost:44318/Login";
 
+  
   constructor(private httpClient:  HttpClient )
    {
       

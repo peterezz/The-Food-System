@@ -16,7 +16,8 @@ import { CategoryItemsComponent } from './Components/category-items/category-ite
 import { FilterbycatComponent } from './Components/filterbycat/filterbycat.component';
 
 const routes: Routes = [
-  {path:"", component: RestaurantComponent},
+  {path:"", component: AllResturantsComponent},
+  {path:"Resturant", component: RestaurantComponent},
   {path:"category/:name", component: CategoryItemsComponent},
   {path:"login", component: LoginComponent},
   {path:"checkOut", component: CheckOutComponent},
