@@ -1,9 +1,11 @@
-import { HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
+import { Restaurant } from 'src/app/Models/restaurant.model';
 import { CategoryService } from 'src/app/Services/category.service';
 import { MenuItemService } from 'src/app/Services/menu-item.service';
+import { RestuarantService } from 'src/app/Services/restuarant.service';
 
 @Component({
   selector: 'app-admin-dashbord-menue',
@@ -17,10 +19,15 @@ export class AdminDashbordMenueComponent {
   itemdetails:any;
   file:any;
   myValidations!: FormGroup;
-  resAdminID="4182cad5-8c73-4a8d-8841-181db9732939";
-  constructor(private fb : FormBuilder,public route: Router,public service:MenuItemService,public CategorieService:CategoryService,myRoute:ActivatedRoute){
+  addRestaurantValidations!: FormGroup;
+  resAdminID="cdf78d74-1912-4444-99f2-b3fd9e91f38e";
+  constructor(private fb : FormBuilder,public route: Router,public service:MenuItemService,public CategorieService:CategoryService,myRoute:ActivatedRoute,private restuarantService:RestuarantService){
     this.ID = myRoute.snapshot.params["itemID"];
   }
+  header = new HttpHeaders({
+    'Content-Type': 'multipart/form-data',
+    'Accept': 'application/json'
+   });
   ngOnInit(): void {
     this.service.GetAllMenuItem().subscribe({
       next:(data)=>{this.items=data;console.log(data);},
@@ -36,6 +43,16 @@ export class AdminDashbordMenueComponent {
 selectedOption:['',[Validators.required]],
       desc:['',[Validators.required]],
       img:['',[Validators.required]],
+    });
+    this.addRestaurantValidations = this.fb.group({
+      Location:['',[Validators.required]],
+      Name:['',[Validators.required,Validators.maxLength(50)]],
+      Description:['',[Validators.required,]],
+      EmailAddress:['',[Validators.required,Validators.email]],
+      phoneNum:['',[Validators.required,Validators.maxLength(11)]],
+      //ResAdminID:['',[Validators.required]],
+      PosterFile:[null,Validators.required],
+      BannearFile:[null,Validators.required]    
     })
   }
   Additem (name:any,price:any,description:any,size:any,resturantID:any,categoryID:any,categoryName:any){
@@ -49,19 +66,39 @@ selectedOption:['',[Validators.required]],
       formData.append('CategoryID',categoryID);
       formData.append('CategoryName',categoryName);
       formData.append('PhotoFile',this.file);
-       const header = new HttpHeaders({
-        'Content-Type': 'multipart/form-data',
-        'Accept': 'application/json'
-       });
       console.log(formData)
-    this.service.Additem(formData,header).subscribe(  )
+    this.service.Additem(formData,this.header).subscribe(  )
     this.route.navigateByUrl("/Adminmenu");
     }else{
       this.validateAllFormFields(this.myValidations);
     }
   }
+  restaurantModel: Restaurant=new Restaurant();
 
-
+  AddRestaurant (){
+    console.log(this.restaurantModel)
+    this.restaurantModel.ResAdminID=this.resAdminID;
+    if(this.addRestaurantValidations.valid){
+      const formData = new FormData();
+      formData.append('Name',this.restaurantModel.Name);
+      formData.append('Location',this.restaurantModel.Location);
+      formData.append('EmailAddress',this.restaurantModel.EmailAddress);
+      formData.append('phoneNum',this.restaurantModel.phoneNum);
+      formData.append('Description',this.restaurantModel.Description);
+      formData.append('ResAdminID',this.restaurantModel.ResAdminID);
+     formData.append('BannearFile',this.restaurantModel.BannearFile);
+     formData.append('PosterFile',this.restaurantModel.PosterFile);
+   this.restuarantService.AddRestaurant(formData,this.header).subscribe( {
+    next:()=>{alert("Restaurant added successfully")},
+    error:(err:HttpErrorResponse)=>{console.log(err.error)},
+    complete:()=>{}
+   } )
+   // this.route.navigateByUrl("/Adminmenu");
+    }else{
+      console.log("error")
+      this.validateAllFormFields(this.addRestaurantValidations);
+    }
+  }
   get NameValid(){
     return this.myValidations.controls["title"].valid;
   }
@@ -95,7 +132,16 @@ selectedOption:['',[Validators.required]],
     console.log(this.file);
   }
 
+  UploadPoster(event:any)
+  {
+    this.restaurantModel.PosterFile=event.target.files[0];
+    console.log(this.restaurantModel.PosterFile);
 
+  }
+  UploadBanner(event:any){
+    this.restaurantModel.BannearFile=event.target.files[0];
+    console.log(this.restaurantModel.BannearFile);
+  }
   private validateAllFormFields(formGroup: FormGroup){
     Object.keys(formGroup.controls).forEach(field =>{
       const control = formGroup.get(field);
@@ -106,4 +152,7 @@ selectedOption:['',[Validators.required]],
       }
     })
   }
+
+  //Add Restaurant
+
 }

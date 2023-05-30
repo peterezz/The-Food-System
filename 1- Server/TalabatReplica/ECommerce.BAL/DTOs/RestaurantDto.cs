@@ -9,7 +9,7 @@ namespace ECommerce.BAL.DTOs
         public int? RestaurantID { get; set; }
 
         [Required( ErrorMessage = "Location Field is required" )]
-        [DataType( DataType.Url , ErrorMessage = "Please Location URL of your restaurant from google maps" )]
+        //[DataType( DataType.Url , ErrorMessage = "Please Location URL of your restaurant from google maps" )]
         public string Location { get; set; } = string.Empty;
 
         [Required( ErrorMessage = "Restaurant location Field is required" )]
