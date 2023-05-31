@@ -27,7 +27,7 @@ namespace ECommerce.DAL.Services
 
             #region Default Users
             var _userManager = services.GetRequiredService<UserManager<ApplicationUser>>( );
-            await Seed.DefaultUser.SeedAppOwner( _userManager );
+            await Seed.DefaultUser.SeedAppOwner(_userManager);
             _logger.Log( LogLevel.Information , "Seeded App Owner" );
             await Seed.DefaultUser.SeedResAdmin( _userManager );
             _logger.Log( LogLevel.Information , "Seeded Restaurant admin" );

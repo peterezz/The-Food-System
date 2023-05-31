@@ -18,6 +18,7 @@ Shipping:any=0;
 
     localStorage.setItem("cart",JSON.stringify(this.dishesInCart))
     console.log(this.quantaty)
+    this.gitCartTotalPrice()
   }
   gitcartitems(){
       if("cart" in localStorage){
@@ -53,7 +54,6 @@ deleteItem(indx:any){
   this.dishesInCart.splice(this.dishesInCart.find(item => item.id == indx.id),1)
   localStorage.setItem("cart",JSON.stringify(this.dishesInCart))
   this.gitCartTotalPrice()
-
 }
 deleteAll(){
   this.dishesInCart.splice(0,)
