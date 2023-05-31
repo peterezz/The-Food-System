@@ -15,6 +15,7 @@ namespace ECommerce.DAL.Models.IdentityModels
         public Resturant? Restaurant { get; set; }
         public List<Review> Reviews { get; set; }
 
+        public bool AdminCheck { get; set; }
         public List<RefreshToken> RefreshTokens { get; set; }
     }
 }

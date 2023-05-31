@@ -30,5 +30,9 @@ let span = document.getElementsByTagName('span');
 			}
 		}
 	}
-	span[1].onclick = ()=>{right_mover();}
-	span[0].onclick = ()=>{left_mover();}
+//script might be running before the element 'span' is loaded so 
+// add the event running after the page has loaded (window.onload)
+	window.onload = function(){ 
+		span[0].onclick = ()=>{left_mover();}
+		span[1].onclick = ()=>{right_mover();}
+	};

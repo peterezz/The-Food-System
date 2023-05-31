@@ -47,11 +47,11 @@ namespace ECommerce.API.Controllers
 
             // using anonymus obj to return specific data from result
 
-            return Ok( new { Authenticated = result.IsAuthenticated , Username = result.Username , Email = result.Email , Token = result.Token , Roles = result.Roles , RefreshTokenExpiration = result.RefreshTokenExpiration } );
+            return Ok( new { Authenticated = result.IsAuthenticated , Username = result.Username , Email = result.Email , Token = result.Token , RefreshTokenExpiration = result.RefreshTokenExpiration } );
         }
 
         [HttpPost( "Login" )]
-        public async Task<IActionResult> GetTokenAsync( [FromBody] TokenRequestModel model )
+        public async Task<IActionResult> GetTokenAsync( [FromForm] TokenRequestModel model )
         {
             if ( !ModelState.IsValid )
                 return BadRequest( ModelState );
@@ -62,7 +62,7 @@ namespace ECommerce.API.Controllers
                 return BadRequest( result.Message );
 
             // in case token not null , empty add this on cookie
-            if ( !string.IsNullOrEmpty( result.RefreshToken ) )
+            if ( !string.IsNullOrEmpty(result.RefreshToken))
 
                 SetRefreshTokenInCookie( result.RefreshToken , result.RefreshTokenExpiration );
 
@@ -75,7 +75,7 @@ namespace ECommerce.API.Controllers
 
 
         [HttpPost( "AssignRole" )]
-        public async Task<IActionResult> AssignRoleAsync( [FromBody] AddRoleModel model )
+        public async Task<IActionResult> AssignRoleAsync( [FromForm] AddRoleModel model )
         {
             if ( !ModelState.IsValid )
                 return BadRequest( ModelState );

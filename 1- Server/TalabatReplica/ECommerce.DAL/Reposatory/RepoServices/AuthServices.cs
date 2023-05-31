@@ -45,7 +45,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
                 FirstName = register.FirstName ,
                 LastName = register.LastName ,
                 Email = register.Email ,
-
+                AdminCheck=register.AdminCheck,
             };
 
             var result = await UserManager.CreateAsync( user , register.Password ); // create user in db
@@ -63,8 +63,15 @@ namespace ECommerce.DAL.Reposatory.RepoServices
                 return new AuthModel { Message = $"Registration field, try again later \n {error}" };
             }
 
-            //assign role to user 
-            await UserManager.AddToRoleAsync( user , "Customer" ); // AddToRoleAsync(object from applicationuser , rolename)
+            if (user.AdminCheck == true)
+            {
+                await UserManager.AddToRoleAsync(user, "ResturantAdmin"); // AddToRoleAsync(object from applicationuser , rolename)
+            }
+            else
+            {
+                //assign role to user 
+                await UserManager.AddToRoleAsync( user , "Customer" ); // AddToRoleAsync(object from applicationuser , rolename)
+            }
 
             // return token details to user
             var jwtSecurityToken = await CreateJwtToken( user );
@@ -74,7 +81,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
                 Email = user.Email ,
                 //ExpiresOn = jwtSecurityToken.ValidTo,
                 IsAuthenticated = true ,
-                Roles = new List<string> { "Customer" } ,
+                Roles = new List<string> {} ,
                 Token = new JwtSecurityTokenHandler( ).WriteToken( jwtSecurityToken ) ,
                 Username = user.UserName
             };
