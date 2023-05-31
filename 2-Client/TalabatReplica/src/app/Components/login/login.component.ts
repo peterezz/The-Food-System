@@ -80,9 +80,17 @@ export class LoginComponent  implements OnDestroy {
         this.loginEmailFormGroup.controls['Password'].value
       );
       this.SubscribeService=this.userlog.UserLogin(loginData).subscribe({
-        next: () => {
+        next: (data:any) => {
           alert("Login Successfull")
-          this.router.navigate(['/AllResturants'])
+          console.log(data.roles)
+          if(data.roles[0]=='ResturantAdmin')
+          {
+            this.router.navigate(['/Adminmenu'])
+          }
+          else
+          {
+            this.router.navigate(['/AllResturants'])
+          }
 
         },
         error : (err:any) =>{
@@ -91,7 +99,6 @@ export class LoginComponent  implements OnDestroy {
       })
     }
   }
-
 
   ////////////////////////////////////// REGISTRE
 
@@ -190,7 +197,8 @@ export class LoginComponent  implements OnDestroy {
             this.router.navigate(['/AllResturants'])
           }
         },
-        error : (err:any) =>{
+        error : (err:any) =>
+        {
           alert(err.error)
         }
       })
