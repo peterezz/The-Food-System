@@ -51,12 +51,12 @@ namespace ECommerce.API.Controllers
         }
 
         [HttpPost( "Login" )]
-        public async Task<IActionResult> GetTokenAsync( [FromForm] TokenRequestModel model )
+        public async Task<IActionResult> GetTokenAsync( [FromBody] TokenRequestModel model )
         {
             if ( !ModelState.IsValid )
                 return BadRequest( ModelState );
 
-            var result = await _authService.GetTokenAsync( model );
+            var result = await _authService.GetTokenAsync(model);
 
             if ( !result.IsAuthenticated )
                 return BadRequest( result.Message );
@@ -69,8 +69,7 @@ namespace ECommerce.API.Controllers
             //return Ok(result);
 
             // if need to return specific data from result ==> using anonymus obj
-
-            return Ok( new { Auth = result.IsAuthenticated , us = result.Username , token = result.Token , Roles = result.Roles , RefreshTokenExpiration = result.RefreshTokenExpiration , email = result.Email } );
+            return Ok( new { Auth = result.IsAuthenticated , UserName = result.Username , token = result.Token , Roles = result.Roles , RefreshTokenExpiration = result.RefreshTokenExpiration , email = result.Email});
         }
 
 

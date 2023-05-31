@@ -22,7 +22,6 @@ namespace ECommerce.DAL.Models.IdentityModels
         [JsonIgnore] // to ignor this propert from return in the result
         public string? RefreshToken { get; set; }
 
-
         public DateTime RefreshTokenExpiration { get; set; } // return this instead toke expire date
     }
 }
