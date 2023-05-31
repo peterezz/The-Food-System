@@ -17,8 +17,8 @@ import { FilterbycatComponent } from './Components/filterbycat/filterbycat.compo
 import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.component';
 
 const routes: Routes = [
-  {path:"", component: RestaurantComponent},
   {path:"ResProfile/:restaurantID", component: RestaurantComponent},
+  {path:"", component: AllResturantsComponent},
   {path:"category/:name", component: CategoryItemsComponent},
   {path:"login", component: LoginComponent},
   {path:"checkOut", component: CheckOutComponent},
