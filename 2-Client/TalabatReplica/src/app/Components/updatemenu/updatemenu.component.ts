@@ -48,7 +48,7 @@ export class UpdatemenuComponent  {
 
   }
   myValidations = new FormGroup({
-    title :new FormControl(null,[Validators.maxLength(50),Validators.required,Validators.pattern(/^[a-zA-Z]+$/)]),
+    title :new FormControl(null,[Validators.maxLength(50),Validators.required,Validators.pattern(/^[a-zA-Z\s]*$/)]),
     price :new FormControl(null,[Validators.required,Validators.pattern(/^[0-9]+$/)]),
     size :new FormControl(null,[Validators.required,Validators.pattern(/^[MmLlSs]+$/)]),
     desc :new FormControl(null,[Validators.required]),
