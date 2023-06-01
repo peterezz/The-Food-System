@@ -9,6 +9,7 @@ export class LoginService {
 
   private BaseUrl:string="https://localhost:44318/Login";
 
+
   
   constructor(private httpClient:  HttpClient )
    {
@@ -17,8 +18,14 @@ export class LoginService {
   
    UserLogin(UserData:Login)
    {
-   
      return this.httpClient.post(this.BaseUrl,UserData)
    };
+
+   CheckRole(UserEmail:Login)
+   {
+    return this.httpClient.post(this.BaseUrl,UserEmail.email)
+   }
+
+
 
 }

@@ -37,7 +37,7 @@ namespace ECommerce.DAL.Seed
                 FirstName = "App" ,
                 LastName = "Owner"
             };
-            bool userAreadyExists = await userManager.FindByEmailAsync( appOwner.Email ) != null;
+            bool userAreadyExists = await userManager.FindByEmailAsync(appOwner.Email) != null;
             if ( !userAreadyExists )
             {
                 var result = await userManager.CreateAsync( appOwner , "App.Owner000" );

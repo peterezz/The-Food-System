@@ -100,11 +100,11 @@ namespace ECommerce.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<byte[]>("Photo")
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<int>("ResturantID")
                         .HasColumnType("int");
-
-                    b.Property<byte[]>("image")
-                        .HasColumnType("varbinary(max)");
 
                     b.Property<int>("price")
                         .HasColumnType("int");
@@ -455,6 +455,9 @@ namespace ECommerce.Migrations
             modelBuilder.Entity("ECommerce.DAL.Models.IdentityModels.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<bool>("AdminCheck")
+                        .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
                         .IsRequired()

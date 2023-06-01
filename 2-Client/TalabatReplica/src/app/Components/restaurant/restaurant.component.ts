@@ -29,7 +29,6 @@ export class RestaurantComponent implements OnInit {
     this.MenuService.GetAllCategoriesByResID(this.ResID).subscribe({
       next:(data)=>{
         this.categories = data;
-        console.log(this.categories)
       }
     })
 
@@ -53,21 +52,17 @@ export class RestaurantComponent implements OnInit {
 
 
   filterbycat(catname:any){
-   let value = catname.target.value
-    // console.log(value)
+   let value  = catname.target.value
 if(value=="All"){
   this.service.GetAllDises().subscribe({
     next:(data:any)=>{
        this.alldishes = data;
-      //  console.log(this.alldishes)
     }
   })
 }else
     this.service.GetCategoryByName(value).subscribe({
       next:(data:any)=>{
-        // console.log(data["name"])
         for (let key in data) {
-          console.log(data[key]["menuItems"]); 
           this.alldishes=data[key]["menuItems"];
         }
 
@@ -88,9 +83,11 @@ addtocart(data:any){
   console.log(data)
   this.dishesInCart= JSON.parse(localStorage.getItem("cart")!)
   let exist =
-  this.dishesInCart.find(item => item.id == data.id)
+  this.dishesInCart.find(item => item.itemID
+    == data.itemID)
   if(exist){
     alert("product is already in your cart")
+    console.log(data.itemID)
   }else{
     alert(" Don ")
     this.dishesInCart.push(data)

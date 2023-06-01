@@ -18,6 +18,8 @@ namespace ECommerce.DAL.Reposatory.RepoServices
         public UserManager<ApplicationUser> UserManager { get; } // use this to check about register data recieved from user
         public RoleManager<IdentityRole> _roleManager { get; }
 
+        
+
         private readonly JWTData _jwt;
         public AuthServices( UserManager<ApplicationUser> userManager , RoleManager<IdentityRole> role , IOptions<JWTData> jwt )
         {
@@ -45,7 +47,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
                 FirstName = register.FirstName ,
                 LastName = register.LastName ,
                 Email = register.Email ,
-
+                AdminCheck=register.AdminCheck,
             };
 
             var result = await UserManager.CreateAsync( user , register.Password ); // create user in db
@@ -63,8 +65,15 @@ namespace ECommerce.DAL.Reposatory.RepoServices
                 return new AuthModel { Message = $"Registration field, try again later \n {error}" };
             }
 
-            //assign role to user 
-            await UserManager.AddToRoleAsync( user , "Customer" ); // AddToRoleAsync(object from applicationuser , rolename)
+            if (user.AdminCheck == true)
+            {
+                await UserManager.AddToRoleAsync(user, "ResturantAdmin"); // AddToRoleAsync(object from applicationuser , rolename)
+            }
+            else
+            {
+                //assign role to user 
+                await UserManager.AddToRoleAsync( user , "Customer" ); // AddToRoleAsync(object from applicationuser , rolename)
+            }
 
             // return token details to user
             var jwtSecurityToken = await CreateJwtToken( user );
@@ -74,7 +83,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
                 Email = user.Email ,
                 //ExpiresOn = jwtSecurityToken.ValidTo,
                 IsAuthenticated = true ,
-                Roles = new List<string> { "Customer" } ,
+                Roles = new List<string> {} ,
                 Token = new JwtSecurityTokenHandler( ).WriteToken( jwtSecurityToken ) ,
                 Username = user.UserName
             };
@@ -128,7 +137,6 @@ namespace ECommerce.DAL.Reposatory.RepoServices
 
             var user = await UserManager.FindByEmailAsync( model.Email ); //check emai; exist or not
 
-
             //if email not exist or password is wrong return message
             if ( user is null || !await UserManager.CheckPasswordAsync( user , model.Password ) )
             {
@@ -144,8 +152,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
             authModel.Token = new JwtSecurityTokenHandler( ).WriteToken( jwtSecurityToken );
             authModel.Email = user.Email;
             authModel.Username = user.UserName;
-            //authModel.ExpiresOn = jwtSecurityToken.ValidTo;
-            authModel.Roles = rolesList.ToList( );
+            authModel.Roles = rolesList.ToList();
 
             //check activation of refresh token 
             //if refresh token not expired then select it and return expire date of this ==token ExpireOn property
@@ -173,11 +180,12 @@ namespace ECommerce.DAL.Reposatory.RepoServices
 
                 await UserManager.UpdateAsync( user ); // to update user token in db
             }
+
             return authModel;
         }
 
         //assine specific role to specific user 
-        public async Task<string> AddRoleAsync( AddRoleModel model )
+        public async Task<string> AddRoleAsync(AddRoleModel model )
         {
             var user = await UserManager.FindByIdAsync( model.UserId );
 

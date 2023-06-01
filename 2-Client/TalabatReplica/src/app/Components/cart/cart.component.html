@@ -33,8 +33,8 @@
 							<tbody>
 								<tr class="table-body-row" *ngFor=" let item of dishesInCart;" >
 									<td class="product-remove">  <a  (click)="deleteItem(item)"><i class="far fa-window-close"></i></a></td>
-									<td class="product-image"><img src="{{item.image}}" alt=""></td>
-									<td class="product-name">{{item.title}}</td>
+									<td class="product-image"><img src="{{item.image                  }}" alt=""></td>
+									<td class="product-name">{{item.name}}</td>
 
 									<td class="product-price">{{item.price}}</td>
 									<td class="product-quantity">

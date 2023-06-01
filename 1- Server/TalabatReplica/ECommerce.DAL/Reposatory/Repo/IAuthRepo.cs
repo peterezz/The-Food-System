@@ -11,13 +11,9 @@ namespace ECommerce.DAL.Reposatory.Repo
     public interface IAouthRepo
     {
         Task<AuthModel> RegisterAsync(RegisterModel model);
-
         Task<AuthModel> GetTokenAsync(TokenRequestModel model);
-
         Task<string> AddRoleAsync(AddRoleModel model);
-
         Task<AuthModel> RefreshTokenASync(string refreshtoken);
-    
         Task<bool>RevokeTokenAsync(string refreshtoken);
     }
 }
