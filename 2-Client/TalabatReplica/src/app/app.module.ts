@@ -25,10 +25,11 @@ import { FilterbycatComponent } from './Components/filterbycat/filterbycat.compo
 import { AdminDashbordMenueComponent } from './Components/admin-dashbord-menue/admin-dashbord-menue.component';
 import { isNgTemplate } from '@angular/compiler';
 import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.component';
+import {AngularFireModule} from '@angular/fire/compat'
+import {AngularFireAuthModule, AngularFireAuth} from '@angular/fire/compat/auth'
+import { environment } from 'src/environments/environment.development';
+import {AuthServicesService} from './Services/auth-services.service'
 
-// import { ForgotPasswordComponent } from './Components/forgot-password/forgot-password.component';
-// import { SetnewpasswordComponent } from './Components/setnewpassword/setnewpassword.component';
-// import { ContactComponent } from './Components/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -53,11 +54,12 @@ import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.componen
     UpdatemenuComponent,
     
 
+    
+
 
 
   ],
   imports: [
-
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -66,15 +68,15 @@ import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.componen
     HttpClientModule,
     RouterLink,
     CommonModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
     
     
-    // MatSidenavModule,
-    // MatIconModule,
-    // MatTooltipModule
+    
 
 
   ],
-  providers: [],
+  providers: [AuthServicesService], // import authentication service to be available throughout the application.
   bootstrap: [AppComponent]
 })
 export class AppModule {

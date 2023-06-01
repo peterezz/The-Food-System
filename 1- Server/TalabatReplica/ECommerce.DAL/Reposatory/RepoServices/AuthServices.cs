@@ -290,9 +290,10 @@ namespace ECommerce.DAL.Reposatory.RepoServices
             {
                 Token = Convert.ToBase64String( randomnumber ) ,
 
-                ExpiresOn = DateTime.Now.AddDays( 1 ) ,
+                ExpiresOn = DateTime.Now.AddMinutes(2),
 
                 CreatedOn = DateTime.Now
+
             };
 
         }

@@ -91,10 +91,12 @@ namespace ECommerce.API.Controllers
         //add token on cookie 
         private void SetRefreshTokenInCookie( string refreshToken , DateTime expires )
         {
+           
             var cookieOptions = new CookieOptions
             {
-                HttpOnly = true ,
-                Expires = expires.ToLocalTime( )
+     
+                HttpOnly = true,
+                Expires = expires.ToLocalTime() // to set expire = session
             };
 
             Response.Cookies.Append( "refreshToken" , refreshToken , cookieOptions );
