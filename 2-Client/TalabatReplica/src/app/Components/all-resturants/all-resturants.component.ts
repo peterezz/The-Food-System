@@ -10,6 +10,9 @@ export class AllResturantsComponent implements OnInit {
   constructor(public service : RestuarantService){}
   Restarunts :any ;
   ResName:any;
+  ResBySeach:any;
+  item:any;
+  SearchTerm:any;
   ngOnInit(): void {
        this.GetAllRestuarants();
   }
@@ -34,6 +37,14 @@ GetAllRestuarants(){
         var res =[data]
         this.Restarunts = res;console.log("ddddd=",data)}
     })
+  }
+  SearchRes(searchTerm: string) {
+    if (searchTerm == "" ){
+       this.GetAllRestuarants();
+    }
+    this.Restarunts = this.Restarunts.filter((item: { name: string }) => {
+      return item.name.toLowerCase().includes(searchTerm.toLowerCase())
+    });
   }
 
 }

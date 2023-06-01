@@ -14,8 +14,8 @@
 </div>
 
 <div class="searshContainer d-flex mt-5 m-auto justify-content-center">
-<input type="text"  class="searsh form-control w-50 text-center " #name placeholder="search by resturant">
-<label for="" class="label label-default   "><button class="btn btn-outline-dark" (click)=" GetResByName(name.value)"> <i class="fas fa-search"></i>  </button></label>
+<input type="text"  class="searsh form-control w-50 text-center " #name [(ngModel)]="SearchTerm" (keyup)="SearchRes(SearchTerm)" placeholder="search by resturant" >
+<label for="" class="label label-default   "><button class="btn btn-outline-dark" (click)="GetResByName(name.value)" > <i class="fas fa-search"></i>  </button></label>
 </div>
 	<!-- ------------------------------------------------------------------------- -->
 
