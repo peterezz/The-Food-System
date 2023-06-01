@@ -609,11 +609,18 @@
                 <span class="text-gray-700 dark:text-gray-400 mx-2 font-bold">Top Dish</span>
               </label>
 
+              <label class="block text-sm my-3">
+
+                <input type="checkbox" #Offer style="accent-color: chocolate;"/>
+                <span class="text-gray-700 dark:text-gray-400 mx-2 font-bold">IS Offer</span>
+              </label>
+
+
               <div class="px-6 my-6">
 
 
 
-                <button  (click)="Additem(name.value,+price.value,desc.value,size.value,IsTop.value,+ResID.value,+catigorys.value,catigorys.options[catigorys.selectedIndex].text)"
+                <button  (click)="Additem(name.value,+price.value,desc.value,size.value,IsTop.value,+ResID.value,Offer.value,+catigorys.value,catigorys.options[catigorys.selectedIndex].text)"
                 class="flex items-center justify-between
                  px-4 py-2 text-sm font-medium leading-5
                  text-white transition-colors duration-150 bg-purple-600

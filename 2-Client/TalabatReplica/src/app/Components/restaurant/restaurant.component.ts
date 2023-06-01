@@ -14,7 +14,9 @@ export class RestaurantComponent implements OnInit {
   name:any;
   categories:any;
   items:any;
-  alldishes:any[]=[];
+  alldishes:any;
+  topdishes:any;
+  Offer:any;
   dishesInCart:any[] = []
   quantity:number = 1 ;
   amountInput:any="#editEmployeeModal";
@@ -32,14 +34,17 @@ export class RestaurantComponent implements OnInit {
       }
     })
 
-    this.service.GetAllDises().subscribe({
+    /*this.service.GetAllDises().subscribe({
       next:(data:any)=>{
          this.alldishes = data;
         //  console.log(this.alldishes)
       }
-    })
+    })*/
 
     this.GetResByID(this.ResID);
+    this.GetMenuItemByResID(this.ResID);
+    this.GetTopdishes(this.ResID);
+    this.GetOffer(this.ResID);
 
   }
 
@@ -53,21 +58,20 @@ export class RestaurantComponent implements OnInit {
 
   filterbycat(catname:any){
    let value  = catname.target.value
+  /* if (value == "All" ){
+    this.GetMenuItemByResID(this.ResID);
+ }
+ this.alldishes = this.alldishes.filter((item: { categoryName: string }) => {
+   return item.categoryName.toLowerCase().includes(value.toLowerCase())
+ });*/
 if(value=="All"){
-  this.service.GetAllDises().subscribe({
-    next:(data:any)=>{
-       this.alldishes = data;
-    }
-  })
+ this.GetMenuItemByResID(this.ResID)
+  
 }else
-    this.service.GetCategoryByName(value).subscribe({
-      next:(data:any)=>{
-        for (let key in data) {
-          this.alldishes=data[key]["menuItems"];
-        }
-
-      }
-    });
+    this.GetCategoryByName(value);
+      
+       
+      
   }
 
   /////////////////////////////////////////// Add Dishes TO Cart
@@ -100,6 +104,51 @@ addtocart(data:any){
   localStorage.setItem("cart",JSON.stringify(this.dishesInCart))
 }
   }
+  GetMenuItemByResID(ResID:any){
+    this.MenuService.GetMenuItemByResID(ResID).subscribe({
+      next:(data)=>{this.alldishes= data;console.log(data);}
+    })
+  }
+
+GetCategoryByName(name:any){
+  
+  this.service.GetCategoryByName(name).subscribe({
+    next:(data:any)=>{
+      for( let key in data) {
+        this.alldishes = data[key]["menuItems"];
+        console.log("dishes2");
+        console.log( this.alldishes);
+       /* for (let i = 0; i < this.alldishes2.length; i++) {
+          this.alldishes=[this.alldishes2[i]];
+          console.log( "dishes"+this.alldishes);
+        }*/
+      }
+     
+      /*for (let key in data) {
+        this.alldishes=data[key]["menuItems"];
+        
+        console.log("data"+data[key][menuItems]);
+      }
+*/
+    }
+  });
+}
+GetTopdishes(ResID:any){
+  this.MenuService.GetTopdishes(ResID).subscribe({
+    next:(data:any)=>{
+      this.topdishes=data;
+    }
+  })
+}
+GetOffer(ResID:any){
+  this.MenuService.GetOffer(ResID).subscribe({
+    next:(data:any)=>{
+      this.Offer=data;
+      console.log("offer");
+      console.log(data);
+    }
+  })
+}
 
 
 }
