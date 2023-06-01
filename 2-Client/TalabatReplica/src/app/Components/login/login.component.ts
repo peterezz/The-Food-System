@@ -27,8 +27,6 @@ export class LoginComponent  implements OnDestroy {
   password:string="";
   public errMss:string="";
 
-
-
   //set validation
   loginEmailFormGroup  = new FormGroup({
     UserEmailAddress: new FormControl('', [
@@ -60,7 +58,7 @@ export class LoginComponent  implements OnDestroy {
   }
 
   //inject services
-  constructor(public userlog:LoginService, public httpClient:HttpClient ,public userreg:RegisterModelService  ,rout:ActivatedRoute, private router:Router){
+  constructor(public userlog:LoginService ,public httpClient:HttpClient ,public userreg:RegisterModelService  ,rout:ActivatedRoute, private router:Router){
   }
 
 
@@ -82,7 +80,11 @@ export class LoginComponent  implements OnDestroy {
       this.SubscribeService=this.userlog.UserLogin(loginData).subscribe({
         next: (data:any) => {
           alert("Login Successfull")
-          console.log(data.roles)
+
+          localStorage.setItem('user', JSON.stringify(data)); //store user data in local storage
+
+          sessionStorage.setItem('token',data.token)
+          
           if(data.roles[0]=='ResturantAdmin')
           {
             this.router.navigate(['/Adminmenu'])
@@ -95,6 +97,7 @@ export class LoginComponent  implements OnDestroy {
         },
         error : (err:any) =>{
           alert(err.error)
+          localStorage.setItem('user', 'null');
         }
       })
     }

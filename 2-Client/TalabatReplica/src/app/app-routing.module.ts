@@ -15,6 +15,7 @@ import { CategoryItemsComponent } from './Components/category-items/category-ite
 import { AdminDashbordMenueComponent } from './Components/admin-dashbord-menue/admin-dashbord-menue.component';
 import { FilterbycatComponent } from './Components/filterbycat/filterbycat.component';
 import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.component';
+import { authGuard } from './Shared/guard/auth.guard'
 
 const routes: Routes = [
   {path:"ResProfile/:restaurantID", component: RestaurantComponent},
