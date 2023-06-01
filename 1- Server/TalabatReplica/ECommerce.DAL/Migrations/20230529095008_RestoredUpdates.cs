@@ -9,9 +9,7 @@ namespace ECommerce.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Photo",
-                table: "MenuItems");
+           
 
             migrationBuilder.AddColumn<byte[]>(
                 name: "image",
@@ -26,11 +24,7 @@ namespace ECommerce.Migrations
                 name: "image",
                 table: "MenuItems");
 
-            migrationBuilder.AddColumn<string>(
-                name: "Photo",
-                table: "MenuItems",
-                type: "nvarchar(max)",
-                nullable: true);
+            
         }
     }
 }
