@@ -57,7 +57,7 @@ this.GetAllMenuItems()
 
     })
   }
-  Additem (name:any,price:any,description:any,size:any,IsTop:any,resturantID:any,categoryID:any,categoryName:any){
+  Additem (name:any,price:any,description:any,size:any,IsTop:any,resturantID:any,offer:any,categoryID:any,categoryName:any){
     if(this.myValidations.valid){
       const formData = new FormData();
       formData.append('Name',name);
@@ -70,6 +70,11 @@ this.GetAllMenuItems()
       }
       formData.append('IsTopItem','false');
       formData.append('ResturantID',resturantID);
+      if(offer == 'on'){
+        formData.append('offer','true');
+
+      }
+     
       formData.append('CategoryID',categoryID);
       formData.append('CategoryName',categoryName);
       formData.append('PhotoFile',this.file);

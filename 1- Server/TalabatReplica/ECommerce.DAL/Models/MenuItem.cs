@@ -16,6 +16,7 @@ namespace ECommerce.DAL.Models
         public List<Cart> Carts { get; set; }
         public bool IsAccepted { get; set; }
         public bool IsTopItem { get; set; }
+        public bool Offer { get; set; }    
 
     }
 }
