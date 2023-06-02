@@ -29,4 +29,14 @@ export class MenuItemService {
   GetAllCategoriesByResID(id:any){
     return this.http.get(this.BaseUrl+"/Res/"+id);
   }
+  GetMenuItemByResID(id:any){
+    return this.http.get(this.BaseUrl+"/Resmenu/"+id);
+  }
+  GetTopdishes(id:any){
+    return this.http.get(this.BaseUrl+"/TopMenuItems/"+id);
+  }
+  GetOffer(id:any){
+    return this.http.get(this.BaseUrl+"/Offers/"+id);
+  }
+
 }

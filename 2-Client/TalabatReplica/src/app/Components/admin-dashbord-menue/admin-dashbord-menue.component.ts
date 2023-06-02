@@ -33,10 +33,9 @@ this.GetAllMenuItems()
     this.GetItemByID(this.ID);
     this.GetAllCategories();
     this.myValidations = this.fb.group({
-      title:['',[Validators.maxLength(50),Validators.required,Validators.pattern(/^[a-zA-Z]+$/)]],
+      title:['',[Validators.maxLength(50),Validators.required,Validators.pattern(/^[a-zA-Z\s]*$/)]],
       price:['',[Validators.required,Validators.pattern(/^[0-9]+$/)]],
       size:['',[Validators.required,Validators.pattern(/^[MmLlSs]+$/)]],
-
       desc:['',[Validators.required]],
       img:['',[Validators.required]],
     });
@@ -48,7 +47,7 @@ this.GetAllMenuItems()
       phoneNum:['',[Validators.required,Validators.maxLength(11)]],
       //ResAdminID:['',[Validators.required]],
       PosterFile:[null,Validators.required],
-      BannearFile:[null,Validators.required]    
+      BannearFile:[null,Validators.required]
     })
   }
   GetAllMenuItems(){
@@ -58,20 +57,30 @@ this.GetAllMenuItems()
 
     })
   }
-  Additem (name:any,price:any,description:any,size:any,resturantID:any,categoryID:any,categoryName:any){
+  Additem (name:any,price:any,description:any,size:any,IsTop:any,resturantID:any,offer:any,categoryID:any,categoryName:any){
     if(this.myValidations.valid){
       const formData = new FormData();
       formData.append('Name',name);
       formData.append('price',price);
       formData.append('Description',description);
       formData.append('size',size);
+      if(IsTop == 'on'){
+        formData.append('IsTopItem','true');
+
+      }
+      formData.append('IsTopItem','false');
       formData.append('ResturantID',resturantID);
+      if(offer == 'on'){
+        formData.append('offer','true');
+
+      }
+     
       formData.append('CategoryID',categoryID);
       formData.append('CategoryName',categoryName);
       formData.append('PhotoFile',this.file);
 
 
-
+console.log({IsTop});
     this.service.Additem(formData,this.header).subscribe( {next:()=>{this.GetAllMenuItems();}} )
 
     this.route.navigateByUrl("/Adminmenu");

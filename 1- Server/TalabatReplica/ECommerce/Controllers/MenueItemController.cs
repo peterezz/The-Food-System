@@ -150,6 +150,15 @@ namespace ECommerce.API.Controllers
             var topIems = await manager.GetTopMenuItemsAsync( id );
             return Ok( topIems );
         }
+        [HttpGet("Offers/{id:int}")]
+        public async Task<IActionResult> GetOffer(int id)
+        {
+            var restaurant = await restaurantRepo.GetResturentByIDAsync(id);
+            if (restaurant == null)
+                return NotFound("Restaurant not found");
+            var offerIems = await manager.GetOfferAsync(id);
+            return Ok(offerIems);
+        }
         [HttpGet("Resmenu/{Resid}")]
         public async Task<IActionResult> GetMenueitemByResID(int Resid)
         {

@@ -126,7 +126,6 @@
         <div class="input-field">
           <i class="fas fa-lock"></i>
           <input type="password" placeholder="Password"
-
           formControlName="Password" 
           [ngClass]="{
             'is-valid': registerEmailFormGroup.controls.Password.valid && (registerEmailFormGroup.controls.Password.dirty || registerEmailFormGroup.controls.Password.touched) ,
@@ -145,8 +144,15 @@
             . Contains at least one lowercase letter<br>
             . Contains at least one number</p>
         </div>
-
-
+       <span >
+        <input 
+        formControlName="AdminCheck" 
+        [ngClass]="{
+          'is-valid': registerEmailFormGroup.controls.AdminCheck.valid && (registerEmailFormGroup.controls.AdminCheck.dirty || registerEmailFormGroup.controls.AdminCheck.touched) ,
+          'is-invalid': registerEmailFormGroup.controls.AdminCheck.invalid && (registerEmailFormGroup.controls.AdminCheck.dirty || registerEmailFormGroup.controls.AdminCheck.touched) 
+        }"
+        type="checkbox" id="Admin"><label for="Admin" style="font-size: larger; font-weight: bold;">Admin</label>
+       </span>
 
         <input type="submit" class="btn solid" value="Sign up" (click)="RegisterAction()"/>
 
@@ -181,7 +187,6 @@
           Sign up
         </button><br>
 
-        <input type="checkbox" id="Admin"  class="form-check-input mt-3"> <label class="label label-default ml-4 mt-2"  for="Admin" style="font-size: larger; font-weight: bold;">Admin</label>
 
       </div>
       <img src="assets/img/login/log.svg" class="image" alt="" />

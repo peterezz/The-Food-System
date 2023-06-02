@@ -1,30 +1,26 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace ECommerce.Migrations
 {
-    public partial class RestoredUpdates : Migration
+    public partial class addoffer : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-           
-
-            migrationBuilder.AddColumn<byte[]>(
-                name: "image",
+            migrationBuilder.AddColumn<bool>(
+                name: "Offer",
                 table: "MenuItems",
-                type: "varbinary(max)",
-                nullable: true);
+                type: "bit",
+                nullable: false,
+                defaultValue: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "image",
+                name: "Offer",
                 table: "MenuItems");
-
-            
         }
     }
 }

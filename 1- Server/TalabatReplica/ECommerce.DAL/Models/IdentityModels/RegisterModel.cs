@@ -25,5 +25,8 @@ namespace ECommerce.DAL.Models.IdentityModels
         [Required, StringLength(256)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        public bool AdminCheck { get; set; } 
+
     }
 }

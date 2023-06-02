@@ -21,8 +21,9 @@ namespace ECommerce.BAL.DTOs
 
         public int ResturantID { get; set; }
 
+        public bool ?Offer { get; set; }
         public int CategoryID { get; set; }
-        public string? CategoryName { get; set; }
+        public string? CName { get; set; }=string.Empty;
        public IFormFile ?PhotoFile { get; set; }
 
     }

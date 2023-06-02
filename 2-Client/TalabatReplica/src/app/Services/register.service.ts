@@ -10,8 +10,6 @@ export class RegisterModelService {
 
   private BaseUrl:string="https://localhost:44318/Register";
 
-  private BaseUrl1:string="https://localhost:44318/AssignRole";
-
   constructor(private httpClient:  HttpClient ) {}
   
   Register(UserData:Register)
@@ -19,9 +17,5 @@ export class RegisterModelService {
     return this.httpClient.post(this.BaseUrl,UserData)
   };
 
-  AsigneRole(RoleData:AssigneRole)
-  {
-    return this.httpClient.post(this.BaseUrl1,RoleData)
-  }
 
 }

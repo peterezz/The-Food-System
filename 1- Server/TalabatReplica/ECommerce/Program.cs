@@ -70,6 +70,8 @@ namespace ECommerce
                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 
                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+               option.DefaultScheme= JwtBearerDefaults.AuthenticationScheme;
            } )
                // Define place of key , issuer , ... to validate it and how & which data need to validate and which not 
                .AddJwtBearer( o =>
@@ -85,17 +87,16 @@ namespace ECommerce
                        ValidateIssuer = true ,
                        ValidateAudience = true ,
                        ValidateLifetime = true ,
-
+                       
                        //define data to compare with it
                        ValidIssuer = builder.Configuration[ "JWT:Issuer" ] ,
                        ValidAudience = builder.Configuration[ "JWT:Audience" ] ,
                        IssuerSigningKey = new SymmetricSecurityKey
                                               ( Encoding.UTF8.GetBytes( builder.Configuration[ "JWT:Key" ] ) ) ,
                        ClockSkew = TimeSpan.Zero // to expire token after determined time not set delay time after expiration                
-
+                       
                    };
                } );
-
 
 
             //await builder.Services.AddIdentityService( );

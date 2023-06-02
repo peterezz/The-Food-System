@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnDestroy,  } from '@angular/core';
+import { Component, OnDestroy, OnInit,  } from '@angular/core';
 import { FormControl,FormGroup,Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Login } from 'src/app/Models/login.model';
 import { Register } from 'src/app/Models/register.model';
 import { LoginService } from 'src/app/Services/login.service';
@@ -14,20 +14,18 @@ import { RegisterModelService } from 'src/app/Services/register.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent  implements OnDestroy{
+export class LoginComponent  implements OnDestroy {
 
   in_or_up :any;
 
   SubscribeService : Subscription = new Subscription();
+
 
 //////////////////////////////////////////////////// LOGIN
 
   email:string="";
   password:string="";
   public errMss:string="";
-
-
-
 
   //set validation
   loginEmailFormGroup  = new FormGroup({
@@ -60,8 +58,9 @@ export class LoginComponent  implements OnDestroy{
   }
 
   //inject services
-  constructor(public userlog:LoginService, public httpClient:HttpClient ,public userreg:RegisterModelService  ,rout:ActivatedRoute, private router:Router){
+  constructor(public userlog:LoginService ,public httpClient:HttpClient ,public userreg:RegisterModelService  ,rout:ActivatedRoute, private router:Router){
   }
+
 
   //Click Action
   LoginAction()
@@ -79,18 +78,30 @@ export class LoginComponent  implements OnDestroy{
         this.loginEmailFormGroup.controls['Password'].value
       );
       this.SubscribeService=this.userlog.UserLogin(loginData).subscribe({
-        next: () => {
+        next: (data:any) => {
           alert("Login Successfull")
-          this.router.navigate(['/AllResturants'])
+
+          localStorage.setItem('user', JSON.stringify(data)); //store user data in local storage
+
+          sessionStorage.setItem('token',data.token)
+          
+          if(data.roles[0]=='ResturantAdmin')
+          {
+            this.router.navigate(['/Adminmenu'])
+          }
+          else
+          {
+            this.router.navigate(['/AllResturants'])
+          }
 
         },
         error : (err:any) =>{
           alert(err.error)
+          localStorage.setItem('user', 'null');
         }
       })
     }
   }
-
 
   ////////////////////////////////////// REGISTRE
 
@@ -119,11 +130,12 @@ export class LoginComponent  implements OnDestroy{
     ]),
 
      EmailAddress: new FormControl('', [
-      Validators.required,
       Validators.email,
     ]),
     Password: new FormControl('', [
+    ]),
 
+    AdminCheck:new FormControl(false,[
 
     ]),
   });
@@ -145,40 +157,51 @@ export class LoginComponent  implements OnDestroy{
   get validPassword(){
     return this.registerEmailFormGroup.controls.Password.invalid && (this.registerEmailFormGroup.controls.Password.dirty || this.registerEmailFormGroup.controls.Password.touched);
   }
-
+  
   RegisterAction(){
-
+    
     if(!this.registerEmailFormGroup.valid)
     {
       alert("Some Required Data is missed, please Fill both Fields ")
     }
-
-   else if(this.registerEmailFormGroup.valid)
+    
+    else if(this.registerEmailFormGroup.valid)
     {
+      
       let registerData = new Register(
         this.registerEmailFormGroup.controls['firstName'].value,
         this.registerEmailFormGroup.controls['lastName'].value,
         this.registerEmailFormGroup.controls['username'].value,
         this.registerEmailFormGroup.controls['EmailAddress'].value,
-        this.registerEmailFormGroup.controls['Password'].value
+        this.registerEmailFormGroup.controls['Password'].value,
+        this.registerEmailFormGroup.controls['AdminCheck'].value
+        
         );
-      this.SubscribeService=this.userreg.Register(registerData).subscribe({
-        next: (data) => {
-          alert("Registered Successfully" + data)
 
-          const chk = document.querySelector('#Admin') as HTMLInputElement
+        // console.log(this.registerEmailFormGroup.controls['firstName'].value)
+        // console.log(this.registerEmailFormGroup.controls['lastName'].value)
+        // console.log(this.registerEmailFormGroup.controls['username'].value)
+        // console.log(this.registerEmailFormGroup.controls['EmailAddress'].value)
+        // console.log(this.registerEmailFormGroup.controls['Password'].value)
+        // console.log(this.registerEmailFormGroup.controls['AdminCheck'].value)
+
+        console.log(registerData)
+
+      const chk = document.querySelector('#Admin') as HTMLInputElement
+      this.SubscribeService=this.userreg.Register(registerData).subscribe({
+        next: () => {
+          alert("Registered Successfully" )
           if(chk.checked)
           {
-          this.router.navigate(['/cart'])
+          this.router.navigate(['/Adminmenu'])
           }
           else
           {
             this.router.navigate(['/AllResturants'])
-            // this.SubscribeService=this.userreg.AsigneRole(registerData).subscribe({})
-
           }
         },
-        error : (err:any) =>{
+        error : (err:any) =>
+        {
           alert(err.error)
         }
       })
@@ -198,8 +221,6 @@ export class LoginComponent  implements OnDestroy{
   {
     this.SubscribeService.unsubscribe();
   }
-
-
 
 
 }

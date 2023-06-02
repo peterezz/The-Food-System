@@ -1,21 +1,18 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace ECommerce.Migrations
 {
-    public partial class RestoredUpdates : Migration
+    public partial class image : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-           
-
             migrationBuilder.AddColumn<byte[]>(
-                name: "image",
-                table: "MenuItems",
-                type: "varbinary(max)",
-                nullable: true);
+             name: "image",
+             table: "MenuItems",
+             type: "varbinary(max)",
+             nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -23,8 +20,6 @@ namespace ECommerce.Migrations
             migrationBuilder.DropColumn(
                 name: "image",
                 table: "MenuItems");
-
-            
         }
     }
 }
