@@ -2,8 +2,10 @@ import { Restaurant } from './../../Models/restaurant.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CategoryService } from 'src/app/Services/category.service';
+import { SideCartService } from'src/app/Services/side-cart.service';
 import { MenuItemService } from 'src/app/Services/menu-item.service';
 import { RestuarantService } from 'src/app/Services/restuarant.service';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-restaurant',
@@ -22,7 +24,7 @@ export class RestaurantComponent implements OnInit {
   amountInput:any="#editEmployeeModal";
   ResID:any;
   Restaurant:any;
-      constructor(public service:CategoryService,public MenuService :MenuItemService  , myRoute: ActivatedRoute , public ResService:RestuarantService){
+      constructor(  private castservice:SideCartService , public  service:CategoryService,public MenuService :MenuItemService  , myRoute: ActivatedRoute , public ResService:RestuarantService){
                this.ResID = myRoute.snapshot.params["restaurantID"];
       }
   ngOnInit(): void {
@@ -93,11 +95,21 @@ addtocart(data:any){
     alert("product is already in your cart")
     console.log(data.itemID)
   }else{
+    // this.castservice.gitcartitems()
+    // this.castservice.total
+    this.castservice.dishesInCart.push(data)
+    // this.castservice.gitCartTotalPrice()
+    
+    // this.castservice.gitCartTotalPrice()
+    // this.castservice.quantatychange()
     alert(" Don ")
     this.dishesInCart.push(data)
     localStorage.setItem("cart",JSON.stringify(this.dishesInCart))
   }
 }else{
+  alert(" Don ")
+  this.castservice.dishesInCart.push(data)
+  // this.castservice.gitCartTotalPrice()
   data.quantity = this.quantity ;
   console.log(data)
   this.dishesInCart.push(data)
