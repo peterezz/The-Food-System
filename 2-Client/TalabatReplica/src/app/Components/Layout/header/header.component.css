@@ -129,6 +129,36 @@ header .shopping span{
   margin: 0 10px;
 }
 
+.sidebar-nav .offcanvas {
+  background-color:#0a1b22  ;
+    width: 300px ;
+    height: 90vh ;
+    border: none;
+    position: fixed;
+    transition: .7s;
+    margin-top: 95px;
+}
+
+.im{
+  height: 45px;
+  /* width: 45px; */
+  border-radius: 50%;
+  margin-top: -5px;
+}
+
+
+.num{
+  width: 50px;
+}
+
+.price ,.totalPrice{
+  color: #E3E7E8;
+
+}
+.cartitemcontener{
+  height: 70px;
+}
+
 
 
 
