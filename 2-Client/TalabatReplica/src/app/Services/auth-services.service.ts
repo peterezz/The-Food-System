@@ -32,10 +32,7 @@ export class AuthServicesService {
         localStorage.setItem('user', JSON.stringify(this.userData));
         JSON.parse(localStorage.getItem('user')!);
       } 
-      else {
-        localStorage.setItem('user', 'null');
-        JSON.parse(localStorage.getItem('user')!);
-      }
+
     });
   }
 
@@ -43,7 +40,7 @@ export class AuthServicesService {
  get isLoggedIn(): boolean 
  {
     const user = JSON.parse(localStorage.getItem('user')!); // feach data from localstorage
-    return user !== null ? true : false;
+    return user != null ? true : false;
  }
 
  // Auth logic to run auth providers
@@ -53,7 +50,7 @@ export class AuthServicesService {
     .signInWithPopup(provider)
     .then((result) => 
     {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['AllResturantsComponent']);
       this.SetUserData(result.user);
     })
     .catch((error) => {
