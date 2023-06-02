@@ -69,7 +69,7 @@ export class LoginComponent  implements OnDestroy {
 
     if(!this.loginEmailFormGroup.valid)
     {
-      alert("Some Data is missed, please Fill both Fields ")
+      alert("Some Data is missed, please Fill both Fields")
     }
 
     if(this.loginEmailFormGroup.valid)
@@ -84,9 +84,12 @@ export class LoginComponent  implements OnDestroy {
 
           localStorage.setItem('user', JSON.stringify(data)); //store user data in local storage
 
+          localStorage.setItem('role',data.roles)
+
           sessionStorage.setItem('token',data.token)
           
-          if(data.roles[0]=='ResturantAdmin')
+          
+          if(data.roles.includes('ResturantAdmin'))
           {
             this.router.navigate(['/Adminmenu'])
           }

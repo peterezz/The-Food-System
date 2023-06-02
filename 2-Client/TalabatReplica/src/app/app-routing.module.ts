@@ -16,18 +16,19 @@ import { AdminDashbordMenueComponent } from './Components/admin-dashbord-menue/a
 import { FilterbycatComponent } from './Components/filterbycat/filterbycat.component';
 import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.component';
 import { authGuard } from './Shared/guard/auth.guard'
+import { roleGuard } from './Shared/guard/role.guard';
 
 const routes: Routes = [
-  {path:"ResProfile/:restaurantID", component: RestaurantComponent},
   {path:"", component: AllResturantsComponent},
+  {path:"ResProfile/:restaurantID", component: RestaurantComponent},
   {path:"category/:name", component: CategoryItemsComponent},
   {path:"login", component: LoginComponent},
   {path:"checkOut", component: CheckOutComponent},
   {path:"AllResturants", component: AllResturantsComponent},
   {path:"singleProduct", component: SingleproductComponent},
   {path:"cart", component: CartComponent,canActivate:[authGuard] },
-  {path:"pay", component: PaymentComponent ,canActivate:[authGuard]},
-  {path:"Adminmenu", component: AdminDashbordMenueComponent },
+  {path:"pay", component: PaymentComponent },
+  {path:"Adminmenu", component: AdminDashbordMenueComponent,canActivate:[authGuard, roleGuard] },
   {path:"Updatemenu/:itemID", component: UpdatemenuComponent },
   {path:"forgetpassword", component: ForgotPasswordComponent },
   {path:"setnewpassword", component: SetnewpasswordComponent },
