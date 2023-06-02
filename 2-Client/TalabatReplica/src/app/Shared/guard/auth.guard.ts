@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { CanActivateFn } from '@angular/router';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -7,5 +8,14 @@ export const authGuard : CanActivateFn =
     (route : ActivatedRouteSnapshot, state : RouterStateSnapshot) : boolean | Promise<boolean> |Observable<boolean>=> 
       {
     
-        return false;
-      };
+        const router : Router=inject(Router)
+        const auth : AuthServicesService =inject(AuthServicesService)
+    if(auth.isLoggedIn!=true)
+    {
+      window.alert("Not Authinticated ... ")
+      router.navigate(['/login']);
+      return false;
+    }
+        return true;
+  };
+

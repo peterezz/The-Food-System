@@ -16,6 +16,12 @@ export class HeaderComponent {
   visable(){
     this.hidde="";
   }
+
+
+  logout()
+  {
+    localStorage.clear();
+  }
 //   active:any;
 // opencart(){
 // this.active="active"

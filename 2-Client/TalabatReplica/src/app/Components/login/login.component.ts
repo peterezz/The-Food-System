@@ -59,6 +59,7 @@ export class LoginComponent  implements OnDestroy {
 
   //inject services
   constructor(public userlog:LoginService ,public httpClient:HttpClient ,public userreg:RegisterModelService  ,rout:ActivatedRoute, private router:Router){
+  
   }
 
 
