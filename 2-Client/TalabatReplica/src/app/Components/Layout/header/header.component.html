@@ -67,7 +67,7 @@
                           <button  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                             <span class="shopping navbar-toggler-icon bi bi-cart">
                               <img src="assets/img/carticon/1524618.png">
-                              <span class="quantity">0</span>
+                              <span class="quantity">{{this.castservice.dishesInCart.length}}</span>
                             </span>
                           </button>
                         </header>
@@ -75,6 +75,22 @@
                           <!-- List content -->
                           <div  class="offcanvas offcanvas-start shadow" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                             <div class="offcanvas-body">
+
+                              <div class="  mt-3 row Justify-content-center align-items-start" >
+
+
+                                <div class="col-12 row cont " *ngFor=" let item of this.castservice.dishesInCart ;">
+                                  <img src="assets/img/abt.jpg" alt="" class=" col-4  im" >
+                                  <button class="btn btn-dark col-1  " style="height: 35px;" (click)="minsAmount(item)" >-</button>
+                                  <input type="number" class="form-control num col-2 " [(ngModel)]="item.quantity"   value = "{{item.quantity}}" >
+                                  <button class="btn btn-dark  col-1 " style="height: 35px;" (click)="addAmount(item)" >+</button>
+                                  <p  class=" col-1 price mt-1  "  [(ngModel)] = "pricequentity"   >{{ item.price * item.quantity }}$</p>
+
+                                  </div>
+                                <div class="col-12 row totalPrice" >
+                                <!-- Total Price : {{    total   }}$ -->
+                                </div>
+                              </div>
 
                             </div>
                           </div>
