@@ -10,7 +10,8 @@ namespace ECommerce.BAL.Repository.Interfaces
         Task<List<RestaurantDto>> GetRestaurantsAsync( );
         Task<RestaurantDto> GetResturentByIDAsync( int resID );
         Task<bool> FindRestaurantByAdminID( string adminID );
-        Task<RestaurantDto> GetResturentByNameAsync(string resName);
+        Task<RestaurantDto> GetResturentByNameAsync( string resName );
+        Task<RestaurantDto> GetRestaurantByAdminIDAsync( string resAdminID );
         //Task<List<RestaurantDto>> GetRestaurantPagesAsync(int Page, int pageSize);
 
     }

@@ -94,6 +94,14 @@ namespace ECommerce.API.Controllers
             var data = await restaurantManager.CreateRestaurantAsync( restaurantDto );
             return Ok( );
         }
+        [HttpGet( "ResExist/{resAdminId}" )]
+        public async Task<IActionResult> GetRestaurantByAdminID( string resAdminId )
+        {
+            var resut = await restaurantManager.GetRestaurantByAdminIDAsync( resAdminId );
+            if ( resut == null )
+                return BadRequest( );
+            return Ok( resut );
+        }
         [HttpPut( "{id:int}" )]
         public async Task<IActionResult> EditRestaurant( [FromHeader] int id , [FromForm] RestaurantDto restaurantDto )
         {
