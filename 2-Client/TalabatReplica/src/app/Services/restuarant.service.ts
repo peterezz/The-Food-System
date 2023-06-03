@@ -25,5 +25,9 @@ export class RestuarantService {
     return this.httpClient.get(`${this.BaseURL}/${name}`);
 
   }
+  GetRestaurantByResAdminID(resAdminID:string)
+  {
+    return this.httpClient.get(`${this.BaseURL}/ResExist/${resAdminID}`);
+  }
 
 }

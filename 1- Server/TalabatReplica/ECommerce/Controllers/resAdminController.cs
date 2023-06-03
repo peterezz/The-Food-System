@@ -1,85 +1,83 @@
 ﻿using ECommerce.BAL.DTOs;
 using ECommerce.BAL.Managers;
-using ECommerce.DAL.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route( "api/[controller]" )]
     [ApiController]
     public class resAdminController : ControllerBase
     {
         private readonly resAdminManager resAdminCon;
 
-        public resAdminController(resAdminManager resAdminCon)
+        public resAdminController( resAdminManager resAdminCon )
         {
             this.resAdminCon = resAdminCon;
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetCategories()
+        public async Task<ActionResult> GetCategories( )
         {
 
-            return Ok(await resAdminCon.getAllResAdmin());
+            return Ok( await resAdminCon.getAllResAdmin( ) );
 
         }
 
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletResAdmin(string id)
+        [HttpDelete( "{id}" )]
+        public async Task<IActionResult> DeletResAdmin( string id )
         {
 
-            var data = await resAdminCon.GetAdminById(id);
-            if (data == null)
+            var data = await resAdminCon.GetAdminById( id );
+            if ( data == null )
             {
-                return NotFound("Admin not found");
+                return NotFound( "Admin not found" );
             }
-            await resAdminCon.DeleteResAdmin(id);
-            return Ok(data);
+            await resAdminCon.DeleteResAdmin( id );
+            return Ok( data );
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult> GetResAdminById(string id)
+        [HttpGet( "{id}" )]
+        public async Task<ActionResult> GetResAdminById( string id )
         {
 
-        
-            var data = await resAdminCon.GetAdminById(id);
-            if (data == null)
+
+            var data = await resAdminCon.GetAdminById( id );
+            if ( data == null )
             {
-                return NotFound("Category not found");
+                return NotFound( "Category not found" );
             }
-            return Ok(data);
+            return Ok( data );
 
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateResAdmin(string id, ResAdminConfirmDto dto)
+        [HttpPut( "{id}" )]
+        public async Task<IActionResult> UpdateResAdmin( string id , ResAdminConfirmDto dto )
         {
-            if (id != dto.id)
+            if ( id != dto.id )
             {
-                return BadRequest("Not Matched!");
+                return BadRequest( "Not Matched!" );
             }
-            if (ModelState.IsValid)
+            if ( ModelState.IsValid )
             {
 
-                if (await resAdminCon.GetAdminById(id) == null)
+                if ( await resAdminCon.GetAdminById( id ) == null )
                 {
-                    return NotFound("Data Not Valid");
+                    return NotFound( "Data Not Valid" );
                 }
                 try
                 {
 
-                    var data = await resAdminCon.updateResAdmin(dto);
+                    var data = await resAdminCon.updateResAdmin( dto );
 
-                    return Created("url", data);
+                    return Created( "url" , data );
                 }
-                catch (Exception ex)
+                catch ( Exception ex )
 
                 {
-                    return BadRequest(ex.Message);
+                    return BadRequest( ex.Message );
                 }
             }
-            return BadRequest(ModelState);
+            return BadRequest( ModelState );
 
 
 
