@@ -21,6 +21,7 @@ export class AdminDashbordMenueComponent {
   myValidations!: FormGroup;
   addRestaurantValidations!: FormGroup;
   resAdminID="cdf78d74-1912-4444-99f2-b3fd9e91f38e";
+  resExist:boolean=false;
   constructor(private fb : FormBuilder,public route: Router,public service:MenuItemService,public CategorieService:CategoryService,myRoute:ActivatedRoute,private restuarantService:RestuarantService){
     this.ID = myRoute.snapshot.params["itemID"];
   }
@@ -29,6 +30,11 @@ export class AdminDashbordMenueComponent {
     'Accept': 'application/json'
    });
   ngOnInit(): void {
+    this.restuarantService.GetRestaurantByResAdminID(this.resAdminID).subscribe({
+      next:()=>{this.resExist=true;},
+      error:()=>{this.resExist=false;}
+      
+    })
 this.GetAllMenuItems()
     this.GetItemByID(this.ID);
     this.GetAllCategories();

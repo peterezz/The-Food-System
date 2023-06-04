@@ -58,6 +58,12 @@ namespace ECommerce.BAL.Managers
 
         public async Task<bool> FindRestaurantByAdminID( string adminID ) => await FirstOrDefaultAsync( res => res.ResAdminID.Equals( adminID ) ) != null;
 
+        public async Task<RestaurantDto> GetRestaurantByAdminIDAsync( string resAdminID )
+        {
+            var data = await FirstOrDefaultAsync( res => res.ResAdminID.Equals( resAdminID ) );
+            return _mapper.Map<RestaurantDto>( data );
+        }
+
         //public async Task<List<RestaurantDto>> GetRestaurantPagesAsync(int page = 1, int pageSize = 2)
         //{
         //    var data = await GetAllAsync();
