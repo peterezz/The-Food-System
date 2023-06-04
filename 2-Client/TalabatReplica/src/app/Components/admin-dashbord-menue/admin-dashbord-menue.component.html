@@ -620,7 +620,7 @@
 
 
 
-                <button  (click)="Additem(name.value,+price.value,desc.value,size.value,IsTop.value,+ResID.value,Offer.value,+catigorys.value,catigorys.options[catigorys.selectedIndex].text)"
+                <button  (click)="Additem(name.value,+price.value,desc.value,size.value,IsTop.value,+ResID.value,Offer.value,+catigorys.value)"
                 class="flex items-center justify-between
                  px-4 py-2 text-sm font-medium leading-5
                  text-white transition-colors duration-150 bg-purple-600
@@ -734,7 +734,7 @@
             <th>title</th>
             <th>discription</th>
             <th>price</th>
-            <th>catigory</th>
+
             <th>Actions</th>
           </tr>
         </thead>
@@ -744,7 +744,7 @@
             <td>{{ i.name }}</td>
             <td>{{ i.description }}</td>
             <td>{{ i.price }}</td>
-            <td>{{ i.categoryName }}</td>
+
             <td>
               <a
                 routerLink="/Updatemenu/{{ i.itemID }}"

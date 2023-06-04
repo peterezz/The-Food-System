@@ -8,18 +8,12 @@ namespace ECommerce.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "image",
-                table: "MenuItems",
-                newName: "Photo");
+          
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
-                name: "Photo",
-                table: "MenuItems",
-                newName: "image");
+            
         }
     }
 }

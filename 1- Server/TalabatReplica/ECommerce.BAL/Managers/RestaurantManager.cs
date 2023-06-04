@@ -36,6 +36,8 @@ namespace ECommerce.BAL.Managers
         }
         public async Task UpdateRestaurantAsync( RestaurantDto restaurantDto )
         {
+            restaurantDto.Poster = await FileManager.UploadFileAsync(restaurantDto.PosterFile);
+            restaurantDto.CoverBanner = await FileManager.UploadFileAsync(restaurantDto.BannearFile);
             var data = _mapper.Map<Resturant>( restaurantDto );
             await UpdateAsync( data );
         }

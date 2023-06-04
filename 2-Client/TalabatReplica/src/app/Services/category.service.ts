@@ -13,13 +13,18 @@ export class CategoryService {
   GetAllCategories(){
     return this.http.get(this.BaseUrl);
   }
+  GetCategoryById(id:any){
+    return this.http.get(this.BaseUrl+"/"+id);
+
+  }
+
   GetCategoryByName(name:any){
     return this.http.get(this.BaseUrl+"/"+name);
 
   }
-  GetAllDises(){
-    return this.http.get('https://localhost:44318/api/MenueItem');
-  }
+  // GetAllDises(){
+  //   return this.http.get('https://localhost:44318/api/MenueItem');
+  // }
 
 }
 

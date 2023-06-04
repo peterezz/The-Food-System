@@ -14,6 +14,7 @@ export class UpdatemenuComponent  {
   ID:any;
   itemdetails:any;
   Category:any;
+  cate:any;
   ResID:any;
   categories:any;
   selectedFile:any;
@@ -25,11 +26,13 @@ export class UpdatemenuComponent  {
     this.service.GetItemById(this.ID).subscribe({
       next:(data)=>{this.itemdetails=data;
         console.log(data);
+        this.GetCategoryByID(this.itemdetails.categoryID);
         this.myValidations.patchValue({
           title : this.itemdetails.name,
           price : this.itemdetails.price,
           size: this.itemdetails.size,
           desc: this.itemdetails.description
+
 
         });
       },
@@ -38,6 +41,7 @@ export class UpdatemenuComponent  {
 
     })
     this.GetAllCategories();
+
   //this.GetAllCategoriesByResID(this.ResID);
   // this.myValidations.setValue({
   //   title: this.itemdetails.name,
@@ -57,7 +61,7 @@ export class UpdatemenuComponent  {
 
 
 
-  updateItem(itemID:any,name:any,price:any,description:any,size:any,resturantID:any,categoryID:any){
+  updateItem(itemID:any,name:any,price:any,description:any,size:any,IsTop:any,resturantID:any,offer:any,categoryID:any){
     if(this.myValidations.valid){
 
     const formData = new FormData();
@@ -66,6 +70,16 @@ export class UpdatemenuComponent  {
     formData.append('price',price);
     formData.append('Description',description);
     formData.append('size',size);
+    if(IsTop == 'on'){
+      formData.append('IsTopItem','true');
+
+    }
+    formData.append('IsTopItem','false');
+    formData.append('ResturantID',resturantID);
+    if(offer == 'on'){
+      formData.append('offer','true');
+
+    }
     formData.append('ResturantID',resturantID);
     formData.append('CategoryID',categoryID);
     formData.append('PhotoFile',this.selectedFile);
@@ -109,5 +123,11 @@ private validateAllFormFields(formGroup: FormGroup){
       this.validateAllFormFields(control);
     }
   })
+}
+GetCategoryByID(id:any){
+  this.CategorieService.GetCategoryById(id).subscribe({next:(data)=>{
+    console.log("kkkkkkkk")
+    this.cate=data;console.log(this.cate);
+  }})
 }
 }

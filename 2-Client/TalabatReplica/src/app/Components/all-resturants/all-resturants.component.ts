@@ -13,12 +13,18 @@ export class AllResturantsComponent implements OnInit {
   ResBySeach:any;
   item:any;
   SearchTerm:any;
+  oneRes:any;
   ngOnInit(): void {
        this.GetAllRestuarants();
   }
 GetAllRestuarants(){
   this.service.GetAllRestuarants().subscribe({
-    next:(data)=>{this.Restarunts=data;console.log(data);},
+    next:(data)=>{this.Restarunts=data;console.log(data);
+    // for(let item in this.Restarunts){
+    //   console.log(this.Restarunts[item]);
+    //   this.oneRes = this.Restarunts[item]
+    // }
+    },
     error:(error)=>{console.log(error);}
   });
 

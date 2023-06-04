@@ -1,3 +1,5 @@
+import { AngularFireAuth, AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireModule } from '@angular/fire/compat';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
@@ -25,10 +27,9 @@ import { FilterbycatComponent } from './Components/filterbycat/filterbycat.compo
 import { AdminDashbordMenueComponent } from './Components/admin-dashbord-menue/admin-dashbord-menue.component';
 import { isNgTemplate } from '@angular/compiler';
 import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.component';
-import {AngularFireModule} from '@angular/fire/compat'
-import {AngularFireAuthModule, AngularFireAuth} from '@angular/fire/compat/auth'
 import { environment } from 'src/environments/environment.development';
-import {AuthServicesService} from './Services/auth-services.service'
+import {AuthServicesService} from './Services/auth-services.service';
+import { SpinnerComponent } from './Components/spinner/spinner.component'
 
 
 @NgModule({
@@ -52,9 +53,11 @@ import {AuthServicesService} from './Services/auth-services.service'
     AdminDashbordMenueComponent,
     FilterbycatComponent,
     UpdatemenuComponent,
-    
+    SpinnerComponent,
 
-    
+
+
+
 
 
 
@@ -63,16 +66,16 @@ import {AuthServicesService} from './Services/auth-services.service'
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     RouterLink,
     CommonModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    
-    
-    
+
+
+
+
 
 
   ],
