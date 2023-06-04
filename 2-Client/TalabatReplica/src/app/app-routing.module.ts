@@ -17,6 +17,7 @@ import { FilterbycatComponent } from './Components/filterbycat/filterbycat.compo
 import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.component';
 import { authGuard } from './Shared/guard/auth.guard'
 import { roleGuard } from './Shared/guard/role.guard';
+import { appOwnerGuard } from './Shared/guard/app-owner.guard';
 
 const routes: Routes = [
   {path:"", component: AllResturantsComponent},
@@ -26,7 +27,7 @@ const routes: Routes = [
   {path:"checkOut", component: CheckOutComponent},
   {path:"AllResturants", component: AllResturantsComponent},
   {path:"singleProduct", component: SingleproductComponent},
-  {path:"cart", component: CartComponent,canActivate:[authGuard] },
+  {path:"cart", component: CartComponent,canActivate:[authGuard, appOwnerGuard] },
   {path:"pay", component: PaymentComponent },
   {path:"Adminmenu", component: AdminDashbordMenueComponent,canActivate:[authGuard, roleGuard] },
   {path:"Updatemenu/:itemID", component: UpdatemenuComponent },
