@@ -159,20 +159,9 @@ header .shopping span{
   height: 70px;
 }
 
-
-
-
-
-
-
-
-
-
-
 .cont{
   z-index: 1 ;
 }
-
 
 .sidebar {
 
@@ -218,5 +207,11 @@ header .shopping span{
 }
 
 
+li{
+  font-size: large;
+}
+a{
+  text-decoration: none;
 
+}
 
