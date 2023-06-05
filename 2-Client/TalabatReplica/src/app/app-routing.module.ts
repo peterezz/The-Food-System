@@ -31,19 +31,18 @@ const routes: Routes = [
   {path:"checkOut", component: CheckOutComponent},
   {path:"AllResturants", component: AllResturantsComponent},
   {path:"singleProduct", component: SingleproductComponent},
-  {path:"cart", component: CartComponent,canActivate:[authGuard, appOwnerGuard] },
-  {path:"pay", component: PaymentComponent },
+  {path:"cart", component: CartComponent},
+  {path:"pay", component: PaymentComponent ,canActivate:[authGuard]},
   {path:"Adminmenu", component: AdminDashbordMenueComponent,canActivate:[authGuard, roleGuard] },
-  {path:"Updatemenu/:itemID", component: UpdatemenuComponent },
+  {path:"Updatemenu/:itemID", component: UpdatemenuComponent ,canActivate:[authGuard,roleGuard] },
   {path:"forgetpassword", component: ForgotPasswordComponent },
   {path:"setnewpassword", component: SetnewpasswordComponent },
   {path:"contactus", component: ContactComponent },
   {path:"category", component: CategoryItemsComponent},
   {path:"Filterbycat", component: FilterbycatComponent},
-  {path:"appOwner", component: AppOwnerComponent},
-  {path:"AcceptMenuItem/:id", component: AcceptRefuseMenuItemComponent},
-
-  {path:"ResAdminUpdate/:id", component: ResAdminUpdateComponent},
+  {path:"appOwner", component: AppOwnerComponent,canActivate:[authGuard,appOwnerGuard]},
+  {path:"AcceptMenuItem/:id", component: AcceptRefuseMenuItemComponent,canActivate:[authGuard,appOwnerGuard]},
+  {path:"ResAdminUpdate/:id", component: ResAdminUpdateComponent,canActivate:[authGuard,roleGuard]},
   {path:"**", component: ErrorComponent}
 
 

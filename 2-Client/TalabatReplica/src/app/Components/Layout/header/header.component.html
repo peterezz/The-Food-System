@@ -52,12 +52,25 @@
                 </ul>
               </li>
               <li><a routerLink="/contactus">Contact</a></li>
-                <li ><a routerLink="/login">Login/Registration</a>
+                <li ><a id="Toggle" routerLink="/login">Login/Registration</a>
 
               </li>
               <li><a routerLink="/login" (click)="logout()">LogOut</a>
             </li>
               <li>
+
+                                
+                <!-- <ng-template #loginBlock>
+
+                  <li><a id="Toggle" routerLink="/login" >Login/Registration</a>
+                  </li>
+              </ng-template> -->
+
+                <ng-template #logoutBlock>
+
+                    <li><a routerLink="/login" (click)="logout()">LogOut</a>
+                    </li>
+                </ng-template>
 
                 <div class="sidebar-nav">
                   <nav >
