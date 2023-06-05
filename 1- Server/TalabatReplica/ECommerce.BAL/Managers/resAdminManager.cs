@@ -1,17 +1,8 @@
 ﻿using AutoMapper;
 using ECommerce.BAL.DTOs;
 using ECommerce.DAL.Enums;
-using ECommerce.DAL.Models;
 using ECommerce.DAL.Models.IdentityModels;
-using ECommerce.Migrations;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECommerce.BAL.Managers
 {
@@ -26,7 +17,7 @@ namespace ECommerce.BAL.Managers
         //add or Confirm
         private readonly UserManager<ApplicationUser> userman;
 
-        public resAdminManager(ApplicationDbContext context,UserManager<ApplicationUser> userman,IMapper mapper)
+        public resAdminManager( ApplicationDbContext context , UserManager<ApplicationUser> userman , IMapper mapper )
         {
             this.context = context;
             this.userman = userman;
@@ -38,42 +29,43 @@ namespace ECommerce.BAL.Managers
 
 
 
-      
-        public async Task<List<ResAdminConfirmDto>> getAllResAdmin()
 
-        { 
+        public async Task<List<ResAdminConfirmDto>> getAllResAdmin( )
 
-      //   var users = await userman.Users.Where(U=>U.EmailConfirmed==false).ToListAsync();
+        {
 
-            var usersInRole = await userman.GetUsersInRoleAsync(nameof(Roles.ResturantAdmin));
-            var userss =  usersInRole.Where(u=>u.EmailConfirmed==false).ToList();
-            return Mapper.Map<List<ResAdminConfirmDto>>(userss);
+            //   var users = await userman.Users.Where(U=>U.EmailConfirmed==false).ToListAsync();
+
+            var usersInRole = await userman.GetUsersInRoleAsync( nameof( Roles.ResturantAdmin ) );
+            var userss = usersInRole.Where( u => u.EmailConfirmed == false ).ToList( );
+            return Mapper.Map<List<ResAdminConfirmDto>>( userss );
         }
 
-        public async Task DeleteResAdmin(String id)
+        public async Task DeleteResAdmin( String id )
         {
-          
-                
-            var user = await userman.FindByIdAsync(id);
-            var result = await userman.DeleteAsync(user);
+
+
+            var user = await userman.FindByIdAsync( id );
+            var result = await userman.DeleteAsync( user );
 
 
         }
 
-        public async Task<ResAdminConfirmDto> GetAdminById(string id)
+        public async Task<ResAdminConfirmDto> GetAdminById( string id )
         {
-            return Mapper.Map<ResAdminConfirmDto>( await userman.FindByIdAsync(id));
+            return Mapper.Map<ResAdminConfirmDto>( await userman.FindByIdAsync( id ) );
         }
 
-        public async Task<ResAdminConfirmDto> updateResAdmin(ResAdminConfirmDto dto)
+        public async Task<ResAdminConfirmDto> updateResAdmin( ResAdminConfirmDto dto )
         {
-            var user = userman.FindByIdAsync(dto.id).Result;
-            user.Email=dto.Email;
+            var user = userman.FindByIdAsync( dto.id ).Result;
+
             user.EmailConfirmed = dto.EmailConfirm;
-         //   var data = Mapper.Map<ApplicationUser>(dto);
-            
-            await userman.UpdateAsync(user);
-           // await context.SaveChangesAsync();
+
+            //   var data = Mapper.Map<ApplicationUser>(dto);
+
+            await userman.UpdateAsync( user );
+            // await context.SaveChangesAsync();
             return dto;
 
         }

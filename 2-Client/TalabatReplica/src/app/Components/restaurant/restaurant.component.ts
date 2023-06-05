@@ -68,12 +68,12 @@ export class RestaurantComponent implements OnInit {
  });*/
 if(value=="All"){
  this.GetMenuItemByResID(this.ResID)
-  
+
 }else
     this.GetCategoryByName(value);
-      
-       
-      
+
+
+
   }
 
   /////////////////////////////////////////// Add Dishes TO Cart
@@ -99,7 +99,7 @@ addtocart(data:any){
     // this.castservice.total
     this.castservice.dishesInCart.push(data)
     // this.castservice.gitCartTotalPrice()
-    
+
     // this.castservice.gitCartTotalPrice()
     // this.castservice.quantatychange()
     alert(" Don ")
@@ -123,7 +123,7 @@ addtocart(data:any){
   }
 
 GetCategoryByName(name:any){
-  
+
   this.service.GetCategoryByName(name).subscribe({
     next:(data:any)=>{
       for( let key in data) {
@@ -135,10 +135,10 @@ GetCategoryByName(name:any){
           console.log( "dishes"+this.alldishes);
         }*/
       }
-     
+
       /*for (let key in data) {
         this.alldishes=data[key]["menuItems"];
-        
+
         console.log("data"+data[key][menuItems]);
       }
 */
