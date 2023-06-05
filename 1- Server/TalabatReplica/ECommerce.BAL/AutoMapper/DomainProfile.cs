@@ -17,8 +17,8 @@ namespace ECommerce.BAL.Mapper
             CreateMap<ApplicationUser , ProfileUserDto>( ).ReverseMap( );
             CreateMap<Order , orderDto>( ).ReverseMap( );
             CreateMap<Review , ReviewDTO>( ).ReverseMap( );
-            CreateMap<Cart, CartDto>().ReverseMap();
-            CreateMap<ApplicationUser, ResAdminConfirmDto>().ReverseMap();
+            CreateMap<Cart , CartDto>( ).ReverseMap( );
+            CreateMap<ApplicationUser , ResAdminConfirmDto>( ).ReverseMap( );
 
 
         }

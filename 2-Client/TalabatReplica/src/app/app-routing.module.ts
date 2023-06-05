@@ -20,6 +20,7 @@ import { AppOwnerComponent } from './Components/app-owner/app-owner.component';
 import { ResAdminUpdateComponent } from './Components/res-admin-update/res-admin-update.component';
 import { roleGuard } from './Shared/guard/role.guard';
 import { appOwnerGuard } from './Shared/guard/app-owner.guard';
+import { AcceptRefuseMenuItemComponent } from './Components/accept-refuse-menu-item/accept-refuse-menu-item.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,8 @@ const routes: Routes = [
   {path:"category", component: CategoryItemsComponent},
   {path:"Filterbycat", component: FilterbycatComponent},
   {path:"appOwner", component: AppOwnerComponent},
+  {path:"AcceptMenuItem/:id", component: AcceptRefuseMenuItemComponent},
+
   {path:"ResAdminUpdate/:id", component: ResAdminUpdateComponent},
   {path:"**", component: ErrorComponent}
 
