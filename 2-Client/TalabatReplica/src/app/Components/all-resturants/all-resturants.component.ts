@@ -32,7 +32,7 @@ GetAllRestuarants(){
     if (name == null ){
       this.GetAllRestuarants();
     }
-    this.service.GetRestuarantByName(name).subscribe({
+    this.service.GetRestuarantB(name).subscribe({
       next:(data)=>{
         var res =[data]
         this.Restarunts = res;console.log("ddddd=",data)}

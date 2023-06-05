@@ -21,7 +21,7 @@ export class RestuarantService {
     return this.httpClient.get(`${this.BaseURL}/${id}`);
 
   }
-  GetRestuarantByName(name:any){
+  GetRestuarantB(name:any){
     return this.httpClient.get(`${this.BaseURL}/${name}`);
 
   }
