@@ -16,8 +16,11 @@ import { AdminDashbordMenueComponent } from './Components/admin-dashbord-menue/a
 import { FilterbycatComponent } from './Components/filterbycat/filterbycat.component';
 import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.component';
 import { authGuard } from './Shared/guard/auth.guard'
+import { AppOwnerComponent } from './Components/app-owner/app-owner.component';
+import { ResAdminUpdateComponent } from './Components/res-admin-update/res-admin-update.component';
 import { roleGuard } from './Shared/guard/role.guard';
 import { appOwnerGuard } from './Shared/guard/app-owner.guard';
+
 
 const routes: Routes = [
   {path:"", component: AllResturantsComponent},
@@ -36,7 +39,10 @@ const routes: Routes = [
   {path:"contactus", component: ContactComponent },
   {path:"category", component: CategoryItemsComponent},
   {path:"Filterbycat", component: FilterbycatComponent},
+  {path:"appOwner", component: AppOwnerComponent},
+  {path:"ResAdminUpdate/:id", component: ResAdminUpdateComponent},
   {path:"**", component: ErrorComponent}
+
 
 ];
 
