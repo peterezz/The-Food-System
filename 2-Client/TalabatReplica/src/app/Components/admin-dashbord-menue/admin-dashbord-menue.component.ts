@@ -15,6 +15,7 @@ import { RestuarantService } from 'src/app/Services/restuarant.service';
 export class AdminDashbordMenueComponent {
   items:any;
   Category:any;
+  cate:any;
   ID:any;
   itemdetails:any;
   file:any;
@@ -38,6 +39,7 @@ export class AdminDashbordMenueComponent {
 this.GetAllMenuItems()
     this.GetItemByID(this.ID);
     this.GetAllCategories();
+
     this.myValidations = this.fb.group({
       title:['',[Validators.maxLength(50),Validators.required,Validators.pattern(/^[a-zA-Z\s]*$/)]],
       price:['',[Validators.required,Validators.pattern(/^[0-9]+$/)]],
@@ -63,7 +65,9 @@ this.GetAllMenuItems()
 
     })
   }
-  Additem (name:any,price:any,description:any,size:any,IsTop:any,resturantID:any,offer:any,categoryID:any,categoryName:any){
+
+
+  Additem (name:any,price:any,description:any,size:any,IsTop:any,resturantID:any,offer:any,categoryID:any){
     if(this.myValidations.valid){
       const formData = new FormData();
       formData.append('Name',name);
@@ -80,9 +84,8 @@ this.GetAllMenuItems()
         formData.append('offer','true');
 
       }
-     
+
       formData.append('CategoryID',categoryID);
-      formData.append('CategoryName',categoryName);
       formData.append('PhotoFile',this.file);
 
 

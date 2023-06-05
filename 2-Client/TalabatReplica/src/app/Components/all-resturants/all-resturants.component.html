@@ -20,18 +20,20 @@
 	<!-- ------------------------------------------------------------------------- -->
 
           <div class="product-section  mt-5 mb-150">
-            <div class="container">
+            <div class="container" >
               <div class="row">
                 <div class="col-lg-2 col-md-3 col-sm-6 text-center strawberry mb-5 mt-5" *ngFor="let R of Restarunts">
 
 
-              <app-all-resturants-items [RestaurantItem]="R" ></app-all-resturants-items>
+              <app-all-resturants-items   *ngIf="R; else spinner" [RestaurantItem]="R" ></app-all-resturants-items>
 
 
             <!-- <app-all-resturants-items [RestaurantItem]="R" *ngFor="let R of Restarunts"></app-all-resturants-items> -->
             </div>
 
-
+            <ng-template #spinner>
+              <app-spinner></app-spinner>
+            </ng-template>
 
 </div>
 </div>
