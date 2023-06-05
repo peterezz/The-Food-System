@@ -43,6 +43,29 @@ export class AuthServicesService {
     return user != null ? true : false;
  }
 
+ get isAuthorized(): boolean 
+ {
+    const role = (localStorage.getItem('role')!); // feach data from localstorage
+    
+    if(role!=null && role.includes('ResturantAdmin'))
+    {
+      return true
+    }
+    return  false;
+ }
+
+
+ get AppOwnerAuthorized(): boolean 
+ {
+    const role = (localStorage.getItem('role')!); // feach data from localstorage
+    
+    if(role!=null && role.includes('AppOwner'))
+    {
+      return true
+    }
+    return  false;
+ }
+
  // Auth logic to run auth providers
  AuthLogin(provider: any) 
  {

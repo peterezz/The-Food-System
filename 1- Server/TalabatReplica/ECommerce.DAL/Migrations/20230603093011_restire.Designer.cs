@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230531102937_mm")]
-    partial class mm
+    [Migration("20230603093011_restire")]
+    partial class restire
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -102,11 +102,14 @@ namespace ECommerce.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<byte[]>("Photo")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<bool>("Offer")
+                        .HasColumnType("bit");
 
                     b.Property<int>("ResturantID")
                         .HasColumnType("int");
+
+                    b.Property<byte[]>("image")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<int>("price")
                         .HasColumnType("int");
@@ -457,6 +460,9 @@ namespace ECommerce.Migrations
             modelBuilder.Entity("ECommerce.DAL.Models.IdentityModels.ApplicationUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<bool>("AdminCheck")
+                        .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
                         .IsRequired()

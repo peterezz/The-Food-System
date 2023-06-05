@@ -18,18 +18,21 @@ import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.componen
 import { authGuard } from './Shared/guard/auth.guard'
 import { AppOwnerComponent } from './Components/app-owner/app-owner.component';
 import { ResAdminUpdateComponent } from './Components/res-admin-update/res-admin-update.component';
+import { roleGuard } from './Shared/guard/role.guard';
+import { appOwnerGuard } from './Shared/guard/app-owner.guard';
+
 
 const routes: Routes = [
-  {path:"ResProfile/:restaurantID", component: RestaurantComponent},
   {path:"", component: AllResturantsComponent},
+  {path:"ResProfile/:restaurantID", component: RestaurantComponent},
   {path:"category/:name", component: CategoryItemsComponent},
   {path:"login", component: LoginComponent},
   {path:"checkOut", component: CheckOutComponent},
   {path:"AllResturants", component: AllResturantsComponent},
   {path:"singleProduct", component: SingleproductComponent},
-  {path:"cart", component: CartComponent,canActivate:[authGuard] },
-  {path:"pay", component: PaymentComponent ,canActivate:[authGuard]},
-  {path:"Adminmenu", component: AdminDashbordMenueComponent },
+  {path:"cart", component: CartComponent,canActivate:[authGuard, appOwnerGuard] },
+  {path:"pay", component: PaymentComponent },
+  {path:"Adminmenu", component: AdminDashbordMenueComponent,canActivate:[authGuard, roleGuard] },
   {path:"Updatemenu/:itemID", component: UpdatemenuComponent },
   {path:"forgetpassword", component: ForgotPasswordComponent },
   {path:"setnewpassword", component: SetnewpasswordComponent },
