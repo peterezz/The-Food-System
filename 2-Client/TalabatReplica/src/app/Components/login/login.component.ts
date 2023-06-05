@@ -58,8 +58,11 @@ export class LoginComponent  implements OnDestroy {
   }
 
   //inject services
-  constructor(public userlog:LoginService ,public httpClient:HttpClient ,public userreg:RegisterModelService  ,rout:ActivatedRoute, private router:Router){
-  
+  constructor(public userlog:LoginService ,public httpClient:HttpClient ,public userreg:RegisterModelService  ,rout:ActivatedRoute, private router:Router)
+  {
+    localStorage.setItem('user','null');
+    localStorage.setItem('role','null');
+
   }
 
 
@@ -179,21 +182,13 @@ export class LoginComponent  implements OnDestroy {
         this.registerEmailFormGroup.controls['EmailAddress'].value,
         this.registerEmailFormGroup.controls['Password'].value,
         this.registerEmailFormGroup.controls['AdminCheck'].value
-        
         );
 
-        // console.log(this.registerEmailFormGroup.controls['firstName'].value)
-        // console.log(this.registerEmailFormGroup.controls['lastName'].value)
-        // console.log(this.registerEmailFormGroup.controls['username'].value)
-        // console.log(this.registerEmailFormGroup.controls['EmailAddress'].value)
-        // console.log(this.registerEmailFormGroup.controls['Password'].value)
-        // console.log(this.registerEmailFormGroup.controls['AdminCheck'].value)
-
-        console.log(registerData)
 
       const chk = document.querySelector('#Admin') as HTMLInputElement
+
       this.SubscribeService=this.userreg.Register(registerData).subscribe({
-        next: () => {
+        next: (data:any) => {
           alert("Registered Successfully" )
           if(chk.checked)
           {
@@ -203,6 +198,7 @@ export class LoginComponent  implements OnDestroy {
           {
             this.router.navigate(['/AllResturants'])
           }
+          localStorage.setItem('user',JSON.stringify(data));
         },
         error : (err:any) =>
         {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthServicesService } from 'src/app/Services/auth-services.service';
 import { SideCartService } from 'src/app/Services/side-cart.service';
 
 @Component({
@@ -12,13 +13,18 @@ export class HeaderComponent implements OnInit {
   total:any=0;
   quantaty:any;
   pricequentity:any;
-  ngOnInit(): void {
+
+  constructor(public castservice:SideCartService , public auth:AuthServicesService){
+  }
+
+  ngOnInit(): void 
+  {
     // throw new Error('Method not implemented.');
       this.castservice.gitcartitems()
        this.dishesInCart  = this.castservice.dishesInCart
+     
   }
-  constructor(public castservice:SideCartService){
-  }
+
 
   minsAmount(item:any){
     this.castservice.minsAmount(item)
@@ -26,7 +32,8 @@ export class HeaderComponent implements OnInit {
   addAmount(item:any){
     this.castservice.addAmount(item)
   }
-  quantatychange(){
+  quantatychange()
+  {
     this.castservice.quantatychange();
   }
 
@@ -42,15 +49,28 @@ export class HeaderComponent implements OnInit {
   }
 
 
-  logout()
+  loc=localStorage.getItem('user');
+
+  ToggleFun()
   {
-    localStorage.clear();
+       const chk = document.querySelector('#Toggle') as HTMLInputElement;
+       if(localStorage.getItem('user')!=null)
+       {
+        chk.innerText='LogOut';
+        localStorage.clear()
+       }
+       else
+       {
+        chk.innerText='Login/Registration';
+       }
   }
 
-
-
-
-
+  logout()
+  {
+    // localStorage.clear()
+    localStorage.setItem('user','null');
+    localStorage.setItem('role','null');
+  }
 
 
 
