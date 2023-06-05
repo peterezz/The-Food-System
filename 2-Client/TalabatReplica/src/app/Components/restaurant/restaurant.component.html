@@ -1,6 +1,6 @@
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg " style="height: 500px;">
-  <div class="" *ngIf="Restaurant">
+  <div class="" *ngIf="Restaurant else spinner">
     <div class="row">
       <div class="col-lg-12">
         <img class="" style="width:100%; height: auto ;margin-top: -100px;" src="https://s3-eu-west-1.amazonaws.com/elmenusv5-stg/Normal/9ac7f67e-0927-4347-a1f8-6c62d9c41c9b.jpg">
@@ -8,7 +8,7 @@
       <div col-lg-3 style="width: 200px; height: 200px; z-index: 1;">
         <img style=" border-radius: 50%; margin-top: -20px;" src="data:image/jpeg;base64,{{ Restaurant.poster }}">
       </div>
-      <div class="col-lg-9  text-left">
+      <div class="col-lg-9  text-left" style="position: relative; bottom: 5px;">
         <div class="breadcrumb-text">
           <h1>{{ Restaurant.name }}</h1>
         </div>
@@ -54,8 +54,8 @@
         <a routerLink="singleProduct" >
           <img src="data:image/jpeg;base64,{{ c.image }}" alt=""></a>
       </div>
-      <div class="detail"  >
-        <p>
+      <div class="detail">
+        <p  >
           <b>{{c.name}}</b><br>
           <small> {{c.description}} </small>
           <br>
@@ -290,7 +290,9 @@
   <!-- end products -->
 
 
-
+<<ng-template #spinner>
+  <app-spinner></app-spinner>
+</ng-template>
 
 
 

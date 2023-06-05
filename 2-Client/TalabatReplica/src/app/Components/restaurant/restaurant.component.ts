@@ -149,6 +149,8 @@ GetTopdishes(ResID:any){
   this.MenuService.GetTopdishes(ResID).subscribe({
     next:(data:any)=>{
       this.topdishes=data;
+      console.log("*******")
+      console.log(data);
     }
   })
 }
