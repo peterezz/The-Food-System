@@ -28,7 +28,9 @@ import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.componen
 import {AngularFireModule} from '@angular/fire/compat'
 import {AngularFireAuthModule, AngularFireAuth} from '@angular/fire/compat/auth'
 import { environment } from 'src/environments/environment.development';
-import {AuthServicesService} from './Services/auth-services.service'
+import {AuthServicesService} from './Services/auth-services.service';
+import { AppOwnerComponent } from './Components/app-owner/app-owner.component';
+import { ResAdminUpdateComponent } from './Components/res-admin-update/res-admin-update.component'
 
 
 @NgModule({
@@ -52,9 +54,11 @@ import {AuthServicesService} from './Services/auth-services.service'
     AdminDashbordMenueComponent,
     FilterbycatComponent,
     UpdatemenuComponent,
-    
+    AppOwnerComponent,
+    ResAdminUpdateComponent,
 
-    
+
+
 
 
 
@@ -70,9 +74,9 @@ import {AuthServicesService} from './Services/auth-services.service'
     CommonModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    
-    
-    
+
+
+
 
 
   ],

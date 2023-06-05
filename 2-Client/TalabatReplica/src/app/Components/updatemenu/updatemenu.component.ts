@@ -30,12 +30,9 @@ export class UpdatemenuComponent  {
           price : this.itemdetails.price,
           size: this.itemdetails.size,
           desc: this.itemdetails.description
-
         });
       },
       error:(err)=>{console.log(err)}
-
-
     })
     this.GetAllCategories();
   //this.GetAllCategoriesByResID(this.ResID);
