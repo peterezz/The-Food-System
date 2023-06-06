@@ -68,14 +68,9 @@
                 <span class="text-danger text-center mx-5" *ngIf="myValidations.controls['size'].dirty && myValidations.hasError('required','size')">  *Size is Required </span>
                 <span class="text-danger text-center mx-5" *ngIf="myValidations.controls['size'].dirty && myValidations.hasError('pattern','size')">  *Size must be [L-M-S-l-m-s] </span>
 
-                <label class="block text-sm">
-                  <span class="text-gray-700 dark:text-gray-400">ResID</span>
-                  <input
+                <input type="hidden"
                   #ResID  value="{{itemdetails.resturantID}}"
-                    class="form-control block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                    placeholder="Jane Doe"
-                  />
-                </label>
+                     />
 
 
                 <label class="block mt-4 text-sm">

@@ -30,7 +30,6 @@ import { UpdatemenuComponent } from './Components/updatemenu/updatemenu.componen
 import { environment } from 'src/environments/environment.development';
 import {AuthServicesService} from './Services/auth-services.service';
 import { SpinnerComponent } from './Components/spinner/spinner.component'
-import {AuthServicesService} from './Services/auth-services.service';
 import { AppOwnerComponent } from './Components/app-owner/app-owner.component';
 import { ResAdminUpdateComponent } from './Components/res-admin-update/res-admin-update.component';
 import { AcceptRefuseMenuItemComponent } from './Components/accept-refuse-menu-item/accept-refuse-menu-item.component'

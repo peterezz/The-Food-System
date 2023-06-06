@@ -27,4 +27,8 @@ updateRestAdmin(id:any,resAdmin:any)
   return this.http.put(`${this.BaseUrl}/${id}`,resAdmin);
 }
 
+GetResIDByUserName(userName:string){
+  return this.http.get(`${this.BaseUrl}/${userName}`);
+}
+
 }
