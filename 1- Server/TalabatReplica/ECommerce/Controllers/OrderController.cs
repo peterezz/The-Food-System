@@ -38,14 +38,24 @@ namespace ECommerce.API.Controllers
 
         }
         [HttpPut]
-        public async Task<IActionResult> UpdateOrder(orderDto dto)
+        public async Task<IActionResult> UpdateOrder(int id, orderDto dto)
         {
+            if (id != dto.orderID)
+            {
+                return BadRequest("Not Matched!");
+            }
             if (ModelState.IsValid)
             {
+
+                if (await orderManger.GetOrderByid(id) == null)
+                {
+                    return NotFound("Data Not Valid");
+                }
                 try
                 {
+
                     var data = await orderManger.UpdateOrder(dto);
-                    //var Updatedata = await Category.GetCategoryAsync(id);
+
                     return Created("url", data);
                 }
                 catch (Exception ex)
@@ -54,7 +64,7 @@ namespace ECommerce.API.Controllers
                     return BadRequest(ex.Message);
                 }
             }
-            return BadRequest();
+            return BadRequest(ModelState);
 
 
         }
