@@ -17,6 +17,7 @@ namespace ECommerce.BAL.DTOs
 
         [Required, MaxLength(50)]
         public string LastName { get; set; }
+        public string UserName { get; set; }
     }
 
 }

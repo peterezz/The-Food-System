@@ -81,6 +81,20 @@ namespace ECommerce.API.Controllers
             return Ok( data );
         }
 
+        //[HttpGet("ress/{username:alpha}")]
+        //public async Task<ActionResult> GetResIDByEmail(string username)
+        //{
+
+
+        //    var data = await restaurantManager.GetResIDByUserNameAsync(username);
+        //    if (data == null)
+        //    {
+        //        return NotFound("email not found");
+        //    }
+        //    return Ok(data);
+
+        //}
+
 
         // GET: RestaurantsController/Create
         [HttpPost( Name = "CreateRestaurant" )]

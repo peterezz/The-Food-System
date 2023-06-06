@@ -30,7 +30,7 @@ const routes: Routes = [
   {path:"login", component: LoginComponent},
   {path:"checkOut", component: CheckOutComponent},
   {path:"AllResturants", component: AllResturantsComponent},
-  {path:"singleProduct", component: SingleproductComponent},
+  {path:"singleProduct/:itemID", component: SingleproductComponent},
   {path:"cart", component: CartComponent},
   {path:"pay", component: PaymentComponent ,canActivate:[authGuard]},
   {path:"Adminmenu", component: AdminDashbordMenueComponent,canActivate:[authGuard, roleGuard] },
