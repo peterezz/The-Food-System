@@ -7,26 +7,26 @@ import { MenuItemService } from 'src/app/Services/menu-item.service';
   templateUrl: './app-owner.component.html',
   styleUrls: ['./app-owner.component.css']
 })
-export class AppOwnerComponent implements OnInit {
+export class AppOwnerComponent  {
 constructor( private myservice : AppOwnerServiceService ,private menuitemService :MenuItemService){}
 
 allresAdmins:any;
 allMenauitems:any;
-  ngOnInit(): void {
-
+  LoadMenuItemRequests(){
+    this.menuitemService.GetAllMenuItemAppOwner().subscribe({
+      next:(data:any)=>{this.allMenauitems=data;  
+      console.log(data)
+      },
+       error:(err:any)=>{console.log(err.error)}
+  })
+  }
+  LoadResAdminRequests(){
     this.myservice.GetAllResAdmins().subscribe({
       next:(data)=>{
          this.allresAdmins = data;
           console.log(this.allresAdmins)
       }
     });
-      this.menuitemService.GetAllMenuItem().subscribe({
-        next:(data:any)=>{this.allMenauitems=data;  
-        console.log(data)
-        },
-         error:(err:any)=>{console.log(err.error)}
-    })
-
   }
   Delete(id:any,row:any)
   {
@@ -36,6 +36,14 @@ allMenauitems:any;
       }
     })
   }
+  DeleteMenuItem(id:string, row:any){
+    this.menuitemService.Delete(id).subscribe({
+      next:(data)=>{
+        row.remove();
+      },
+      error:(err)=>{}
+  });
+}
 allresAdmin:any;
 }
 

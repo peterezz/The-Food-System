@@ -10,6 +10,10 @@ export class MenuItemService {
   constructor(private http:HttpClient) { }
   private BaseUrl ="https://localhost:44318/api/MenueItem"
 
+GetAllMenuItemAppOwner(){
+  return this.http.get(`${this.BaseUrl}/appOwner`)
+}
+
   GetAllMenuItem(){
     return this.http.get(this.BaseUrl);
   }

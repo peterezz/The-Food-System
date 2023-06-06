@@ -18,13 +18,16 @@ namespace ECommerce.DAL.Reposatory.RepoServices
         public UserManager<ApplicationUser> UserManager { get; } // use this to check about register data recieved from user
         public RoleManager<IdentityRole> _roleManager { get; }
 
-        
+
 
         private readonly JWTData _jwt;
-        public AuthServices( UserManager<ApplicationUser> userManager , RoleManager<IdentityRole> role , IOptions<JWTData> jwt )
+        private readonly SignInManager<ApplicationUser> signManager;
+
+        public AuthServices( UserManager<ApplicationUser> userManager , RoleManager<IdentityRole> role , IOptions<JWTData> jwt , SignInManager<ApplicationUser> signManager )
         {
             UserManager = userManager;
             _roleManager = role;
+            this.signManager = signManager;
             _jwt = jwt.Value;
         }
 
@@ -47,7 +50,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
                 FirstName = register.FirstName ,
                 LastName = register.LastName ,
                 Email = register.Email ,
-                AdminCheck=register.AdminCheck,
+                AdminCheck = register.AdminCheck ,
             };
 
             var result = await UserManager.CreateAsync( user , register.Password ); // create user in db
@@ -65,9 +68,9 @@ namespace ECommerce.DAL.Reposatory.RepoServices
                 return new AuthModel { Message = $"Registration field, try again later \n {error}" };
             }
 
-            if (user.AdminCheck == true)
+            if ( user.AdminCheck == true )
             {
-                await UserManager.AddToRoleAsync(user, "ResturantAdmin"); // AddToRoleAsync(object from applicationuser , rolename)
+                await UserManager.AddToRoleAsync( user , "ResturantAdmin" ); // AddToRoleAsync(object from applicationuser , rolename)
             }
             else
             {
@@ -83,7 +86,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
                 Email = user.Email ,
                 //ExpiresOn = jwtSecurityToken.ValidTo,
                 IsAuthenticated = true ,
-                Roles = new List<string> {} ,
+                Roles = new List<string> { } ,
                 Token = new JwtSecurityTokenHandler( ).WriteToken( jwtSecurityToken ) ,
                 Username = user.UserName
             };
@@ -136,10 +139,10 @@ namespace ECommerce.DAL.Reposatory.RepoServices
             var authModel = new AuthModel( );
 
             var user = await UserManager.FindByEmailAsync( model.Email ); //check emai; exist or not
-
             //if email not exist or password is wrong return message
-            if ( user is null || !await UserManager.CheckPasswordAsync( user , model.Password ) )
+            if ( user is null || !await UserManager.CheckPasswordAsync( user , model.Password ) || !user.EmailConfirmed )
             {
+
                 authModel.Message = "Email or Password is incorrect!";
                 return authModel;
             }
@@ -152,7 +155,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
             authModel.Token = new JwtSecurityTokenHandler( ).WriteToken( jwtSecurityToken );
             authModel.Email = user.Email;
             authModel.Username = user.UserName;
-            authModel.Roles = rolesList.ToList();
+            authModel.Roles = rolesList.ToList( );
 
             //check activation of refresh token 
             //if refresh token not expired then select it and return expire date of this ==token ExpireOn property
@@ -185,7 +188,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
         }
 
         //assine specific role to specific user 
-        public async Task<string> AddRoleAsync(AddRoleModel model )
+        public async Task<string> AddRoleAsync( AddRoleModel model )
         {
             var user = await UserManager.FindByIdAsync( model.UserId );
 
@@ -290,7 +293,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
             {
                 Token = Convert.ToBase64String( randomnumber ) ,
 
-                ExpiresOn = DateTime.Now.AddMinutes(2),
+                ExpiresOn = DateTime.Now.AddMinutes( 2 ) ,
 
                 CreatedOn = DateTime.Now
 
