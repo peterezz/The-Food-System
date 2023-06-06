@@ -35,6 +35,19 @@ namespace ECommerce.API.Controllers
             await resAdminCon.DeleteResAdmin( id );
             return Ok( data );
         }
+        [HttpGet("{username:alpha}")]
+        public async Task<ActionResult> GetResIDByEmail(string username)
+        {
+
+
+            var data = resAdminCon.GetResIDByUserNameAsync(username);
+            if (data == null)
+            {
+                return NotFound("email not found");
+            }
+            return Ok(data);
+
+        }
 
         [HttpGet( "{id}" )]
         public async Task<ActionResult> GetResAdminById( string id )
@@ -49,6 +62,7 @@ namespace ECommerce.API.Controllers
             return Ok( data );
 
         }
+       
 
         [HttpPut( "{id}" )]
         public async Task<IActionResult> UpdateResAdmin( string id , ResAdminConfirmDto dto )
