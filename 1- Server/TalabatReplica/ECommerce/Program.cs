@@ -29,8 +29,7 @@ namespace ECommerce
             builder.Configuration.GetSection( "JWT" ).Get<JWTData>( );
 
             var connectionString = builder.Configuration.GetConnectionString("MyConn");
-            var connectionString = builder.Configuration.GetConnectionString( "MyConn" );
-
+          
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
@@ -51,7 +50,7 @@ namespace ECommerce
 
             builder.Configuration.GetSection("JWT").Get<JWTData>();
 
-            var connectionString = builder.Configuration.GetConnectionString("MyConn");
+          
             builder.Services.AddDbContext<ApplicationDbContext>(options => { 
                 options.UseSqlServer(connectionString);
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
@@ -61,7 +60,7 @@ namespace ECommerce
                 .AddEntityFrameworkStores<ApplicationDbContext>( );
 
             //add my own components
-           builder.Services.AddScoped<IAouthRepo , IAuthServices>( );
+           builder.Services.AddScoped<IAouthRepo , AuthServices>( );
 
             #endregion
 
