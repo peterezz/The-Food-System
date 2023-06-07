@@ -91,8 +91,6 @@ export class LoginComponent  implements OnDestroy {
 
           sessionStorage.setItem('token',data.token)
 
-
-
           if(data.roles.includes('ResturantAdmin'))
           {
             this.router.navigate(['/Adminmenu'])
@@ -151,6 +149,8 @@ export class LoginComponent  implements OnDestroy {
     AdminCheck:new FormControl(false,[
 
     ]),
+    Confirmation:new FormControl(true,[
+    ]),
   });
 
   get validFirstName()
@@ -187,7 +187,8 @@ export class LoginComponent  implements OnDestroy {
         this.registerEmailFormGroup.controls['username'].value,
         this.registerEmailFormGroup.controls['EmailAddress'].value,
         this.registerEmailFormGroup.controls['Password'].value,
-        this.registerEmailFormGroup.controls['AdminCheck'].value
+        this.registerEmailFormGroup.controls['AdminCheck'].value,
+        this.registerEmailFormGroup.controls['Confirmation'].value
         );
 
 
@@ -205,6 +206,7 @@ export class LoginComponent  implements OnDestroy {
             this.router.navigate(['/AllResturants'])
           }
           localStorage.setItem('user',JSON.stringify(data));
+
         },
         error : (err:any) =>
         {

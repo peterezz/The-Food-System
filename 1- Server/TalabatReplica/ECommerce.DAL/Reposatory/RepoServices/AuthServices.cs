@@ -51,6 +51,7 @@ namespace ECommerce.DAL.Reposatory.RepoServices
                 LastName = register.LastName ,
                 Email = register.Email ,
                 AdminCheck = register.AdminCheck ,
+                EmailConfirmed=register.Confirmation
             };
 
             var result = await UserManager.CreateAsync( user , register.Password ); // create user in db
