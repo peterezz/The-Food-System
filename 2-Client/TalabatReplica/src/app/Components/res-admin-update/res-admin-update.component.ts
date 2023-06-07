@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppOwnerServiceService } from 'src/app/Services/app-owner-service.service';
 
 @Component({
@@ -34,7 +34,7 @@ this.myservice.GetRestuarantAdminById(this.id).subscribe({
 
   }
   id:any;
-  constructor(private myRoute:ActivatedRoute,private myservice:AppOwnerServiceService){
+  constructor(private myRoute:ActivatedRoute,private myservice:AppOwnerServiceService,private router: Router){
 this.id=myRoute.snapshot.params["id"];
 console.log(this.id);
   }
@@ -61,8 +61,8 @@ console.log(this.id);
 
         lastName:this.myValidations.controls["lastName"].value,
         id:this.myValidations.controls["id"].value,
-
-        emailConfirm:this.myValidations.controls["emailConfirm"].value
+        userName :this.itemdetails.userName,
+        emailConfirm:true
 
 
       }
@@ -70,7 +70,11 @@ console.log(this.id);
 
       console.log(res);
       // call my service4   
-this.myservice.updateRestAdmin(this.id,res).subscribe();
+this.myservice.updateRestAdmin(this.id,res).subscribe({
+  next:(result)=>{
+    this.router.navigateByUrl('/appOwner');
+  }
+});
     }
   }
 
