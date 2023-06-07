@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AuthServicesService } from 'src/app/Services/auth-services.service';
 import { SideCartService } from 'src/app/Services/side-cart.service';
 
@@ -15,7 +14,7 @@ export class HeaderComponent implements OnInit {
   quantaty:any;
   pricequentity:any;
 
-  constructor(public castservice:SideCartService , public auth:AuthServicesService, public router:Router){
+  constructor(public castservice:SideCartService , public auth:AuthServicesService){
   }
 
   ngOnInit(): void 
@@ -52,28 +51,25 @@ export class HeaderComponent implements OnInit {
 
   loc=localStorage.getItem('user');
 
-  // ToggleFun()
-  // {
-  //      const chk = document.querySelector('#Toggle') as HTMLInputElement;
-  //      if(localStorage.getItem('user')!=null)
-  //      {
-  //       chk.innerText='LogOut';
-  //       localStorage.clear()
-  //      }
-  //      else
-  //      {
-  //       chk.innerText='Login/Registration';
-  //      }
-  // }
+  ToggleFun()
+  {
+       const chk = document.querySelector('#Toggle') as HTMLInputElement;
+       if(localStorage.getItem('user')!=null)
+       {
+        chk.innerText='LogOut';
+        localStorage.clear()
+       }
+       else
+       {
+        chk.innerText='Login/Registration';
+       }
+  }
 
   logout()
   {
     // localStorage.clear()
     localStorage.setItem('user','null');
     localStorage.setItem('role','null');
-    this.router.navigate(['/login'])
-
-
   }
 
 
