@@ -4,15 +4,18 @@ using ECommerce.BAL.Repository;
 using ECommerce.BAL.Repository.Interfaces;
 using ECommerce.DAL.Manager;
 using ECommerce.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.BAL.Managers
 {
     public class RestaurantManager : BaseRepo<Resturant>, IRestaurantRepo
     {
+        private readonly ApplicationDbContext context;
         private readonly IMapper _mapper;
 
         public RestaurantManager( ApplicationDbContext context , IMapper mapper ) : base( context )
         {
+            this.context = context;
             _mapper = mapper;
         }
 
@@ -75,7 +78,13 @@ namespace ECommerce.BAL.Managers
         //    return _mapper.Map<List<RestaurantDto>>(dataPerPage);
         //}
 
+        //public async Task<RestaurantDto> GetResIDByUserNameAsync(string username)
+        //{
+        //    //var data = await FirstOrDefaultAsync(u=>u.UserName == username, r=>r.Restaurant);
+        //    var res = context.Restaurants.Include(u=>u.ApplicationResAdmin).Where(u=>u.em)        Select(r=>r.RestaurantID);
 
+        //   return _mapper.Map<RestaurantDto>(res);
+        //}
 
     }
 }

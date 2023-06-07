@@ -1,12 +1,17 @@
 ﻿using AutoMapper;
 using ECommerce.BAL.DTOs;
+using ECommerce.BAL.Repository;
+using ECommerce.BAL.Repository.Interfaces;
 using ECommerce.DAL.Enums;
+using ECommerce.DAL.Models;
 using ECommerce.DAL.Models.IdentityModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using System.IO.Pipelines;
 
 namespace ECommerce.BAL.Managers
 {
-    public class resAdminManager
+    public class resAdminManager 
     {
         private readonly ApplicationDbContext context;
 
@@ -17,7 +22,7 @@ namespace ECommerce.BAL.Managers
         //add or Confirm
         private readonly UserManager<ApplicationUser> userman;
 
-        public resAdminManager( ApplicationDbContext context , UserManager<ApplicationUser> userman , IMapper mapper )
+        public resAdminManager( ApplicationDbContext context , UserManager<ApplicationUser> userman , IMapper mapper ) 
         {
             this.context = context;
             this.userman = userman;
@@ -70,6 +75,11 @@ namespace ECommerce.BAL.Managers
 
         }
 
+        public List<RestaurantDto> GetResIDByUserNameAsync(string username)
+        {
+            var res = context.Users.Where(u=>u.UserName == username).Include(r=>r.Restaurant).Select(r => new RestaurantDto { RestaurantID = r.Restaurant.RestaurantID }).Distinct().ToList();
 
+            return res;
+        }
     }
 }

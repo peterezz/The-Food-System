@@ -90,11 +90,17 @@ export class LoginComponent  implements OnDestroy {
           localStorage.setItem('role',data.roles)
 
           sessionStorage.setItem('token',data.token)
-          
-          
+
+
+
           if(data.roles.includes('ResturantAdmin'))
           {
             this.router.navigate(['/Adminmenu'])
+          }
+          else          
+          if(data.roles.includes('AppOwner'))
+          {
+            this.router.navigate(['/appOwner'])
           }
           else
           {
@@ -164,17 +170,17 @@ export class LoginComponent  implements OnDestroy {
   get validPassword(){
     return this.registerEmailFormGroup.controls.Password.invalid && (this.registerEmailFormGroup.controls.Password.dirty || this.registerEmailFormGroup.controls.Password.touched);
   }
-  
+
   RegisterAction(){
-    
+
     if(!this.registerEmailFormGroup.valid)
     {
       alert("Some Required Data is missed, please Fill both Fields ")
     }
-    
+
     else if(this.registerEmailFormGroup.valid)
     {
-      
+
       let registerData = new Register(
         this.registerEmailFormGroup.controls['firstName'].value,
         this.registerEmailFormGroup.controls['lastName'].value,

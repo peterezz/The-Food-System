@@ -23,6 +23,14 @@ namespace ECommerce.API.Controllers
             var data = await manager.GetAll_MenueItemAsync( );
             return Ok( data );
         }
+        [HttpGet( "appOwner" )]
+        public async Task<IActionResult> GetALLMenuItemAppOwner( )
+        {
+            var data = await manager.GetAll_MenueItemAppOwnerAsync( );
+            if ( data.Count == 0 )
+                return BadRequest( "No Requests Found!" );
+            return Ok( data );
+        }
         [HttpGet( "{id}" )]
         public async Task<IActionResult> GetMenueitemById( int id )
         {
@@ -40,20 +48,20 @@ namespace ECommerce.API.Controllers
         }
 
 
-        [HttpGet("Res/{id}")]
-        public async Task<IActionResult> GetAllCategoriesinRes(int id)
+        [HttpGet( "Res/{id}" )]
+        public async Task<IActionResult> GetAllCategoriesinRes( int id )
         {
-            var data = manager.GetAllCategoriesPerResIDAsync(id);
-            if (id <= 0)
+            var data = manager.GetAllCategoriesPerResIDAsync( id );
+            if ( id <= 0 )
             {
-                return BadRequest("Not Valid ID");
+                return BadRequest( "Not Valid ID" );
             }
 
-            if (data == null)
+            if ( data == null )
             {
-                return NotFound("ID not found");
+                return NotFound( "ID not found" );
             }
-            return Ok(data);
+            return Ok( data );
         }
 
 
@@ -96,7 +104,7 @@ namespace ECommerce.API.Controllers
             {
                 try
                 {
-                    
+
                     var data = await manager.Add_MenueItem( dto );
                     return Ok( data );
                 }
@@ -110,7 +118,7 @@ namespace ECommerce.API.Controllers
 
         }
         [HttpPut( "{id}" )]
-        public async Task<IActionResult> update_Item( [FromForm]MenueItemDto dto , int id )
+        public async Task<IActionResult> update_Item( [FromForm] MenueItemDto dto , int id )
         {
             if ( id != dto.ItemID )
             {
@@ -150,20 +158,20 @@ namespace ECommerce.API.Controllers
             var topIems = await manager.GetTopMenuItemsAsync( id );
             return Ok( topIems );
         }
-        [HttpGet("Offers/{id:int}")]
-        public async Task<IActionResult> GetOffer(int id)
+        [HttpGet( "Offers/{id:int}" )]
+        public async Task<IActionResult> GetOffer( int id )
         {
-            var restaurant = await restaurantRepo.GetResturentByIDAsync(id);
-            if (restaurant == null)
-                return NotFound("Restaurant not found");
-            var offerIems = await manager.GetOfferAsync(id);
-            return Ok(offerIems);
+            var restaurant = await restaurantRepo.GetResturentByIDAsync( id );
+            if ( restaurant == null )
+                return NotFound( "Restaurant not found" );
+            var offerIems = await manager.GetOfferAsync( id );
+            return Ok( offerIems );
         }
-        [HttpGet("Resmenu/{Resid}")]
-        public async Task<IActionResult> GetMenueitemByResID(int Resid)
+        [HttpGet( "Resmenu/{Resid}" )]
+        public async Task<IActionResult> GetMenueitemByResID( int Resid )
         {
-            var data = await manager.GetMenuByResIDAsync(Resid);
-            return Ok(data);
+            var data = await manager.GetMenuByResIDAsync( Resid );
+            return Ok( data );
         }
 
     }

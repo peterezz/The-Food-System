@@ -1,3 +1,4 @@
+import { AppOwnerServiceService } from 'src/app/Services/app-owner-service.service';
 import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -19,11 +20,13 @@ export class AdminDashbordMenueComponent {
   ID:any;
   itemdetails:any;
   file:any;
+  username=JSON.parse(localStorage.getItem("user")!).userName;
+  ResID:any;
   myValidations!: FormGroup;
   addRestaurantValidations!: FormGroup;
   resAdminID="cdf78d74-1912-4444-99f2-b3fd9e91f38e";
   resExist:boolean=false;
-  constructor(private fb : FormBuilder,public route: Router,public service:MenuItemService,public CategorieService:CategoryService,myRoute:ActivatedRoute,private restuarantService:RestuarantService){
+  constructor(public appService:AppOwnerServiceService ,private fb : FormBuilder,public route: Router,public service:MenuItemService,public CategorieService:CategoryService,myRoute:ActivatedRoute,private restuarantService:RestuarantService){
     this.ID = myRoute.snapshot.params["itemID"];
   }
   header = new HttpHeaders({
@@ -34,11 +37,13 @@ export class AdminDashbordMenueComponent {
     this.restuarantService.GetRestaurantByResAdminID(this.resAdminID).subscribe({
       next:()=>{this.resExist=true;},
       error:()=>{this.resExist=false;}
-      
+
     })
-this.GetAllMenuItems()
+// this.GetAllMenuItems()
     this.GetItemByID(this.ID);
     this.GetAllCategories();
+    this.GetResIDByUserName(this.username);
+
 
     this.myValidations = this.fb.group({
       title:['',[Validators.maxLength(50),Validators.required,Validators.pattern(/^[a-zA-Z\s]*$/)]],
@@ -58,14 +63,21 @@ this.GetAllMenuItems()
       BannearFile:[null,Validators.required]
     })
   }
-  GetAllMenuItems(){
-    this.service.GetAllMenuItem().subscribe({
-      next:(data)=>{this.items=data;console.log(data);},
-      error:(err)=>{console.log(err)}
+  // GetAllMenuItems(){
+  //   this.service.GetAllMenuItem().subscribe({
+  //     next:(data)=>{this.items=data;console.log(data);},
+  //     error:(err)=>{console.log(err)}
 
+  //   })
+  // }
+  GetMenuItemByResID(ResID:any){
+    this.service.GetMenuItemByResID(ResID).subscribe({
+      next:(data)=>{this.items= data;
+      console.log("data");
+      console.log(data);
+      console.log(this.ResID);}
     })
   }
-
 
   Additem (name:any,price:any,description:any,size:any,IsTop:any,resturantID:any,offer:any,categoryID:any){
     if(this.myValidations.valid){
@@ -74,12 +86,13 @@ this.GetAllMenuItems()
       formData.append('price',price);
       formData.append('Description',description);
       formData.append('size',size);
+      formData.append('IsAccepted','false');
       if(IsTop == 'on'){
         formData.append('IsTopItem','true');
 
       }
       formData.append('IsTopItem','false');
-      formData.append('ResturantID',resturantID);
+      formData.append('ResturantID',this.ResID);
       if(offer == 'on'){
         formData.append('offer','true');
 
@@ -90,7 +103,7 @@ this.GetAllMenuItems()
 
 
 console.log({IsTop});
-    this.service.Additem(formData,this.header).subscribe( {next:()=>{this.GetAllMenuItems();}} )
+    this.service.Additem(formData,this.header).subscribe( {next:()=>{this.GetMenuItemByResID(this.ResID);}} )
 
     this.route.navigateByUrl("/Adminmenu");
 
@@ -178,6 +191,12 @@ console.log({IsTop});
     })
   }
 
+  GetResIDByUserName(userName:string){
+    this.appService.GetResIDByUserName(userName).subscribe({
+      next:(data:any)=>{this.ResID =data[0]['restaurantID'] ;
+      console.log(data[0]['restaurantID']);
+      this.GetMenuItemByResID(this.ResID);}})
+  }
   //Add Restaurant
 
 }

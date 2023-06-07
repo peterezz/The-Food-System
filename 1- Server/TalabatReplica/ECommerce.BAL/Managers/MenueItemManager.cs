@@ -24,6 +24,14 @@ namespace ECommerce.BAL.Managers
 
             return mapper.Map<List<MenueItemDto>>( data );
         }
+
+        public async Task<List<MenueItemDto>> GetAll_MenueItemAppOwnerAsync( )
+        {
+            var data = await GetWhereAsync( menuItem => !menuItem.IsAccepted );
+
+            return mapper.Map<List<MenueItemDto>>( data );
+        }
+
         public List<CategoryDto> GetAllCategoriesPerResIDAsync( int ResID )
         {
             var data = context.MenuItems.Where( r => r.ResturantID == ResID ).Include( c => c.category ).Select( c => new CategoryDto { Name = c.category.Name } ).Distinct( ).ToList( );
@@ -54,7 +62,8 @@ namespace ECommerce.BAL.Managers
         }
         public async Task<MenueItemDto> update_MenueItem( MenueItemDto dto , int id )
         {
-            dto.image = await FileManager.UploadFileAsync( dto.PhotoFile );
+            if ( dto.PhotoFile != null )
+                dto.image = await FileManager.UploadFileAsync( dto.PhotoFile );
             var data = mapper.Map<MenuItem>( dto );
             await UpdateAsync( data );
             return dto;
