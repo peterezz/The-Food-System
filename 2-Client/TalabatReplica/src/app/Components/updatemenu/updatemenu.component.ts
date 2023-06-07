@@ -31,7 +31,9 @@ export class UpdatemenuComponent  {
           title : this.itemdetails.name,
           price : this.itemdetails.price,
           size: this.itemdetails.size,
-          desc: this.itemdetails.description
+          desc: this.itemdetails.description,
+          top: this.itemdetails.isTopItem,
+          off: this.itemdetails.offer,
 
         });
       },
@@ -53,6 +55,8 @@ export class UpdatemenuComponent  {
     price :new FormControl(null,[Validators.required,Validators.pattern(/^[0-9]+$/)]),
     size :new FormControl(null,[Validators.required,Validators.pattern(/^[MmLlSs]+$/)]),
     desc :new FormControl(null,[Validators.required]),
+    top:new FormControl(null,[Validators.required]),
+    off:new FormControl(null,[Validators.required]),
     //img :new FormControl(null,[Validators.required]),
     })
 
