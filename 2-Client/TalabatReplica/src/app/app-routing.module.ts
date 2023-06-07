@@ -42,7 +42,7 @@ const routes: Routes = [
   {path:"Filterbycat", component: FilterbycatComponent},
   {path:"appOwner", component: AppOwnerComponent,canActivate:[authGuard,appOwnerGuard]},
   {path:"AcceptMenuItem/:id", component: AcceptRefuseMenuItemComponent,canActivate:[authGuard,appOwnerGuard]},
-  {path:"ResAdminUpdate/:id", component: ResAdminUpdateComponent,canActivate:[authGuard,roleGuard]},
+  {path:"ResAdminUpdate/:id", component: ResAdminUpdateComponent,canActivate:[authGuard,appOwnerGuard]},
   {path:"**", component: ErrorComponent}
 
 
