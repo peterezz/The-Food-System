@@ -85,7 +85,7 @@ namespace ECommerce.BAL.Managers
         }
         public async Task<List<MenueItemDto>> GetMenuByResIDAsync( int ResID )
         {
-            var data = await GetWhereAsync( item => item.ResturantID == ResID , res => res.resturant );
+            var data = await GetWhereAsync( item => item.ResturantID == ResID && item.IsAccepted , res => res.resturant );
             return mapper.Map<List<MenueItemDto>>( data );
         }
     }
