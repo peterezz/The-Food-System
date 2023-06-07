@@ -97,6 +97,11 @@ export class LoginComponent  implements OnDestroy {
           {
             this.router.navigate(['/Adminmenu'])
           }
+          else          
+          if(data.roles.includes('AppOwner'))
+          {
+            this.router.navigate(['/appOwner'])
+          }
           else
           {
             this.router.navigate(['/AllResturants'])
