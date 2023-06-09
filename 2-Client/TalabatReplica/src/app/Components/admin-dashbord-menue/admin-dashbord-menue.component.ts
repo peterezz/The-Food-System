@@ -22,6 +22,8 @@ export class AdminDashbordMenueComponent {
   file:any;
   username=JSON.parse(localStorage.getItem("user")!).userName;
   ResID:any;
+  ResName:any;
+  ResPoster:any;
   myValidations!: FormGroup;
   addRestaurantValidations!: FormGroup;
   resAdminID="41c6a33e-09e8-4472-a2ee-600ce712efb8";
@@ -194,6 +196,8 @@ console.log({IsTop});
   GetResIDByUserName(userName:string){
     this.appService.GetResIDByUserName(userName).subscribe({
       next:(data:any)=>{this.ResID =data[0]['restaurantID'] ;
+      this.ResName =data[0]['name'] ;
+      this.ResPoster = data[0]['poster'] ;
       console.log(data[0]['restaurantID']);
       this.GetMenuItemByResID(this.ResID);}})
   }
