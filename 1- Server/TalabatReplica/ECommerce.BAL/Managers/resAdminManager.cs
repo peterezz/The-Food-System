@@ -77,7 +77,7 @@ namespace ECommerce.BAL.Managers
 
         public List<RestaurantDto> GetResIDByUserNameAsync(string username)
         {
-            var res = context.Users.Where(u=>u.UserName == username).Include(r=>r.Restaurant).Select(r => new RestaurantDto { RestaurantID = r.Restaurant.RestaurantID }).Distinct().ToList();
+            var res = context.Users.Where(u=>u.UserName == username).Include(r=>r.Restaurant).Select(r => new RestaurantDto { RestaurantID = r.Restaurant.RestaurantID,Name = r.Restaurant.Name, Poster = r.Restaurant.Poster }).Distinct().ToList();
 
             return res;
         }
