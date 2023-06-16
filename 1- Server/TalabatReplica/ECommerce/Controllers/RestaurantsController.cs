@@ -117,7 +117,7 @@ namespace ECommerce.API.Controllers
             return Ok( resut );
         }
         [HttpPut( "{id:int}" )]
-        public async Task<IActionResult> EditRestaurant( [FromHeader] int id , [FromForm] RestaurantDto restaurantDto )
+        public async Task<IActionResult> EditRestaurant( int id , [FromForm] RestaurantDto restaurantDto )
         {
             if ( id != restaurantDto.RestaurantID )
                 return BadRequest( "Request not valid!" );
@@ -125,8 +125,8 @@ namespace ECommerce.API.Controllers
                 return BadRequest( ModelState );
             if ( await restaurantManager.GetResturentByIDAsync( id ) == null )
                 return NotFound( "Restaurant not found!" );
-            await restaurantManager.UpdateRestaurantAsync( restaurantDto );
-            return Ok( "Successful Update" );
+            var data = await restaurantManager.UpdateRestaurantAsync( restaurantDto );
+            return Ok(data);
         }
         [HttpDelete( "{id:int}" )]
         [ValidateAntiForgeryToken]

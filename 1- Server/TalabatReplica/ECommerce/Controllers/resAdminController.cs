@@ -48,6 +48,19 @@ namespace ECommerce.API.Controllers
             return Ok(data);
 
         }
+        [HttpGet("Admin/{username:alpha}")]
+        public async Task<ActionResult> GetAdminID(string username)
+        {
+
+
+            var data = resAdminCon.GetAdminIDByUserName(username);
+            if (data == null)
+            {
+                return NotFound("user not found");
+            }
+            return Ok(data);
+
+        }
 
         [HttpGet( "{id}" )]
         public async Task<ActionResult> GetResAdminById( string id )

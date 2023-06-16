@@ -61,6 +61,12 @@ namespace ECommerce.BAL.Managers
             return Mapper.Map<ResAdminConfirmDto>( await userman.FindByIdAsync( id ) );
         }
 
+        public  List<ResAdminConfirmDto> GetAdminIDByUserName(string username)
+        {
+            var resAdmin = context.Users.Where(u=>u.UserName == username).Select(i=>new ResAdminConfirmDto { id = i.Id, EmailConfirm = i.EmailConfirmed}).Distinct().ToList();
+            return  resAdmin;
+        }
+
         public async Task<ResAdminConfirmDto> updateResAdmin( ResAdminConfirmDto dto )
         {
             var user = userman.FindByIdAsync( dto.id ).Result;

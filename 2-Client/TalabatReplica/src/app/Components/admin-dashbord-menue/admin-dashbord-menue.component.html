@@ -246,14 +246,20 @@
   <!-- </div> -->
 
   <!-- General elements -->
-
+  <div *ngIf="menuSubmitted"  id="success-popup">
+    <p>Your data has been submitted successfully!</p>
+  </div>
+  <div *ngIf="menuupdated"  id="success-popup">
+    <p>Your data has been updated successfully!</p>
+  </div>
+  <!-- *ngIf="resExist" -->
   <!-- /////////////////////////////////////////////////// -->
-  <div class="row">
+  <div class="row" >
 
-    <div class="mx-auto justify-content-center mt-2 col-lg-10" *ngIf="!resExist">
+    <div class="mx-auto justify-content-center mt-2 col-lg-10" *ngIf="addresForm == false">
       <div class="checkout-accordion-wrap">
         <div class="accordion" id="accordionExample3">
-          <div class="card single-accordion">
+          <div class="card single-accordion" *ngIf="!resExist">
             <div class="card-header" id="headingThree3">
               <h5 class="mb-0">
                 <button
@@ -270,7 +276,7 @@
             </div>
             <div
               id="collapseThree3"
-              class="collapse"
+              class="collapse show"
               aria-labelledby="headingThree2"
               data-parent="#accordionExample3"
             >
@@ -470,9 +476,9 @@
       </div>
     </div>
 
-    <div class="mx-auto justify-content-center mt-2 col-lg-10" *ngIf="resExist">
-      <div class="checkout-accordion-wrap">
-        <div class="accordion" id="accordionExample2">
+    <div class="mx-auto justify-content-center mt-2 col-lg-10" *ngIf="editResForm==false">
+      <div class="checkout-accordion-wrap" *ngIf="ResData">
+        <div class="accordion" id="accordionExample2" >
           <div class="card single-accordion">
             <div class="card-header" id="headingThree2">
               <h5 class="mb-0">
@@ -494,25 +500,147 @@
               aria-labelledby="headingThree2"
               data-parent="#accordionExample2"
             >
-              <div class="card-body">
+            <div class="card-body">
+              <form
+             [formGroup]="EditRestaurantValidations"
+                enctype="multipart/form-data"
+              >
                 <label class="block text-sm">
                   <span class="text-gray-700 dark:text-gray-400">name</span>
                   <input
+                    formControlName="Name"
+                    #name
+                    value="{{ResData.name}}"
                     class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
-                    placeholder="Jane Doe"
+                    placeholder="Restaurant name"
                   />
                 </label>
+                <span
+                  class="text-danger text-center mx-5"
+                  *ngIf="
+                  EditRestaurantValidations.controls['Name'].dirty &&
+                  EditRestaurantValidations.hasError('required', 'Name')
+                  "
+                >
+                  *Name is Required
+                </span>
+                <span
+                  class="text-danger text-center mx-5"
+                  *ngIf="
+                  EditRestaurantValidations.controls['Name'].dirty &&
+                  EditRestaurantValidations.hasError('maxlength', 'Name')
+                  "
+                >
+                  *Name must be less than 50 character
+                </span>
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400"
+                    >Email Address</span
+                  >
+                  <input
+                    formControlName="EmailAddress"
+                    #emailadd
+                    value="{{ResData.emailAddress}}"
+                    type="email"
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="Restaurant Emailaddress"
+                  />
+                </label>
+                <span
+                  class="text-danger text-center mx-5"
+                  *ngIf="
+                  EditRestaurantValidations.controls['EmailAddress'].dirty &&
+                  EditRestaurantValidations.hasError('required', 'EmailAddress')
+                  "
+                >
+                  *Email address is Required
+                </span>
+                <span
+                  class="text-danger text-center mx-5"
+                  *ngIf="
+                  EditRestaurantValidations.controls['EmailAddress'].dirty &&
+                  EditRestaurantValidations.hasError('email', 'EmailAddress')
+                  "
+                >
+                  *Not valid email format
+                </span>
 
+                 <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400"
+                    >Phone number</span
+                  >
+                  <input
+                    type="tel"
+                    #phonee
+                    value="{{ResData.phoneNum}}"
+                    formControlName="phoneNum"
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="Restaurant phone number"
+                  />
+                </label>
+                <span
+                class="text-danger text-center mx-5"
+                *ngIf="
+                EditRestaurantValidations.controls['phoneNum'].dirty &&
+                EditRestaurantValidations.hasError('required', 'phoneNum')
+                "
+              >
+                *Phone number is Required
+              </span>
+              <span
+              class="text-danger text-center mx-5"
+              *ngIf="
+              EditRestaurantValidations.controls['phoneNum'].dirty &&
+              EditRestaurantValidations.hasError('maxLength', 'phoneNum')
+              "
+            >
+              *Phone number must be 11 numbers
+            </span>
+
+                <label class="block text-sm">
+                  <span class="text-gray-700 dark:text-gray-400"
+                    >location</span
+                  >
+                  <input
+                  formControlName="Location"
+                  #location
+                  value="{{ResData.location}}"
+                    type="text"
+                    class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
+                    placeholder="Restaurant location"
+                  />
+                </label>
+                <span
+                class="text-danger text-center mx-5"
+                *ngIf="
+                EditRestaurantValidations.controls['Location'].dirty &&
+                EditRestaurantValidations.hasError('required', 'Location')
+                "
+              >
+                *Location is Required
+              </span>
                 <label class="block mt-4 text-sm">
                   <span class="text-gray-700 dark:text-gray-400"
                     >discription</span
                   >
                   <textarea
+                  value="{{ResData.description}}"
+                  formControlName="Description"
+                  #desc
                     class="block w-full mt-1 text-sm dark:text-gray-300 dark:border-gray-600 dark:bg-gray-700 form-textarea focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:focus:shadow-outline-gray"
                     rows="3"
                     placeholder="Enter some long form content."
                   ></textarea>
                 </label>
+                <span
+                class="text-danger text-center mx-5"
+                *ngIf="
+                EditRestaurantValidations.controls['Description'].dirty &&
+                EditRestaurantValidations.hasError('required', 'Description')
+                "
+              >
+                *Description is Required
+              </span>
 
                 <label class="block text-sm">
                   <span class="text-gray-700 dark:text-gray-400"
@@ -520,31 +648,57 @@
                   >
                   <input
                     type="file"
+                    #poster
+                    (change)="UpdatePoster($event)"
+                    value="{{ResData.posterFile}}"
+                    formControlName="PosterFile"
                     class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                     placeholder="Jane Doe"
                   />
                 </label>
-
+                <span
+                class="text-danger text-center mx-5"
+                *ngIf="
+                EditRestaurantValidations.controls['PosterFile'].dirty &&
+                EditRestaurantValidations.hasError('required', 'PosterFile')
+                "
+              >
+                *Poster is Required
+              </span>
                 <label class="block text-sm">
                   <span class="text-gray-700 dark:text-gray-400"
                     >paner photo</span
                   >
                   <input
                     type="file"
+                    #banner
+                    (change)="UpdateBanner($event)"
+                    value="{{ResData.bannearFile}}"
+                    formControlName="BannearFile"
                     class="block w-full mt-1 text-sm dark:border-gray-600 dark:bg-gray-700 focus:border-purple-400 focus:outline-none focus:shadow-outline-purple dark:text-gray-300 dark:focus:shadow-outline-gray form-input"
                     placeholder="Jane Doe"
                   />
                 </label>
-
+                <span
+                class="text-danger text-center mx-5"
+                *ngIf="
+                EditRestaurantValidations.controls['BannearFile'].dirty &&
+                EditRestaurantValidations.hasError('required', 'BannearFile')
+                "
+              >
+                *Banner is Required
+              </span>
                 <div class="px-6 my-6">
                   <button
+                    (click)="updateRes(location.value,name.value,desc.value,emailadd.value,phonee.value)"
                     class="flex items-center justify-between px-4 py-2 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-purple-600 border border-transparent rounded-lg active:bg-purple-600 hover:bg-purple-700 focus:outline-none focus:shadow-outline-purple"
                   >
                     save
                     <span class="ml-2" aria-hidden="true">+</span>
                   </button>
                 </div>
-              </div>
+              </form>
+            </div>
             </div>
           </div>
         </div>
@@ -552,7 +706,7 @@
     </div>
 
 
-    <div class=" mx-auto justify-content-center mt-2 col-lg-10">
+    <div class=" mx-auto justify-content-center mt-2 col-lg-10" *ngIf="editResForm==false">
       <div class="checkout-accordion-wrap">
         <div class="accordion" id="accordionExample">
           <div class="card single-accordion">
@@ -709,7 +863,7 @@
 
 
 
-    <div class="mx-auto d-flex justify-content-center col-lg-10">
+    <div class="mx-auto d-flex justify-content-center col-lg-10" *ngIf="editResForm==false">
       <table class="table table-striped table-hover">
         <thead>
           <tr>
