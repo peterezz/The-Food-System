@@ -31,4 +31,8 @@ GetResIDByUserName(userName:string){
   return this.http.get(`${this.BaseUrl}/${userName}`);
 }
 
+GetAdminIDByUserName(userName:string){
+  return this.http.get(`${this.BaseUrl}/Admin/${userName}`);
+}
+
 }

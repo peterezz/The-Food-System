@@ -1,5 +1,5 @@
 import { AppOwnerServiceService } from 'src/app/Services/app-owner-service.service';
-import { HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpErrorResponse, HttpHeaders, HttpStatusCode } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Route, Router } from '@angular/router';
@@ -24,10 +24,18 @@ export class AdminDashbordMenueComponent {
   ResID:any;
   ResName:any;
   ResPoster:any;
+  menuSubmitted:boolean=false;
+  menuupdated:boolean=false;
   myValidations!: FormGroup;
   addRestaurantValidations!: FormGroup;
-  resAdminID="41c6a33e-09e8-4472-a2ee-600ce712efb8";
+  //EditRestaurantValidations!:FormGroup;
+  resAdminID:any;
+  addresForm:boolean=false;
+  editResForm:boolean=true;
   resExist:boolean=false;
+  ResData:any;
+  updateposterFile:any;
+  updatebannerFile :any;
   constructor(public appService:AppOwnerServiceService ,private fb : FormBuilder,public route: Router,public service:MenuItemService,public CategorieService:CategoryService,myRoute:ActivatedRoute,private restuarantService:RestuarantService){
     this.ID = myRoute.snapshot.params["itemID"];
   }
@@ -37,7 +45,7 @@ export class AdminDashbordMenueComponent {
    });
   ngOnInit(): void {
     this.restuarantService.GetRestaurantByResAdminID(this.resAdminID).subscribe({
-      next:()=>{this.resExist=true;},
+      next:()=>{this.resExist=true},
       error:()=>{this.resExist=false;}
 
     })
@@ -45,6 +53,7 @@ export class AdminDashbordMenueComponent {
     this.GetItemByID(this.ID);
     this.GetAllCategories();
     this.GetResIDByUserName(this.username);
+    this.GetAdminIDByUserName(this.username);
 
 
     this.myValidations = this.fb.group({
@@ -54,6 +63,7 @@ export class AdminDashbordMenueComponent {
       desc:['',[Validators.required]],
       img:['',[Validators.required]],
     });
+
     this.addRestaurantValidations = this.fb.group({
       Location:['',[Validators.required]],
       Name:['',[Validators.required,Validators.maxLength(50)]],
@@ -64,7 +74,20 @@ export class AdminDashbordMenueComponent {
       PosterFile:[null,Validators.required],
       BannearFile:[null,Validators.required]
     })
+
+
+
+
   }
+  EditRestaurantValidations = new FormGroup({
+    Location :new FormControl(null,[Validators.required]),
+    Name :new FormControl(null,[Validators.required,Validators.maxLength(50)]),
+    Description :new FormControl(null,[Validators.required,]),
+    EmailAddress :new FormControl(null,[Validators.required,Validators.email]),
+    phoneNum:new FormControl(null,[Validators.required,Validators.maxLength(11)]),
+    PosterFile:new FormControl(null,[Validators.required]),
+    BannearFile:new FormControl(null,[Validators.required]),
+    })
   // GetAllMenuItems(){
   //   this.service.GetAllMenuItem().subscribe({
   //     next:(data)=>{this.items=data;console.log(data);},
@@ -79,7 +102,48 @@ export class AdminDashbordMenueComponent {
       console.log(data);
       console.log(this.ResID);}
     })
+    if(this.ResID != null){
+      this.addresForm = true;
+      this.editResForm = false;
+    }
+    this.GetResByID(this.ResID);
+
   }
+
+  updateRes(location:any,name:any,desc:any,emailadd:any,phonee:any){
+    if(this.EditRestaurantValidations.valid){
+      const formData = new FormData();
+      formData.append("RestaurantID",this.ResID);
+      formData.append("Location",location);
+      formData.append("Name",name);
+      formData.append('Description',desc);
+      formData.append('EmailAddress',emailadd);
+      formData.append('phoneNum',phonee);
+      formData.append('ResAdminID', this.resAdminID);
+     formData.append('BannearFile', this.updatebannerFile );
+     formData.append('PosterFile',this.updateposterFile);
+     console.log(emailadd);
+     console.log(phonee);
+     this.restuarantService.UpdateRestuarant(formData,this.header,+this.ResID).subscribe( {
+
+      next:()=>{
+        this.menuupdated= true;
+        setTimeout(() => {
+          this.menuupdated  = false;
+        }, 3000); // Hide the message after 30 seconds
+        this.route.navigateByUrl("/Adminmenu");
+
+
+
+ }});
+
+
+  }
+  else{
+    console.log("error")
+    this.validateAllFormFields(this.EditRestaurantValidations);
+  }
+}
 
   Additem (name:any,price:any,description:any,size:any,IsTop:any,resturantID:any,offer:any,categoryID:any){
     if(this.myValidations.valid){
@@ -108,6 +172,11 @@ console.log({IsTop});
     this.service.Additem(formData,this.header).subscribe( {next:()=>{this.GetMenuItemByResID(this.ResID);}} )
 
     this.route.navigateByUrl("/Adminmenu");
+    this.myValidations.reset();
+    this.menuSubmitted = true;
+    setTimeout(() => {
+      this.menuSubmitted  = false;
+    }, 3000);
 
     }else{
       this.validateAllFormFields(this.myValidations);
@@ -126,14 +195,19 @@ console.log({IsTop});
       formData.append('phoneNum',this.restaurantModel.phoneNum);
       formData.append('Description',this.restaurantModel.Description);
       formData.append('ResAdminID',this.restaurantModel.ResAdminID);
-     formData.append('BannearFile',this.restaurantModel.BannearFile);
-     formData.append('PosterFile',this.restaurantModel.PosterFile);
+     formData.append('BannearFile', this.restaurantModel.BannearFile);
+     formData.append('PosterFile', this.restaurantModel.PosterFile);
    this.restuarantService.AddRestaurant(formData,this.header).subscribe( {
-    next:()=>{alert("Restaurant added successfully")},
+    next:()=>{this.menuSubmitted = true;
+      setTimeout(() => {
+        this.menuSubmitted  = false;
+      }, 3000);},
     error:(err:HttpErrorResponse)=>{console.log(err.error)},
     complete:()=>{}
    } )
-   // this.route.navigateByUrl("/Adminmenu");
+   //this.route.navigateByUrl("/Adminmenu");
+   this.addRestaurantValidations.reset();
+  // this.route.navigateByUrl("/Adminmenu");
     }else{
       console.log("error")
       this.validateAllFormFields(this.addRestaurantValidations);
@@ -182,6 +256,14 @@ console.log({IsTop});
     this.restaurantModel.BannearFile=event.target.files[0];
     console.log(this.restaurantModel.BannearFile);
   }
+  UpdatePoster(event:any){
+    this.updateposterFile = event.target.files[0];
+    console.log(this.updateposterFile.name)
+  }
+  UpdateBanner(event:any){
+    this.updatebannerFile = event.target.files[0];
+    console.log(this.updatebannerFile .name)
+  }
   private validateAllFormFields(formGroup: FormGroup){
     Object.keys(formGroup.controls).forEach(field =>{
       const control = formGroup.get(field);
@@ -202,5 +284,27 @@ console.log({IsTop});
       this.GetMenuItemByResID(this.ResID);}})
   }
   //Add Restaurant
+  GetAdminIDByUserName(userName:string){
+    this.appService.GetAdminIDByUserName(userName).subscribe({
+      next:(data:any)=>{this.resAdminID =data[0]['id'] ;
+      console.log(data[0]['id']);
+      }
+  });
+  }
 
+  GetResByID(id:any){
+    this.restuarantService.GetRestuarantById(id).subscribe({
+      next:(data:any)=>{this.ResData = data;
+        this.EditRestaurantValidations.patchValue({
+          Location : this.ResData.location,
+          Name : this.ResData.name,
+          Description: this.ResData.description,
+          EmailAddress: this.ResData.emailAddress,
+          phoneNum: this.ResData.phoneNum,
+          PosterFile: this.ResData.posterFile,
+          BannearFile:this.ResData.bannerFile
+        });
+      }
+    })
+  }
 }

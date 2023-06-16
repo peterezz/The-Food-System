@@ -30,4 +30,7 @@ export class RestuarantService {
     return this.httpClient.get(`${this.BaseURL}/ResExist/${resAdminID}`);
   }
 
+UpdateRestuarant(Res:any,header:any,id:any){
+    return this.httpClient.put(this.BaseURL+"/"+id,Res,header);
+  }
 }
