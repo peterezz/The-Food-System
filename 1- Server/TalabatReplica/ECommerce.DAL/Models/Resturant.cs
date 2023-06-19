@@ -21,6 +21,7 @@ namespace ECommerce.DAL.Models
         public virtual List<MenuItem> MenuItems { get; set; } = new List<MenuItem>( );
         public string ResAdminID { get; set; } = string.Empty;
         public ApplicationUser ApplicationResAdmin { get; set; }
+        public bool IsAccept { get; set; }
         public List<Review>? Reviews { get; set; }
         public byte[ ] CoverBanner { get; set; }
     }

@@ -47,8 +47,14 @@ namespace ECommerce.BAL.Managers
         }
         public async Task<List<RestaurantDto>> GetRestaurantsAsync( )
         {
-            var data = await GetAllAsync( );
+            var data = await GetWhereAsync(item=>item.IsAccept);
             return _mapper.Map<List<RestaurantDto>>( data );
+        }
+        public async Task<List<RestaurantDto>> GetRestaurants_AppOwnerAsync()
+        {
+            var data = await GetWhereAsync(item => !item.IsAccept);
+
+            return _mapper.Map<List<RestaurantDto>>(data);
         }
         public async Task<RestaurantDto> GetResturentByIDAsync( int resID )
         {

@@ -1,17 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { AppOwnerServiceService } from 'src/app/Services/app-owner-service.service';
 import { MenuItemService } from 'src/app/Services/menu-item.service';
+import { RestuarantService } from 'src/app/Services/restuarant.service';
 
 @Component({
   selector: 'app-app-owner',
   templateUrl: './app-owner.component.html',
   styleUrls: ['./app-owner.component.css']
 })
-export class AppOwnerComponent  {
-constructor( private myservice : AppOwnerServiceService ,private menuitemService :MenuItemService){}
+export class AppOwnerComponent implements OnInit  {
+constructor( private myservice : AppOwnerServiceService ,private menuitemService :MenuItemService,private RestaurantService:RestuarantService){}
 
 allresAdmins:any;
 allMenauitems:any;
+allresAdmin:any;
+allRestaurant:any;
+ngOnInit(): void {
+  this.ResRequest();
+}
+
   LoadMenuItemRequests(){
     this.menuitemService.GetAllMenuItemAppOwner().subscribe({
       next:(data:any)=>{this.allMenauitems=data;  
@@ -44,7 +51,21 @@ allMenauitems:any;
       error:(err)=>{}
   });
 }
-allresAdmin:any;
+ResRequest(){
+  this.RestaurantService.RestaurantRequests().subscribe({
+    next:(data:any)=>{
+      this.allRestaurant=data;
+      console.log(data);
+    }
+  })
 }
+DeleteRestaurant(id:any, row:any){
+  this.RestaurantService.DeleteRestaurant(id).subscribe({
+    next:(data)=>{
+      row.remove();
+    },
+    error:(err)=>{}
+});
+}}
 
 

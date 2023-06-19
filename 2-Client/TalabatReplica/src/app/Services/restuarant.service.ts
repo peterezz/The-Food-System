@@ -33,4 +33,10 @@ export class RestuarantService {
 UpdateRestuarant(Res:any,header:any,id:any){
     return this.httpClient.put(this.BaseURL+"/"+id,Res,header);
   }
+  RestaurantRequests(){
+    return this.httpClient.get(this.BaseURL+"/appOwner");
+  }
+  DeleteRestaurant(id:any){
+    return this.httpClient.delete(this.BaseURL+"/"+id);
+  }
 }

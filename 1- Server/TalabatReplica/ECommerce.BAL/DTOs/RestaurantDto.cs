@@ -31,6 +31,7 @@ namespace ECommerce.BAL.DTOs
         [Required( ErrorMessage = "Please login as restaurant admin" )]
         public string ResAdminID { get; set; } = string.Empty;
         [Required( ErrorMessage = "Please upload a photo of your restaurant" )]
+        public bool IsAccept { get; set; }
         public IFormFile PosterFile { get; set; }
         [Required( ErrorMessage = "Please upload a Banner photo for your restaurant" )]
         public IFormFile BannearFile { get; set; }

@@ -8,10 +8,10 @@ namespace ECommerce.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.RenameColumn(
+           /* migrationBuilder.RenameColumn(
                 name: "Photo",
                 table: "MenuItems",
-                newName: "image");
+                newName: "image");*/
 
             migrationBuilder.AddColumn<bool>(
                 name: "Offer",
@@ -37,10 +37,10 @@ namespace ECommerce.Migrations
                 name: "AdminCheck",
                 table: "AspNetUsers");
 
-            migrationBuilder.RenameColumn(
+            /*migrationBuilder.RenameColumn(
                 name: "image",
                 table: "MenuItems",
-                newName: "Photo");
+                newName: "Photo");*/
         }
     }
 }
