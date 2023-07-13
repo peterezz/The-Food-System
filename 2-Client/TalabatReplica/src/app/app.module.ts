@@ -32,7 +32,8 @@ import {AuthServicesService} from './Services/auth-services.service';
 import { SpinnerComponent } from './Components/spinner/spinner.component'
 import { AppOwnerComponent } from './Components/app-owner/app-owner.component';
 import { ResAdminUpdateComponent } from './Components/res-admin-update/res-admin-update.component';
-import { AcceptRefuseMenuItemComponent } from './Components/accept-refuse-menu-item/accept-refuse-menu-item.component'
+import { AcceptRefuseMenuItemComponent } from './Components/accept-refuse-menu-item/accept-refuse-menu-item.component';
+import { AcceptRestaurantComponent } from './Components/accept-restaurant/accept-restaurant.component'
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { AcceptRefuseMenuItemComponent } from './Components/accept-refuse-menu-i
     SpinnerComponent,
     ResAdminUpdateComponent,
     AcceptRefuseMenuItemComponent,
+    AcceptRestaurantComponent,
 
 
 
