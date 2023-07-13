@@ -39,16 +39,25 @@ namespace ECommerce.BAL.Managers
         }
         public async Task<RestaurantDto> UpdateRestaurantAsync( RestaurantDto restaurantDto )
         {
-            restaurantDto.Poster = await FileManager.UploadFileAsync(restaurantDto.PosterFile);
-            restaurantDto.CoverBanner = await FileManager.UploadFileAsync(restaurantDto.BannearFile);
+            if (restaurantDto.PosterFile != null && restaurantDto.BannearFile != null)
+            {
+                restaurantDto.Poster = await FileManager.UploadFileAsync(restaurantDto.PosterFile);
+                restaurantDto.CoverBanner = await FileManager.UploadFileAsync(restaurantDto.BannearFile);
+            }
             var data = _mapper.Map<Resturant>( restaurantDto );
             await UpdateAsync( data );
             return restaurantDto;
         }
         public async Task<List<RestaurantDto>> GetRestaurantsAsync( )
         {
-            var data = await GetAllAsync( );
+            var data = await GetWhereAsync(item=>item.IsAccept);
             return _mapper.Map<List<RestaurantDto>>( data );
+        }
+        public async Task<List<RestaurantDto>> GetRestaurants_AppOwnerAsync()
+        {
+            var data = await GetWhereAsync(item => !item.IsAccept);
+
+            return _mapper.Map<List<RestaurantDto>>(data);
         }
         public async Task<RestaurantDto> GetResturentByIDAsync( int resID )
         {

@@ -122,6 +122,7 @@ export class AdminDashbordMenueComponent {
       formData.append('ResAdminID', this.resAdminID);
      formData.append('BannearFile', this.updatebannerFile );
      formData.append('PosterFile',this.updateposterFile);
+     formData.append('IsAccept','false');
      console.log(emailadd);
      console.log(phonee);
      this.restuarantService.UpdateRestuarant(formData,this.header,+this.ResID).subscribe( {
@@ -194,9 +195,11 @@ console.log({IsTop});
       formData.append('EmailAddress',this.restaurantModel.EmailAddress);
       formData.append('phoneNum',this.restaurantModel.phoneNum);
       formData.append('Description',this.restaurantModel.Description);
+      console.log(this.restaurantModel.ResAdminID);
       formData.append('ResAdminID',this.restaurantModel.ResAdminID);
      formData.append('BannearFile', this.restaurantModel.BannearFile);
      formData.append('PosterFile', this.restaurantModel.PosterFile);
+     formData.append('IsAccept','false');
    this.restuarantService.AddRestaurant(formData,this.header).subscribe( {
     next:()=>{this.menuSubmitted = true;
       setTimeout(() => {

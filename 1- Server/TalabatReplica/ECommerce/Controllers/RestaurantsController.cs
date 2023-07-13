@@ -23,6 +23,15 @@ namespace ECommerce.API.Controllers
                 return Ok( "No Restaurants found yet!" );
             return Ok( data );
         }
+        [HttpGet("appOwner")]
+        public async Task<IActionResult> GetALLRestaurantAppOwner()
+        {
+            var data = await restaurantManager.GetRestaurants_AppOwnerAsync();
+;
+            if (data.Count == 0)
+                return BadRequest("No Requests Found!");
+            return Ok(data);
+        }
 
         [HttpGet( "GetResturantPage" )]
         public async Task<IActionResult> GetResturantsPages( int page = 1 , int pageSize = 2 )
@@ -129,7 +138,7 @@ namespace ECommerce.API.Controllers
             return Ok(data);
         }
         [HttpDelete( "{id:int}" )]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteRestaurant( int id )
         {
 
@@ -139,7 +148,7 @@ namespace ECommerce.API.Controllers
             if ( data == null )
                 return NotFound( "Restaurant not found!" );
             await restaurantManager.DeleteRestaurantAsync( data );
-            return Ok( "Successful Delete" );
+            return Ok(data);
 
         }
 

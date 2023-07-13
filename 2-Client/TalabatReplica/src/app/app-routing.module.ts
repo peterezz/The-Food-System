@@ -21,6 +21,7 @@ import { ResAdminUpdateComponent } from './Components/res-admin-update/res-admin
 import { roleGuard } from './Shared/guard/role.guard';
 import { appOwnerGuard } from './Shared/guard/app-owner.guard';
 import { AcceptRefuseMenuItemComponent } from './Components/accept-refuse-menu-item/accept-refuse-menu-item.component';
+import { AcceptRestaurantComponent } from './Components/accept-restaurant/accept-restaurant.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,7 @@ const routes: Routes = [
   {path:"Filterbycat", component: FilterbycatComponent},
   {path:"appOwner", component: AppOwnerComponent,canActivate:[authGuard,appOwnerGuard]},
   {path:"AcceptMenuItem/:id", component: AcceptRefuseMenuItemComponent,canActivate:[authGuard,appOwnerGuard]},
+  {path:"AcceptRes/:id", component: AcceptRestaurantComponent,canActivate:[authGuard,appOwnerGuard]},
   {path:"ResAdminUpdate/:id", component: ResAdminUpdateComponent,canActivate:[authGuard,appOwnerGuard]},
   {path:"**", component: ErrorComponent}
 

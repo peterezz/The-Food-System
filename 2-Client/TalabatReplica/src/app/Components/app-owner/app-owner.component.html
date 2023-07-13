@@ -125,7 +125,83 @@
 
 
 
+    <div class="mx-auto justify-content-center mt-2 mb-2 col-lg-10" >
+      <div class="checkout-accordion-wrap">
+        <div class="accordion" id="accordionExample2">
+          <div class="card single-accordion">
+            <div class="card-header" id="headingThree2">
+              <h5 class="mb-0">
+                <button
+                  class="btn btn-link collapsed"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#collapseThree2"
+                  aria-expanded="false"
+                  aria-controls="collapseThree2"
+                  
+                >
+                  Restaurant Requests
+                </button>
+              </h5>
+            </div>
+            <div
+              id="collapseThree2"
+              class="collapse"
+              aria-labelledby="headingThree2"
+              data-parent="#accordionExample2"
+            >
+              <div class="card-body" >
+           <!--table begin-->
+           <table class="table table-striped table-hover" >
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>discription</th>
+                <th>Location</th>
 
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="allRestaurant">
+              <tr #row *ngFor="let i of allRestaurant">
+                <td></td>
+                <td>{{ i.name }}</td>
+                <td>{{ i.description }}</td>
+                <td>{{ i.location }}</td>
+
+                <td>
+                  <a
+                    routerLink="/AcceptRes/{{i.restaurantID}}"
+                    class="edit"
+                    data-toggle="modal"
+                  >
+                    <i class="material-icons" data-toggle="tooltip" title="Edit"
+                      >&#xE254;</i
+                    ></a
+                  >
+                  <a
+                    (click)="DeleteRestaurant(i.restaurantID, row)"
+                    class="delete"
+                    data-toggle="modal"
+                  >
+                    <i class="material-icons" data-toggle="tooltip" title="Delete"
+                      >&#xE872;</i
+                    ></a
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="alert alert-danger text-center" *ngIf="!allRestaurant">
+            No requests Found
+          </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="mx-auto justify-content-center mt-2 mb-2 col-lg-10" >
       <div class="checkout-accordion-wrap">
